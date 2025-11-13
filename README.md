@@ -72,3 +72,7 @@ final/
 - [ ] 整合 Google Calendar API
 - [ ] 實作活動推播功能
 - [ ] 優化行動裝置體驗
+
+
+
+我操
