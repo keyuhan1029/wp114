@@ -3,7 +3,8 @@
 # dependencies
 /node_modules
 node_modules/
-NTUGo/node_modules/
+/NTUGo/node_modules/
+/NTUGo/.next/
 /.pnp
 .pnp.*
 .yarn/*

@@ -1,0 +1,8 @@
+/* MUI CssBaseline handles the basics. Add global custom styles here if needed. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars due to map */
+}
