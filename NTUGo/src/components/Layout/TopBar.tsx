@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
@@ -10,6 +11,8 @@ import ProfileModal from '@/components/Auth/ProfileModal';
 import EditProfileModal from '@/components/Auth/EditProfileModal';
 
 export default function TopBar() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [profileModalOpen, setProfileModalOpen] = React.useState(false);
   const [editProfileModalOpen, setEditProfileModalOpen] = React.useState(false);
   const [userAvatar, setUserAvatar] = React.useState<string | null>(null);
@@ -53,6 +56,15 @@ export default function TopBar() {
 
   const handleEditProfile = () => {
     setEditProfileModalOpen(true);
+  };
+
+  const handleCalendarClick = () => {
+    // 第二次點擊回到主頁：在 /calendar 時再點一次 icon 就導回 /
+    if (pathname === '/calendar') {
+      router.push('/');
+    } else {
+      router.push('/calendar');
+    }
   };
 
   const handleProfileUpdate = () => {
@@ -104,8 +116,8 @@ export default function TopBar() {
           backdropFilter: 'blur(4px)',
         }}
       >
-        <Tooltip title="個人行事曆 (Coming Soon)">
-          <IconButton>
+        <Tooltip title="個人行事曆">
+          <IconButton onClick={handleCalendarClick}>
             <CalendarMonthIcon sx={{ color: 'black' }} />
           </IconButton>
         </Tooltip>
