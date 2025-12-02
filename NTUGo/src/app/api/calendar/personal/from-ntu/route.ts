@@ -50,6 +50,27 @@ export async function POST(request: NextRequest) {
     const start = new Date(event.startTime);
     const end = new Date(event.endTime);
 
+    // 檢查是否已經匯入過同一個 NTU 活動
+    const db = await (await import('@/lib/mongodb')).getDatabase();
+    const { ObjectId } = await import('mongodb');
+    const userObjectId =
+      typeof userId === 'string' ? new ObjectId(userId) : userId;
+
+    const existing = await db
+      .collection('personal_events')
+      .findOne({
+        userId: userObjectId,
+        source: 'ntu_imported',
+        ntuEventId: event.id,
+      });
+
+    if (existing) {
+      return NextResponse.json(
+        { message: '此校內活動已在你的個人行事曆中' },
+        { status: 409 }
+      );
+    }
+
     const personal = await PersonalEventModel.create({
       userId,
       title: event.title,
@@ -59,6 +80,7 @@ export async function POST(request: NextRequest) {
       endTime: end,
       allDay: event.allDay,
       source: 'ntu_imported',
+      ntuEventId: event.id,
     });
 
     const serialized = {

@@ -11,6 +11,11 @@ export interface PersonalEvent {
   endTime: Date;
   allDay?: boolean;
   source: 'manual' | 'ntu_imported';
+  /**
+   * 若此行程是由 NTU 官方行事曆匯入，紀錄對應的 NTU 事件 ID，
+   * 以避免同一使用者重複匯入同一筆活動。
+   */
+  ntuEventId?: string;
   createdAt: Date;
   updatedAt: Date;
 }

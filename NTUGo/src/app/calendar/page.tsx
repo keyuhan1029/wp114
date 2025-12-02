@@ -887,24 +887,48 @@ export default function CalendarPage() {
                           overflow: 'hidden',
                         }}
                       >
-                        {combinedEvents
-                          .filter((e) =>
+                        {(() => {
+                          const dayEvents = combinedEvents.filter((e) =>
                             isSameDay(new Date(e.startTime), day)
-                          )
-                          .slice(0, 2)
-                          .map((e) => (
-                            <Chip
-                              key={e.id}
-                              size="small"
-                              label={e.sourceType === 'ntu_official' ? '校' : '個'}
-                              color={
-                                e.sourceType === 'ntu_official'
-                                  ? 'secondary'
-                                  : 'primary'
-                              }
-                              sx={{ height: 18, fontSize: 10 }}
-                            />
-                          ))}
+                          );
+                          const maxVisible = 6;
+                          const visible = dayEvents.slice(0, maxVisible);
+                          const hasMore = dayEvents.length > maxVisible;
+
+                          return (
+                            <>
+                              {visible.map((e) => (
+                                <Chip
+                                  key={e.id}
+                                  size="small"
+                                  label={
+                                    e.sourceType === 'ntu_official'
+                                      ? '校'
+                                      : '個'
+                                  }
+                                  color={
+                                    e.sourceType === 'ntu_official'
+                                      ? 'secondary'
+                                      : 'primary'
+                                  }
+                                  sx={{ height: 18, fontSize: 10 }}
+                                />
+                              ))}
+                              {hasMore && (
+                                <Chip
+                                  size="small"
+                                  label="..."
+                                  sx={{
+                                    fontWeight: 'bold',
+                                    height: 18,
+                                    fontSize: 10,
+                                    color: 'inherit',
+                                  }}
+                                />
+                              )}
+                            </>
+                          );
+                        })()}
                       </Box>
                     )}
                   </Box>
