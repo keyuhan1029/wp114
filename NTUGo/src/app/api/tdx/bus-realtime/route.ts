@@ -40,6 +40,11 @@ async function getTDXToken(): Promise<string> {
   cachedToken = data.access_token;
   tokenExpiryTime = now + TOKEN_CACHE_DURATION;
   
+  // 確保 cachedToken 不是 null（此時應該已經被賦值）
+  if (!cachedToken) {
+    throw new Error('無法獲取 TDX Access Token');
+  }
+  
   return cachedToken;
 }
 
