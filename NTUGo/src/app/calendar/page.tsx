@@ -1060,6 +1060,8 @@ export default function CalendarPage() {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: 1,
+                                    flexWrap: 'wrap',
+                                    maxWidth: 'calc(100% - 120px)', // 預留右側按鈕空間
                                   }}
                                 >
                                   <Typography variant="subtitle2" component="span">
@@ -1079,6 +1081,9 @@ export default function CalendarPage() {
                                         ? 'secondary'
                                         : 'primary'
                                     }
+                                    sx={{
+                                      maxWidth: '100%',
+                                    }}
                                   />
                                 </Box>
                               }
@@ -1098,6 +1103,12 @@ export default function CalendarPage() {
                                         component="span"
                                         variant="body2"
                                         color="text.secondary"
+                                        sx={{
+                                          display: 'inline-block',
+                                          maxWidth: 'calc(100% - 120px)',
+                                          whiteSpace: 'normal',
+                                          wordBreak: 'break-word',
+                                        }}
                                       >
                                         {e.location}
                                       </Typography>
@@ -1108,7 +1119,13 @@ export default function CalendarPage() {
                                       component="span"
                                       variant="body2"
                                       color="text.secondary"
-                                      sx={{ display: 'block', mt: 0.5 }}
+                                      sx={{
+                                        display: 'block',
+                                        mt: 0.5,
+                                        maxWidth: 'calc(100% - 120px)',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                      }}
                                     >
                                       {e.description}
                                     </Typography>
@@ -1168,20 +1185,50 @@ export default function CalendarPage() {
                       return (
                         <ListItem
                           key={e.id}
-                          secondaryAction={
-                            <Button
-                              size="small"
-                              variant="outlined"
-                              onClick={() => handleAddNtuToPersonal(e)}
-                            >
-                              加入行事曆
-                            </Button>
-                          }
+                          alignItems="flex-start"
+                          sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}
                         >
-                          <ListItemText
-                            primary={label}
-                            secondary={e.location}
-                          />
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              flexGrow: 1,
+                              minWidth: 0,
+                              gap: 0.5,
+                            }}
+                          >
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                display: 'block',
+                                whiteSpace: 'normal',
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {label}
+                            </Typography>
+                            {e.location && (
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                sx={{
+                                  display: 'block',
+                                  whiteSpace: 'normal',
+                                  wordBreak: 'break-word',
+                                }}
+                              >
+                                {e.location}
+                              </Typography>
+                            )}
+                          </Box>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() => handleAddNtuToPersonal(e)}
+                            sx={{ flexShrink: 0 }}
+                          >
+                            加入行事曆
+                          </Button>
                         </ListItem>
                       );
                     })}
