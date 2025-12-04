@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -8,9 +9,10 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import LoginPageLayout from '@/components/Auth/LoginPageLayout';
 
-export default function SetupUserIdPage() {
+function SetupUserIdContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [userId, setUserId] = React.useState('');
@@ -166,6 +168,20 @@ export default function SetupUserIdPage() {
         </CardContent>
       </Card>
     </LoginPageLayout>
+  );
+}
+
+export default function SetupUserIdPage() {
+  return (
+    <Suspense fallback={
+      <LoginPageLayout>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+          <CircularProgress />
+        </Box>
+      </LoginPageLayout>
+    }>
+      <SetupUserIdContent />
+    </Suspense>
   );
 }
 
