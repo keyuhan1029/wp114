@@ -31,7 +31,7 @@ export default function SchedulePage() {
   const [loading, setLoading] = React.useState(true);
   const [schedules, setSchedules] = React.useState<Schedule[]>([]);
   const [currentScheduleId, setCurrentScheduleId] = React.useState<string | null>(null);
-  const [items, setItems] = React.useState<ScheduleItemClient[]>([]);
+  const [items, setItems] = React.useState<ScheduleItem[]>([]);
   const [courseDialogOpen, setCourseDialogOpen] = React.useState(false);
   const [courseDialogData, setCourseDialogData] = React.useState<{
     dayOfWeek: number;
@@ -209,11 +209,14 @@ export default function SchedulePage() {
     setCourseDialogOpen(true);
   };
 
-  const handleItemClick = (item: ScheduleItemClient) => {
+  const handleItemClick = (item: ScheduleItem) => {
+    // 確保 _id 是字符串類型
+    const itemId = typeof item._id === 'string' ? item._id : item._id?.toString() || '';
+    
     setCourseDialogData({
       dayOfWeek: item.dayOfWeek,
       periodStart: item.periodStart,
-      editingItemId: item._id,
+      editingItemId: itemId,
       initialData: {
         courseName: item.courseName,
         location: item.location || '',
