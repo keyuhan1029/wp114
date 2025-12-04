@@ -112,7 +112,7 @@ const STATION_TIMETABLE_CACHE_DURATION = 60000; // 快取 1 分鐘（列車時�
 // 注意：古亭站和大安站是交界站，有多條線路經過，需要查詢所有線路
 const METRO_STATIONS = [
   { name: '公館站', lat: 25.0147, lng: 121.5344, stationId: 'G05', isTransfer: false }, // 松山新店線，不是信義線R05
-  { name: '科技大樓站', lat: 25.0261, lng: 121.5436, stationId: 'BR10', isTransfer: false },
+  { name: '科技大樓站', lat: 25.0261, lng: 121.5436, stationId: 'BR08', isTransfer: false },
   { name: '台電大樓站', lat: 25.0208, lng: 121.5283, stationId: 'G07', isTransfer: false },
   { name: '大安站', lat: 25.0336, lng: 121.5436, stationId: 'BR11', isTransfer: true }, // 文湖線(BR11) + 信義線(R05) 交界站
   { name: '古亭站', lat: 25.0269, lng: 121.5229, stationId: 'G09', isTransfer: true }, // 松山新店線(G09) + 中和新蘆線(O07) 交界站

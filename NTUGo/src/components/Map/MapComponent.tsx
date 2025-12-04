@@ -893,11 +893,18 @@ export default function MapComponent() {
           })
           .map((exit) => {
             // 找到對應的車站
-            const station = metroStations.find(
-              (s) => s.stationId === exit.StationID || 
-              s.name === exit.StationName.Zh_tw || 
-              s.name === `${exit.StationName.Zh_tw}站`
-            );
+            // 優先使用 StationID 匹配，因為更準確
+            let station = metroStations.find((s) => s.stationId === exit.StationID);
+            
+            // 如果 StationID 不匹配，再嘗試用站名匹配
+            if (!station) {
+              station = metroStations.find(
+                (s) => s.name === exit.StationName.Zh_tw || 
+                s.name === `${exit.StationName.Zh_tw}站` ||
+                exit.StationName.Zh_tw === s.name.replace('站', '')
+              );
+            }
+            
             if (!station) return null;
             
             return (
