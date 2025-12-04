@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ClassIcon from '@mui/icons-material/Class';
 import Tooltip from '@mui/material/Tooltip';
 import ProfileModal from '@/components/Auth/ProfileModal';
 import EditProfileModal from '@/components/Auth/EditProfileModal';
@@ -67,6 +68,15 @@ export default function TopBar() {
     }
   };
 
+  const handleScheduleClick = () => {
+    // 課表功能（待實作）
+    if (pathname === '/schedule') {
+      router.push('/');
+    } else {
+      router.push('/schedule');
+    }
+  };
+
   const handleProfileUpdate = () => {
     // 重新載入用戶資訊以更新頭像
     const loadUserInfo = async () => {
@@ -119,6 +129,11 @@ export default function TopBar() {
         <Tooltip title="個人行事曆">
           <IconButton onClick={handleCalendarClick}>
             <CalendarMonthIcon sx={{ color: 'black' }} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="課表">
+          <IconButton onClick={handleScheduleClick}>
+            <ClassIcon sx={{ color: 'black' }} />
           </IconButton>
         </Tooltip>
         <Tooltip title="個人主頁">

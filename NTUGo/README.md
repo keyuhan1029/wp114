@@ -52,6 +52,14 @@
 - **月曆視圖**：完整月曆顯示，支援切換月份
 - **學校行程開關**：可選擇是否顯示學校行事曆
 
+### 📚 課表功能
+- **多課表管理**：支援創建多個課表（本學期、下學期等）
+- **15 個時間段**：第 0 節至第 10 節 + ABCD 晚間節次
+- **多時段選擇**：一門課可選擇多個時段（如週一 1-2、週二 1-2）
+- **視覺化時間選擇器**：彈出式小課表直覺選擇時間
+- **課程資訊**：課程名稱、上課地點、教師姓名
+- **黑白極簡設計**：深色系課程顏色，白色文字
+
 ### 🧭 側邊欄導覽
 - 公車站點顯示切換
 - YouBike 站點顯示切換
@@ -139,10 +147,14 @@ NTUGo/
 │   │   │   ├── calendar/             # 行事曆 API
 │   │   │   │   ├── events/           # NTU 官方行事曆
 │   │   │   │   └── personal/         # 個人行事曆 CRUD
+│   │   │   ├── schedule/             # 課表 API
+│   │   │   │   ├── [id]/             # 單一課表與課程項目
+│   │   │   │   └── items/            # 課程項目 CRUD
 │   │   │   ├── gym/occupancy/        # 健身房人數
 │   │   │   ├── library/info/         # 圖書館資訊
 │   │   │   └── tdx/                  # TDX 公車 API
 │   │   ├── calendar/                 # 行事曆頁面
+│   │   ├── schedule/                 # 課表頁面
 │   │   ├── login/                    # 登入頁面
 │   │   ├── register/                 # 註冊頁面
 │   │   ├── layout.tsx                # 根布局
@@ -151,6 +163,10 @@ NTUGo/
 │   │   ├── Auth/                     # 認證相關組件
 │   │   ├── Layout/                   # 布局組件
 │   │   ├── Map/                      # 地圖相關組件
+│   │   ├── Schedule/                 # 課表相關組件
+│   │   │   ├── ScheduleGrid.tsx      # 課表網格
+│   │   │   ├── ScheduleSidebar.tsx   # 課表列表側欄
+│   │   │   └── CourseDialog.tsx      # 課程編輯對話框
 │   │   └── ThemeRegistry/            # MUI 主題設定
 │   ├── contexts/
 │   │   └── MapContext.tsx            # 地圖狀態管理
@@ -162,7 +178,9 @@ NTUGo/
 │   │   │   └── ntuOfficial.ts        # NTU 官方行事曆解析
 │   │   ├── models/                   # MongoDB Models
 │   │   │   ├── User.ts               # 用戶模型
-│   │   │   └── PersonalEvent.ts      # 個人行程模型
+│   │   │   ├── PersonalEvent.ts      # 個人行程模型
+│   │   │   ├── Schedule.ts           # 課表模型
+│   │   │   └── ScheduleItem.ts       # 課程項目模型
 │   │   ├── jwt.ts                    # JWT 工具
 │   │   └── mongodb.ts                # MongoDB 連線
 │   ├── services/
@@ -200,6 +218,19 @@ NTUGo/
 | POST | `/api/calendar/personal/from-ntu` | 從 NTU 行事曆加入個人行程 |
 | GET | `/api/calendar/personal/:id/ics` | 匯出行程為 .ics |
 
+### 課表 API
+| 方法 | 路徑 | 說明 |
+|------|------|------|
+| GET | `/api/schedule` | 取得用戶所有課表 |
+| POST | `/api/schedule` | 新增課表 |
+| GET | `/api/schedule/:id` | 取得單一課表（含課程項目） |
+| PUT | `/api/schedule/:id` | 更新課表名稱 |
+| DELETE | `/api/schedule/:id` | 刪除課表 |
+| GET | `/api/schedule/:id/items` | 取得課表的所有課程項目 |
+| POST | `/api/schedule/:id/items` | 新增課程項目 |
+| PUT | `/api/schedule/items/:itemId` | 更新課程項目 |
+| DELETE | `/api/schedule/items/:itemId` | 刪除課程項目 |
+
 ### 設施 API
 | 方法 | 路徑 | 說明 |
 |------|------|------|
@@ -220,9 +251,9 @@ NTUGo/
 - [x] 實作個人行事曆
 - [x] 整合校園設施即時資訊（圖書館、健身房）
 - [x] 實作登入與 OAuth
+- [x] 實作課表功能
 - [ ] 整合捷運即時資訊
 - [ ] 實作論壇功能
-- [ ] 實作課表功能
 - [ ] 實作通知系統
 - [ ] 手機版 RWD 優化
 
