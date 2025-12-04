@@ -49,7 +49,7 @@ export interface BusRealTimeInfo {
 
 // 快取資料
 let cachedBusStops: BusStop[] | null = null;
-let cachedRealTimeInfo: Map<string, BusRealTimeInfo[]> = new Map();
+let cachedRealTimeInfo: Map<string, { data: BusRealTimeInfo[]; timestamp: number }> = new Map();
 let cacheTimestamp: number = 0;
 const CACHE_DURATION = 30000; // 快取 30 秒（公車資料更新較頻繁）
 
@@ -108,19 +108,32 @@ export async function fetchBusStopsNearNTU(): Promise<BusStop[]> {
  * 獲取特定站牌的即時公車資訊（使用 EstimatedTimeOfArrival API）
  * 此函數會返回經過該站牌的所有公車路線，包括預估到站時間
  * 注意：TDX API 需要 API Key，如果未設定則會返回空陣列
+ * 
+ * @param stopUIDOrName - 站牌 UID 或站名
+ * @param useStopName - 是否使用站名查詢（預設 false，使用 stopUID）
  */
-export async function fetchBusRealTimeInfo(stopUID: string): Promise<BusRealTimeInfo[]> {
-  // 檢查快取
-  const cacheKey = stopUID;
+export async function fetchBusRealTimeInfo(
+  stopUIDOrName: string,
+  useStopName: boolean = false
+): Promise<BusRealTimeInfo[]> {
+  // 檢查快取（使用站名或 StopUID 作為 key）
+  const cacheKey = useStopName ? `name:${stopUIDOrName}` : stopUIDOrName;
   const now = Date.now();
   const cached = cachedRealTimeInfo.get(cacheKey);
-  if (cached && (now - cacheTimestamp) < CACHE_DURATION) {
-    return cached;
+  
+  // 檢查快取是否有效
+  if (cached && (now - cached.timestamp) < CACHE_DURATION) {
+    return cached.data;
   }
 
   try {
+    // 根據查詢方式選擇參數
+    const queryParam = useStopName 
+      ? `stopName=${encodeURIComponent(stopUIDOrName)}`
+      : `stopUID=${stopUIDOrName}`;
+    
     // 使用 Next.js API route 來避免 CORS 問題和處理認證
-    const response = await fetch(`/api/tdx/bus-realtime?stopUID=${stopUID}`);
+    const response = await fetch(`/api/tdx/bus-realtime?${queryParam}`);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -137,7 +150,7 @@ export async function fetchBusRealTimeInfo(stopUID: string): Promise<BusRealTime
         // 返回快取資料（如果有的話）
         const cached = cachedRealTimeInfo.get(cacheKey);
         if (cached) {
-          return cached;
+          return cached.data;
         }
         return [];
       }
@@ -148,15 +161,19 @@ export async function fetchBusRealTimeInfo(stopUID: string): Promise<BusRealTime
     const data = await response.json();
     const realTimeInfo: BusRealTimeInfo[] = data.BusRealTimeInfos || [];
 
-    cachedRealTimeInfo.set(cacheKey, realTimeInfo);
-    cacheTimestamp = now;
+    // 更新快取（包含時間戳）
+    cachedRealTimeInfo.set(cacheKey, {
+      data: realTimeInfo,
+      timestamp: now,
+    });
 
     return realTimeInfo;
   } catch (error) {
     console.error('獲取公車即時資訊失敗:', error);
+    // 返回快取資料（如果有的話）
     const cached = cachedRealTimeInfo.get(cacheKey);
     if (cached) {
-      return cached;
+      return cached.data;
     }
     // 發生錯誤時返回空陣列，而不是拋出錯誤
     return [];
@@ -179,6 +196,21 @@ export function findBusStopsByLocation(
     );
     return distance <= maxDistance;
   });
+}
+
+/**
+ * 根據站名查找所有同名站點的 StopUID
+ * 同一個站名可能有多個 StopUID（不同方向、不同位置）
+ */
+export function findStopsByName(stops: BusStop[], stopName: string): BusStop[] {
+  return stops.filter((stop) => stop.StopName.Zh_tw === stopName);
+}
+
+/**
+ * 根據站名獲取所有同名站點的 StopUID 列表
+ */
+export function getStopUIDsByName(stops: BusStop[], stopName: string): string[] {
+  return findStopsByName(stops, stopName).map((stop) => stop.StopUID);
 }
 
 /**

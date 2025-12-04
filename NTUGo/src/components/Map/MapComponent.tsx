@@ -128,6 +128,10 @@ export default function MapComponent() {
   const { showYouBikeStations, showBusStops } = useMapContext();
   const [selectedMarker, setSelectedMarker] = React.useState<any>(null);
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
+  
+  // 防抖：避免快速點擊時重複請求
+  const busStopRequestRef = React.useRef<string | null>(null);
+  const busStopRequestTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [youbikeStations, setYoubikeStations] = React.useState<YouBikeStation[]>([]);
   const [youbikeLoading, setYoubikeLoading] = React.useState<boolean>(false);
   const [youbikeError, setYoubikeError] = React.useState<string | null>(null);
@@ -449,28 +453,64 @@ export default function MapComponent() {
     };
   }, [map, showYouBikeStations, youbikeStations, showBusStops, busStops]);
 
-  // 處理公車站牌點擊事件
+  // 處理公車站牌點擊事件（優化：添加防抖和請求去重）
   const handleBusStopClick = React.useCallback(async (stop: BusStop) => {
+    const stopName = stop.StopName.Zh_tw;
+    
+    // 立即更新 UI（不等待 API 請求）
     setSelectedMarker({
       id: stop.StopUID,
-      name: stop.StopName.Zh_tw,
+      name: stopName,
       lat: stop.StopPosition.PositionLat,
       lng: stop.StopPosition.PositionLon,
       type: 'bus',
     });
     setSelectedBusStop(stop);
-    setBusRealTimeInfo([]);
-
-    // 獲取即時公車資訊
-    try {
-      setBusRealTimeLoading(true);
-      const realTimeInfo = await fetchBusRealTimeInfo(stop.StopUID);
-      setBusRealTimeInfo(realTimeInfo);
-    } catch (error) {
-      console.error('獲取公車即時資訊失敗:', error);
-    } finally {
-      setBusRealTimeLoading(false);
+    
+    // 如果正在請求相同的站點，取消之前的請求
+    if (busStopRequestRef.current === stopName) {
+      if (busStopRequestTimeoutRef.current) {
+        clearTimeout(busStopRequestTimeoutRef.current);
+      }
     }
+    
+    busStopRequestRef.current = stopName;
+    
+    // 清除之前的數據
+    setBusRealTimeInfo([]);
+    
+    // 防抖：延遲 100ms 後再請求（避免快速點擊）
+    if (busStopRequestTimeoutRef.current) {
+      clearTimeout(busStopRequestTimeoutRef.current);
+    }
+    
+    busStopRequestTimeoutRef.current = setTimeout(async () => {
+      try {
+        setBusRealTimeLoading(true);
+        // 使用站名查詢，這樣可以獲取所有同名站點的路線（類似台北等公車）
+        const realTimeInfo = await fetchBusRealTimeInfo(stopName, true);
+        
+        // 確保請求的站點仍然是當前選中的站點（避免異步競態條件）
+        if (busStopRequestRef.current === stopName) {
+          setBusRealTimeInfo(realTimeInfo);
+        }
+      } catch (error) {
+        console.error('獲取公車即時資訊失敗:', error);
+      } finally {
+        if (busStopRequestRef.current === stopName) {
+          setBusRealTimeLoading(false);
+        }
+      }
+    }, 100);
+  }, []);
+  
+  // 清理 timeout（組件卸載時）
+  React.useEffect(() => {
+    return () => {
+      if (busStopRequestTimeoutRef.current) {
+        clearTimeout(busStopRequestTimeoutRef.current);
+      }
+    };
   }, []);
 
   // 處理 bike pin 點擊事件
