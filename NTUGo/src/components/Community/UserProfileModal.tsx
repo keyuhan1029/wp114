@@ -12,57 +12,76 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
+import Chip from '@mui/material/Chip';
 
-interface User {
+interface UserProfile {
   id: string;
   userId?: string | null;
-  email: string;
   name?: string | null;
   avatar?: string | null;
   department?: string | null;
-  provider?: 'email' | 'google';
+  email?: string;
+  friendshipStatus?: 'none' | 'pending' | 'accepted';
+  friendshipDirection?: 'sent' | 'received' | null;
+  friendshipId?: string | null;
 }
 
-interface ProfileModalProps {
+interface UserProfileModalProps {
   open: boolean;
   onClose: () => void;
-  onEditProfile: () => void;
+  userId: string | null;
+  onStartChat?: (userId: string, name: string, avatar?: string) => void;
 }
 
-export default function ProfileModal({ open, onClose, onEditProfile }: ProfileModalProps) {
-  const [user, setUser] = React.useState<User | null>(null);
+export default function UserProfileModal({ 
+  open, 
+  onClose, 
+  userId,
+  onStartChat 
+}: UserProfileModalProps) {
+  const [user, setUser] = React.useState<UserProfile | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
+  const [status, setStatus] = React.useState<string>('');
+  const [sendingRequest, setSendingRequest] = React.useState(false);
 
   React.useEffect(() => {
-    if (open) {
+    if (open && userId) {
       fetchUserInfo();
+      fetchUserStatus();
     }
-  }, [open]);
+  }, [open, userId]);
 
   const fetchUserInfo = async () => {
+    if (!userId) return;
+    
     try {
       setLoading(true);
       setError(null);
       const token = localStorage.getItem('token');
-      
-      if (!token) {
-        setError('請先登入');
-        return;
-      }
 
-      const response = await fetch('/api/auth/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      // 搜尋用戶取得詳細資訊
+      const response = await fetch(
+        `/api/community/users/search?q=${encodeURIComponent(userId)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error('獲取用戶資訊失敗');
       }
 
       const data = await response.json();
-      setUser(data.user);
+      const foundUser = data.users.find((u: any) => u.id === userId);
+      
+      if (foundUser) {
+        setUser(foundUser);
+      } else {
+        setError('找不到此用戶');
+      }
     } catch (err: any) {
       setError(err.message || '載入用戶資訊時發生錯誤');
     } finally {
@@ -70,33 +89,147 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
     }
   };
 
-  const handleEditProfile = () => {
-    onEditProfile();
-    onClose();
+  const fetchUserStatus = async () => {
+    if (!userId) return;
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/community/status?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.location) {
+          setStatus(`@ ${data.location}`);
+        } else if (data.status === 'in class') {
+          setStatus(data.courseName || '上課中');
+        } else {
+          setStatus('無課程');
+        }
+      }
+    } catch (error) {
+      // 靜默失敗
+    }
   };
 
-  const handleLogout = async () => {
+  const handleSendRequest = async () => {
+    if (!userId || sendingRequest) return;
+
     try {
-      // 調用登出 API（可選）
-      await fetch('/api/auth/logout', {
+      setSendingRequest(true);
+      const token = localStorage.getItem('token');
+
+      const response = await fetch('/api/community/friends', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ targetUserId: userId }),
       });
-    } catch (error) {
-      // 忽略錯誤，繼續清除本地 token
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || '發送好友請求失敗');
+      }
+
+      // 更新狀態
+      setUser(prev => prev ? {
+        ...prev,
+        friendshipStatus: 'pending',
+        friendshipDirection: 'sent',
+      } : null);
+    } catch (error: any) {
+      alert(error.message || '發送好友請求失敗');
     } finally {
-      // 清除本地 token
-      localStorage.removeItem('token');
-      // 重定向到登入頁面
-      window.location.href = '/login';
+      setSendingRequest(false);
     }
+  };
+
+  const handleStartChat = () => {
+    if (user && onStartChat) {
+      onStartChat(user.id, user.name || user.userId || '用戶', user.avatar || undefined);
+      onClose();
+    }
+  };
+
+  const getFriendshipButton = () => {
+    if (!user) return null;
+
+    if (user.friendshipStatus === 'accepted') {
+      return (
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={handleStartChat}
+          sx={{
+            mb: 2,
+            py: 1.5,
+            borderRadius: 2,
+            backgroundColor: '#0F4C75',
+            color: '#ffffff',
+            fontWeight: 600,
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: '#0a3a5a',
+            },
+          }}
+        >
+          發送訊息
+        </Button>
+      );
+    }
+
+    if (user.friendshipStatus === 'pending') {
+      return (
+        <Button
+          fullWidth
+          variant="outlined"
+          disabled
+          sx={{
+            mb: 2,
+            py: 1.5,
+            borderRadius: 2,
+            textTransform: 'none',
+          }}
+        >
+          {user.friendshipDirection === 'sent' ? '已發送請求' : '等待您的回應'}
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={handleSendRequest}
+        disabled={sendingRequest}
+        sx={{
+          mb: 2,
+          py: 1.5,
+          borderRadius: 2,
+          backgroundColor: '#0F4C75',
+          color: '#ffffff',
+          fontWeight: 600,
+          textTransform: 'none',
+          '&:hover': {
+            backgroundColor: '#0a3a5a',
+          },
+        }}
+      >
+        {sendingRequest ? <CircularProgress size={20} sx={{ color: '#ffffff' }} /> : '加為好友'}
+      </Button>
+    );
   };
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby="profile-modal-title"
-      aria-describedby="profile-modal-description"
+      aria-labelledby="user-profile-modal-title"
       sx={{
         '& .MuiBackdrop-root': {
           backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -132,12 +265,12 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
             }}
           >
             <Typography
-              id="profile-modal-title"
+              id="user-profile-modal-title"
               variant="h6"
               component="h2"
               sx={{ fontWeight: 700 }}
             >
-              個人主頁
+              用戶資料
             </Typography>
             <IconButton
               onClick={onClose}
@@ -168,20 +301,8 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                 <CircularProgress />
               </Box>
             ) : error ? (
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  py: 4,
-                }}
-              >
+              <Box sx={{ textAlign: 'center', py: 4 }}>
                 <Typography color="error">{error}</Typography>
-                <Button
-                  variant="outlined"
-                  onClick={fetchUserInfo}
-                  sx={{ mt: 2 }}
-                >
-                  重試
-                </Button>
               </Box>
             ) : user ? (
               <>
@@ -196,7 +317,7 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                 >
                   <Avatar
                     src={user.avatar || undefined}
-                    alt={user.name || user.email}
+                    alt={user.name || '用戶'}
                     sx={{
                       width: 100,
                       height: 100,
@@ -205,8 +326,20 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                       mb: 2,
                     }}
                   >
-                    {user.name?.[0]?.toUpperCase() || user.email[0]?.toUpperCase()}
+                    {(user.name || user.userId)?.[0]?.toUpperCase()}
                   </Avatar>
+                  
+                  {/* 狀態 */}
+                  {status && (
+                    <Chip
+                      label={`狀態：${status}`}
+                      size="small"
+                      sx={{
+                        bgcolor: status === '無課程' ? '#f5f5f5' : '#e8f5e9',
+                        color: status === '無課程' ? '#757575' : '#2e7d32',
+                      }}
+                    />
+                  )}
                 </Box>
 
                 {/* User Info */}
@@ -264,7 +397,7 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                     </Box>
                   )}
 
-                  <Box sx={{ mb: 2 }}>
+                  <Box>
                     <Typography
                       variant="caption"
                       sx={{
@@ -288,75 +421,10 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                       {user.department || '未設定'}
                     </Typography>
                   </Box>
-
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        color: 'text.secondary',
-                        fontSize: '0.75rem',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: 0.5,
-                      }}
-                    >
-                      電子郵件
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        mt: 0.5,
-                        fontWeight: 500,
-                      }}
-                    >
-                      {user.email}
-                    </Typography>
-                  </Box>
                 </Box>
 
-                {/* Edit Profile Button */}
-                <Button
-                  fullWidth
-                  variant="contained"
-                  onClick={handleEditProfile}
-                  sx={{
-                    mb: 2,
-                    py: 1.5,
-                    borderRadius: 2,
-                    backgroundColor: '#0F4C75',
-                    color: '#ffffff',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    textTransform: 'none',
-                    '&:hover': {
-                      backgroundColor: '#0a3a5a',
-                    },
-                  }}
-                >
-                  編輯個人資料
-                </Button>
-
-                {/* Logout Button */}
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  onClick={handleLogout}
-                  sx={{
-                    py: 1.5,
-                    borderRadius: 2,
-                    borderColor: '#d32f2f',
-                    color: '#d32f2f',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    textTransform: 'none',
-                    '&:hover': {
-                      borderColor: '#c62828',
-                      backgroundColor: 'rgba(211, 47, 47, 0.04)',
-                    },
-                  }}
-                >
-                  登出
-                </Button>
+                {/* Action Button */}
+                {getFriendshipButton()}
               </>
             ) : null}
           </CardContent>

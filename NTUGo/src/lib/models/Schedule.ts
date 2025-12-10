@@ -17,7 +17,6 @@ export class ScheduleModel {
     userId: string | ObjectId
   ): Promise<Schedule[]> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
@@ -34,7 +33,6 @@ export class ScheduleModel {
     id: string | ObjectId
   ): Promise<Schedule | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
 
     const schedule = await db
@@ -49,7 +47,6 @@ export class ScheduleModel {
     userId: string | ObjectId
   ): Promise<Schedule | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
@@ -65,7 +62,6 @@ export class ScheduleModel {
     data: Omit<Schedule, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<Schedule> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const userObjectId =
       typeof data.userId === 'string' ? new ObjectId(data.userId) : data.userId;
@@ -110,7 +106,6 @@ export class ScheduleModel {
     data: Partial<Omit<Schedule, '_id' | 'userId' | 'createdAt'>>
   ): Promise<Schedule | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =
@@ -147,7 +142,6 @@ export class ScheduleModel {
     userId: string | ObjectId
   ): Promise<boolean> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =

@@ -8,14 +8,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import DirectionsSubwayIcon from '@mui/icons-material/DirectionsSubway';
-import ForumIcon from '@mui/icons-material/Forum';
+import PeopleIcon from '@mui/icons-material/People';
 import SchoolIcon from '@mui/icons-material/School';
 import EmailIcon from '@mui/icons-material/Email';
 import { useMapContext } from '@/contexts/MapContext';
+import { useRouter } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -68,9 +69,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
   const { showYouBikeStations, setShowYouBikeStations, showBusStops, setShowBusStops, showMetroStations, setShowMetroStations } = useMapContext();
+  const router = useRouter();
 
-  const handleDrawerToggle = () => {
-    setOpen(!open);
+  const handleHomeClick = () => {
+    router.push('/');
   };
 
   const handleMouseEnter = () => {
@@ -93,6 +95,10 @@ export default function Sidebar() {
     setShowMetroStations(!showMetroStations);
   };
 
+  const handleCommunityClick = () => {
+    router.push('/community');
+  };
+
   const handleNTUCOOLClick = () => {
     window.open('https://cool.ntu.edu.tw/login/portal?message=%E5%9C%A8%E6%82%A8%E7%9A%84%20IdP%20%E7%99%BB%E5%87%BA%E6%99%82%E5%87%BA%E7%8F%BE%E5%95%8F%E9%A1%8C', '_blank');
   };
@@ -102,11 +108,11 @@ export default function Sidebar() {
   };
 
   const menuItems = [
-    { text: '目錄', icon: <MenuIcon />, action: handleDrawerToggle, active: false },
+    { text: '主頁', icon: <HomeIcon />, action: handleHomeClick, active: false },
     { text: '公車', icon: <DirectionsBusIcon />, action: handleBusClick, active: showBusStops },
     { text: 'YouBike', icon: <PedalBikeIcon />, action: handleYouBikeClick, active: showYouBikeStations },
     { text: '捷運', icon: <DirectionsSubwayIcon />, action: handleMetroClick, active: showMetroStations },
-    { text: '論壇', icon: <ForumIcon />, active: false },
+    { text: '社群', icon: <PeopleIcon />, action: handleCommunityClick, active: false },
     { text: 'NTU COOL', icon: <SchoolIcon />, action: handleNTUCOOLClick, active: false },
     { text: 'NTU Mail', icon: <EmailIcon />, action: handleNTUMailClick, active: false },
   ];

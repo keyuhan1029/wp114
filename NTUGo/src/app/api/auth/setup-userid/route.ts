@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { UserModel } from '@/lib/models/User';
 import { getDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 export async function POST(request: Request) {
   try {
@@ -48,7 +49,6 @@ export async function POST(request: Request) {
 
     // 更新用戶的 userId
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const userIdObj = new ObjectId(payload.userId);
     
     const result = await db.collection('users').findOneAndUpdate(

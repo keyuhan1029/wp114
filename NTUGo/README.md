@@ -1,6 +1,6 @@
 # NTUGo
 
-專為台大學生打造的整合式地圖服務平台，提供校園周邊美食、交通資訊（公車、YouBike、捷運）、校內設施查詢、個人行事曆等功能。
+專為台大學生打造的整合式地圖服務平台，提供校園周邊美食、交通資訊（公車、YouBike、捷運）、校內設施查詢、個人行事曆、課表管理、社群交友等功能。
 
 ## 技術棧
 
@@ -9,6 +9,7 @@
 - **Material UI (MUI) 7** - UI 組件庫
 - **Google Maps API** - 地圖服務
 - **MongoDB** - 資料庫
+- **Pusher Channels** - 即時通訊
 - **TypeScript** - 型別安全
 - **Emotion** - CSS-in-JS 樣式處理
 
@@ -60,9 +61,21 @@
 - **課程資訊**：課程名稱、上課地點、教師姓名
 - **黑白極簡設計**：深色系課程顏色，白色文字
 
+### 👥 社群功能
+- **好友系統**：發送/接受/拒絕好友請求
+- **好友列表**：查看好友及其即時狀態（上課中/無課程/位置）
+- **推薦好友**：系統推薦你可能認識的人
+- **用戶搜尋**：透過名稱搜尋其他用戶
+- **即時訊息**：使用 Pusher 實現即時聊天
+- **聊天室**：與好友進行一對一私聊
+- **個人主頁**：查看其他用戶的個人資料（名稱、系所等）
+- **系所資訊**：個人資料新增系所欄位
+
 ### 🧭 側邊欄導覽
+- 主頁快速返回
 - 公車站點顯示切換
 - YouBike 站點顯示切換
+- 社群功能入口
 - NTU COOL 快速連結
 - NTU Mail 快速連結
 
@@ -88,6 +101,14 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 TDX_CLIENT_ID=your_tdx_client_id
 TDX_CLIENT_SECRET=your_tdx_client_secret
 
+# Pusher (即時通訊)
+PUSHER_APP_ID=your_pusher_app_id
+PUSHER_KEY=your_pusher_key
+PUSHER_SECRET=your_pusher_secret
+PUSHER_CLUSTER=your_pusher_cluster
+NEXT_PUBLIC_PUSHER_KEY=your_pusher_key
+NEXT_PUBLIC_PUSHER_CLUSTER=your_pusher_cluster
+
 # NTU 行事曆
 NTU_CALENDAR_ICS_URL=https://ppt.cc/fXxnLx
 ```
@@ -102,6 +123,7 @@ NTU_CALENDAR_ICS_URL=https://ppt.cc/fXxnLx
    - Maps JavaScript API
    - OAuth 2.0 Client ID
 4. **TDX 平台** API 金鑰（公車資訊）
+5. **Pusher** 帳號與 API 金鑰（即時通訊）
 
 ### 安裝步驟
 
@@ -155,12 +177,20 @@ NTUGo/
 │   │   │   └── tdx/                  # TDX 公車 API
 │   │   ├── calendar/                 # 行事曆頁面
 │   │   ├── schedule/                 # 課表頁面
+│   │   ├── community/                # 社群頁面
 │   │   ├── login/                    # 登入頁面
 │   │   ├── register/                 # 註冊頁面
 │   │   ├── layout.tsx                # 根布局
 │   │   └── page.tsx                  # 首頁
 │   ├── components/
 │   │   ├── Auth/                     # 認證相關組件
+│   │   ├── Community/                # 社群相關組件
+│   │   │   ├── FriendsList.tsx       # 好友列表
+│   │   │   ├── FriendRequests.tsx    # 好友請求
+│   │   │   ├── FriendSuggestions.tsx # 推薦好友
+│   │   │   ├── MessageList.tsx       # 訊息列表
+│   │   │   ├── ChatRoom.tsx          # 聊天室
+│   │   │   └── UserProfileModal.tsx  # 用戶個人主頁
 │   │   ├── Layout/                   # 布局組件
 │   │   ├── Map/                      # 地圖相關組件
 │   │   ├── Schedule/                 # 課表相關組件
@@ -169,7 +199,8 @@ NTUGo/
 │   │   │   └── CourseDialog.tsx      # 課程編輯對話框
 │   │   └── ThemeRegistry/            # MUI 主題設定
 │   ├── contexts/
-│   │   └── MapContext.tsx            # 地圖狀態管理
+│   │   ├── MapContext.tsx            # 地圖狀態管理
+│   │   └── PusherContext.tsx         # Pusher 即時通訊
 │   ├── lib/
 │   │   ├── calendar/                 # 行事曆邏輯
 │   │   │   ├── CalendarEvent.ts      # 事件型別
@@ -180,14 +211,19 @@ NTUGo/
 │   │   │   ├── User.ts               # 用戶模型
 │   │   │   ├── PersonalEvent.ts      # 個人行程模型
 │   │   │   ├── Schedule.ts           # 課表模型
-│   │   │   └── ScheduleItem.ts       # 課程項目模型
+│   │   │   ├── ScheduleItem.ts       # 課程項目模型
+│   │   │   ├── Friendship.ts         # 好友關係模型
+│   │   │   ├── ChatRoom.ts           # 聊天室模型
+│   │   │   └── Message.ts            # 訊息模型
 │   │   ├── jwt.ts                    # JWT 工具
+│   │   ├── pusher.ts                 # Pusher 伺服器端
 │   │   └── mongodb.ts                # MongoDB 連線
 │   ├── services/
 │   │   ├── busApi.ts                 # 公車 API 服務
 │   │   └── youbikeApi.ts             # YouBike API 服務
 │   └── data/
-│       └── mockData.ts               # 模擬數據
+│       ├── mockData.ts               # 模擬數據
+│       └── departments.ts            # 台大系所清單
 ├── public/                           # 靜態資源
 ├── .env.local                        # 環境變數
 ├── package.json
@@ -244,6 +280,24 @@ NTUGo/
 | GET | `/api/tdx/bus-realtime` | 公車即時到站 |
 | GET | `/api/tdx/bus-news` | 公車動態消息 |
 
+### 社群 API
+| 方法 | 路徑 | 說明 |
+|------|------|------|
+| GET | `/api/community/friends` | 取得好友列表 |
+| POST | `/api/community/friends` | 發送好友請求 |
+| PUT | `/api/community/friends/:id` | 接受好友請求 |
+| DELETE | `/api/community/friends/:id` | 拒絕請求/移除好友 |
+| GET | `/api/community/friends/requests` | 取得待處理好友請求 |
+| GET | `/api/community/friends/suggestions` | 取得推薦好友 |
+| GET | `/api/community/users/search` | 搜尋用戶 |
+| GET | `/api/community/users/:id` | 取得用戶資料 |
+| GET | `/api/community/status` | 取得用戶狀態（根據課表） |
+| GET | `/api/community/chatrooms` | 取得聊天室列表 |
+| POST | `/api/community/chatrooms` | 建立聊天室 |
+| GET | `/api/community/messages/:roomId` | 取得聊天訊息 |
+| POST | `/api/community/messages/:roomId` | 發送訊息 |
+| POST | `/api/pusher/auth` | Pusher 私有頻道認證 |
+
 ## 開發計劃
 
 - [x] 整合台北市公車 API (TDX)
@@ -252,9 +306,9 @@ NTUGo/
 - [x] 整合校園設施即時資訊（圖書館、健身房）
 - [x] 實作登入與 OAuth
 - [x] 實作課表功能
+- [x] 實作社群功能（好友、即時訊息）
 - [ ] 整合捷運即時資訊
-- [ ] 實作論壇功能
-- [ ] 實作通知系統
+- [ ] 實作通知系統（UI 已準備）
 - [ ] 手機版 RWD 優化
 
 ## 授權

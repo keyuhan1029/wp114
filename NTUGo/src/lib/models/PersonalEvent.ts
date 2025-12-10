@@ -33,7 +33,6 @@ export class PersonalEventModel {
     range?: PersonalEventQuery
   ): Promise<PersonalEvent[]> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
@@ -62,7 +61,6 @@ export class PersonalEventModel {
     id: string | ObjectId
   ): Promise<PersonalEvent | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
 
     const event = await db
@@ -76,7 +74,6 @@ export class PersonalEventModel {
     data: Omit<PersonalEvent, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<PersonalEvent> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const userObjectId =
       typeof data.userId === 'string' ? new ObjectId(data.userId) : data.userId;
@@ -102,7 +99,6 @@ export class PersonalEventModel {
     data: Partial<Omit<PersonalEvent, '_id' | 'userId' | 'createdAt'>>
   ): Promise<PersonalEvent | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =
@@ -129,7 +125,6 @@ export class PersonalEventModel {
     userId: string | ObjectId
   ): Promise<boolean> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =

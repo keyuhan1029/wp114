@@ -7,6 +7,8 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ClassIcon from '@mui/icons-material/Class';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
 import ProfileModal from '@/components/Auth/ProfileModal';
 import EditProfileModal from '@/components/Auth/EditProfileModal';
@@ -126,6 +128,13 @@ export default function TopBar() {
           backdropFilter: 'blur(4px)',
         }}
       >
+        <Tooltip title="通知">
+          <IconButton>
+            <Badge badgeContent={0} color="error">
+              <NotificationsIcon sx={{ color: 'black' }} />
+            </Badge>
+          </IconButton>
+        </Tooltip>
         <Tooltip title="個人行事曆">
           <IconButton onClick={handleCalendarClick}>
             <CalendarMonthIcon sx={{ color: 'black' }} />

@@ -22,7 +22,6 @@ export class ScheduleItemModel {
     scheduleId: string | ObjectId
   ): Promise<ScheduleItem[]> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryScheduleId =
       typeof scheduleId === 'string' ? new ObjectId(scheduleId) : scheduleId;
 
@@ -39,7 +38,6 @@ export class ScheduleItemModel {
     id: string | ObjectId
   ): Promise<ScheduleItem | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
 
     const item = await db
@@ -54,7 +52,6 @@ export class ScheduleItemModel {
     scheduleId: string | ObjectId
   ): Promise<ScheduleItem | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryScheduleId =
       typeof scheduleId === 'string' ? new ObjectId(scheduleId) : scheduleId;
@@ -70,7 +67,6 @@ export class ScheduleItemModel {
     data: Omit<ScheduleItem, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<ScheduleItem> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const scheduleObjectId =
       typeof data.scheduleId === 'string'
@@ -98,7 +94,6 @@ export class ScheduleItemModel {
     data: Partial<Omit<ScheduleItem, '_id' | 'scheduleId' | 'createdAt'>>
   ): Promise<ScheduleItem | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryScheduleId =
@@ -125,7 +120,6 @@ export class ScheduleItemModel {
     scheduleId: string | ObjectId
   ): Promise<boolean> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryScheduleId =
@@ -142,7 +136,6 @@ export class ScheduleItemModel {
     scheduleId: string | ObjectId
   ): Promise<number> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryScheduleId =
       typeof scheduleId === 'string' ? new ObjectId(scheduleId) : scheduleId;
 

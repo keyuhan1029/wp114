@@ -10,6 +10,7 @@ export interface User {
   name?: string;
   googleId?: string; // Google OAuth 用戶的 ID
   avatar?: string;
+  department?: string; // 系所
   provider: 'email' | 'google'; // 登入方式
   createdAt: Date;
   updatedAt: Date;
@@ -123,10 +124,10 @@ export class UserModel {
       name?: string;
       avatar?: string;
       userId?: string;
+      department?: string;
     }
   ): Promise<User | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     
     // 如果提供 userId，檢查是否已被其他用戶使用
     if (updateData.userId) {
@@ -153,6 +154,9 @@ export class UserModel {
     if (updateData.userId !== undefined) {
       updateFields.userId = updateData.userId;
     }
+    if (updateData.department !== undefined) {
+      updateFields.department = updateData.department;
+    }
 
     const result = await db.collection<User>('users').findOneAndUpdate(
       { _id: queryId },
@@ -162,6 +166,43 @@ export class UserModel {
       { returnDocument: 'after' }
     );
     return (result as User) || null;
+  }
+
+  static async findById(id: string | ObjectId): Promise<User | null> {
+    const db = await getDatabase();
+    const queryId = typeof id === 'string' ? new ObjectId(id) : id;
+    const user = await db.collection<User>('users').findOne({ _id: queryId });
+    return user;
+  }
+
+  static async findByIds(ids: (string | ObjectId)[]): Promise<User[]> {
+    const db = await getDatabase();
+    const queryIds = ids.map(id => typeof id === 'string' ? new ObjectId(id) : id);
+    const users = await db.collection<User>('users').find({ _id: { $in: queryIds } }).toArray();
+    return users;
+  }
+
+  static async searchUsers(query: string, excludeUserId?: string | ObjectId): Promise<User[]> {
+    const db = await getDatabase();
+    
+    const searchFilter: any = {
+      $or: [
+        { name: { $regex: query, $options: 'i' } },
+        { userId: { $regex: query, $options: 'i' } },
+        { email: { $regex: query, $options: 'i' } },
+      ],
+    };
+    
+    if (excludeUserId) {
+      const excludeId = typeof excludeUserId === 'string' ? new ObjectId(excludeUserId) : excludeUserId;
+      searchFilter._id = { $ne: excludeId };
+    }
+    
+    const users = await db.collection<User>('users')
+      .find(searchFilter)
+      .limit(20)
+      .toArray();
+    return users;
   }
 }
 

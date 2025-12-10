@@ -23,7 +23,7 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
-    const { name, avatar, userId } = body;
+    const { name, avatar, userId, department } = body;
 
     // 驗證輸入
     if (name !== undefined && (typeof name !== 'string' || name.trim().length === 0)) {
@@ -52,6 +52,7 @@ export async function PUT(request: Request) {
       name?: string;
       avatar?: string;
       userId?: string;
+      department?: string;
     } = {};
 
     if (name !== undefined) {
@@ -62,6 +63,9 @@ export async function PUT(request: Request) {
     }
     if (userId !== undefined) {
       updateData.userId = userId.trim();
+    }
+    if (department !== undefined) {
+      updateData.department = department;
     }
 
     // 更新用戶資料
@@ -83,6 +87,7 @@ export async function PUT(request: Request) {
       email: updatedUser.email || '',
       name: updatedUser.name || null,
       avatar: updatedUser.avatar || null,
+      department: updatedUser.department || null,
       provider: updatedUser.provider || 'email',
     };
 

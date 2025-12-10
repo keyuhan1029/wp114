@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getTokenFromRequest, verifyToken } from '@/lib/jwt';
 import { NTUOfficialCalendarSource } from '@/lib/calendar/ntuOfficial';
 import { PersonalEventModel } from '@/lib/models/PersonalEvent';
+import { ObjectId } from 'mongodb';
 
 async function getAuthUserId(request: NextRequest): Promise<string | null> {
   const token = getTokenFromRequest(request as unknown as Request);
@@ -52,7 +53,6 @@ export async function POST(request: NextRequest) {
 
     // 檢查是否已經匯入過同一個 NTU 活動
     const db = await (await import('@/lib/mongodb')).getDatabase();
-    const { ObjectId } = await import('mongodb');
     const userObjectId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
