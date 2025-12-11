@@ -9,6 +9,7 @@ import { NTU_CENTER, LOCATIONS } from '@/data/mockData';
 import InfoWindowHeader from './InfoWindowHeader';
 import InfoWindowContent from './InfoWindowContent';
 import CurrentLocationButton from './CurrentLocationButton';
+import BikeMarkerButton from './BikeMarkerButton';
 import SVGOverlay from './SVGOverlay';
 import {
   fetchYouBikeStations,
@@ -197,6 +198,20 @@ export default function MapComponent() {
   const [metroExitsLoading, setMetroExitsLoading] = React.useState<boolean>(false);
   const [metroExitsError, setMetroExitsError] = React.useState<string | null>(null);
 
+  // 用戶標記的腳踏車位置相關 state
+  interface UserBikeMarker {
+    _id: string;
+    lat: number;
+    lng: number;
+    note?: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+  const [isMarkingMode, setIsMarkingMode] = React.useState<boolean>(false);
+  const [userBikeMarkers, setUserBikeMarkers] = React.useState<UserBikeMarker[]>([]);
+  const [markerLoading, setMarkerLoading] = React.useState<boolean>(false);
+  const [selectedUserMarker, setSelectedUserMarker] = React.useState<UserBikeMarker | null>(null);
+
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
@@ -205,6 +220,114 @@ export default function MapComponent() {
   const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
+
+  // 載入用戶標記的腳踏車位置
+  const loadUserBikeMarkers = React.useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const response = await fetch('/api/map/bike-markers', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setUserBikeMarkers(data.markers || []);
+        }
+      }
+    } catch (error) {
+      console.error('載入用戶標記失敗:', error);
+    }
+  }, []);
+
+  // 在地圖上添加標記
+  const handleMapClick = React.useCallback(async (e: google.maps.MapMouseEvent) => {
+    if (!isMarkingMode || !e.latLng) return;
+
+    const lat = e.latLng.lat();
+    const lng = e.latLng.lng();
+
+    try {
+      setMarkerLoading(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('請先登入');
+        setIsMarkingMode(false);
+        return;
+      }
+
+      const response = await fetch('/api/map/bike-markers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ lat, lng }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setUserBikeMarkers((prev) => [data.marker, ...prev]);
+          // 標記後自動關閉標記模式
+          setIsMarkingMode(false);
+        }
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || '標記失敗');
+      }
+    } catch (error) {
+      console.error('添加標記失敗:', error);
+      alert('添加標記失敗');
+    } finally {
+      setMarkerLoading(false);
+    }
+  }, [isMarkingMode]);
+
+  // 刪除用戶標記
+  const handleDeleteUserMarker = React.useCallback(async (markerId: string) => {
+    if (!window.confirm('確定要刪除此標記嗎？')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('請先登入');
+        return;
+      }
+
+      const response = await fetch(`/api/map/bike-markers/${markerId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setUserBikeMarkers((prev) => prev.filter((m) => m._id !== markerId));
+        setSelectedUserMarker(null);
+        setSelectedMarker(null);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || '刪除失敗');
+      }
+    } catch (error) {
+      console.error('刪除標記失敗:', error);
+      alert('刪除標記失敗');
+    }
+  }, []);
+
+  // 載入用戶標記（組件載入時）
+  React.useEffect(() => {
+    if (isLoaded) {
+      loadUserBikeMarkers();
+    }
+  }, [isLoaded, loadUserBikeMarkers]);
 
   // 獲取當前位置
   const getCurrentLocation = React.useCallback(() => {
@@ -743,6 +866,7 @@ export default function MapComponent() {
     setMetroError(null);
     setMetroStationTimeTable([]);
     setMetroStationTimeTableError(null);
+    setSelectedUserMarker(null);
   }, []);
 
   if (!isLoaded) {
@@ -761,6 +885,18 @@ export default function MapComponent() {
         isGettingLocation={isGettingLocation}
         onGetLocation={getCurrentLocation}
         onReturnToLocation={returnToCurrentLocation}
+      />
+
+      {/* 標記腳踏車位置按鈕 */}
+      <BikeMarkerButton
+        isMarkingMode={isMarkingMode}
+        onToggleMarkingMode={() => {
+          setIsMarkingMode((prev) => !prev);
+          if (isMarkingMode) {
+            setSelectedMarker(null);
+            setSelectedUserMarker(null);
+          }
+        }}
       />
 
       {/* 位置錯誤提示 */}
@@ -788,13 +924,46 @@ export default function MapComponent() {
         </Box>
       )}
 
+      {/* 標記模式提示 */}
+      {isMarkingMode && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 80,
+            left: 16,
+            right: 16,
+            zIndex: 1100,
+            maxWidth: 400,
+          }}
+        >
+          <Alert
+            severity="info"
+            onClose={() => setIsMarkingMode(false)}
+            sx={{
+              backgroundColor: 'rgba(33, 150, 243, 0.95)',
+              backdropFilter: 'blur(4px)',
+              color: '#ffffff',
+              '& .MuiAlert-icon': {
+                color: '#ffffff',
+              },
+            }}
+          >
+            標記模式已開啟，點擊地圖上的位置即可標記腳踏車位置
+          </Alert>
+        </Box>
+      )}
+
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={NTU_CENTER}
       zoom={16}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      options={mapOptions}
+      onClick={handleMapClick}
+      options={{
+        ...mapOptions,
+        draggableCursor: isMarkingMode ? 'crosshair' : undefined,
+      }}
     >
       {/* Food Pins */}
       {(LOCATIONS.food as any[]).length > 0 && LOCATIONS.food.map((item) => (
@@ -1047,11 +1216,39 @@ export default function MapComponent() {
               metroStationTimeTable={metroStationTimeTable}
               metroStationTimeTableLoading={metroStationTimeTableLoading}
               metroStationTimeTableError={metroStationTimeTableError}
+              selectedUserMarker={selectedUserMarker}
+              onDeleteUserMarker={handleDeleteUserMarker}
             />
             </Box>
           </Box>
         </InfoWindowF>
       )}
+
+      {/* 用戶標記的腳踏車位置 */}
+      {userBikeMarkers.map((marker) => (
+        <MarkerF
+          key={`user-bike-${marker._id}`}
+          position={{ lat: marker.lat, lng: marker.lng }}
+          onClick={() => {
+            setSelectedUserMarker(marker);
+            setSelectedMarker({
+              id: `user-bike-${marker._id}`,
+              name: marker.note || '我的腳踏車',
+              lat: marker.lat,
+              lng: marker.lng,
+              type: 'user-bike',
+            });
+          }}
+          icon={{
+            path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+            fillColor: '#4caf50',
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: '#ffffff',
+            scale: 1.2,
+          }}
+        />
+      ))}
 
       {/* 當前位置標記 */}
       {currentLocation && (

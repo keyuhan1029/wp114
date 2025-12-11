@@ -11,6 +11,7 @@ import BikeInfoContent from './BikeInfoContent';
 import GymInfoContent from './GymInfoContent';
 import LibraryInfoContent from './LibraryInfoContent';
 import MetroInfoContent from './MetroInfoContent';
+import UserBikeMarkerContent from './UserBikeMarkerContent';
 
 interface GymOccupancy {
   fitnessCenter: { current: number; optimal: number; max: number };
@@ -49,6 +50,8 @@ interface InfoWindowContentProps {
   metroStationTimeTable?: MetroStationTimeTable[];
   metroStationTimeTableLoading?: boolean;
   metroStationTimeTableError?: string | null;
+  selectedUserMarker?: { _id: string; lat: number; lng: number; note?: string } | null;
+  onDeleteUserMarker?: (markerId: string) => void;
 }
 
 export default function InfoWindowContent({
@@ -73,9 +76,21 @@ export default function InfoWindowContent({
   metroStationTimeTable = [],
   metroStationTimeTableLoading = false,
   metroStationTimeTableError = null,
+  selectedUserMarker = null,
+  onDeleteUserMarker,
 }: InfoWindowContentProps) {
   return (
     <Box sx={{ p: 2 }}>
+      {selectedMarker.type === 'user-bike' && selectedUserMarker && onDeleteUserMarker && (
+        <UserBikeMarkerContent
+          markerId={selectedUserMarker._id}
+          note={selectedUserMarker.note}
+          lat={selectedUserMarker.lat}
+          lng={selectedUserMarker.lng}
+          onDelete={onDeleteUserMarker}
+        />
+      )}
+      
       {selectedMarker.type === 'bus' && (
         <BusInfoContent
           selectedBusStop={selectedBusStop}
