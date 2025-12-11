@@ -6,11 +6,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DownloadIcon from '@mui/icons-material/Download';
 import MainLayout from '@/components/Layout/MainLayout';
 import ScheduleGrid from '@/components/Schedule/ScheduleGrid';
 import ScheduleSidebar from '@/components/Schedule/ScheduleSidebar';
 import CourseDialog, { CourseFormData } from '@/components/Schedule/CourseDialog';
 import { ScheduleItem } from '@/lib/models/ScheduleItem';
+import html2canvas from 'html2canvas';
 
 interface Schedule {
   _id: string;
@@ -25,6 +29,7 @@ interface ScheduleItemClient extends ScheduleItem {
 
 export default function SchedulePage() {
   const router = useRouter();
+  const scheduleGridRef = React.useRef<HTMLDivElement>(null);
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean | null>(
     null
   );
@@ -39,6 +44,7 @@ export default function SchedulePage() {
     initialData?: CourseFormData | null;
     editingItemId?: string | null;
   } | null>(null);
+  const [exporting, setExporting] = React.useState(false);
 
   React.useEffect(() => {
     const checkAuth = async () => {
@@ -320,6 +326,39 @@ export default function SchedulePage() {
     }
   };
 
+  const handleExportImage = async () => {
+    if (!scheduleGridRef.current) {
+      alert('無法找到課表內容');
+      return;
+    }
+
+    setExporting(true);
+    try {
+      const canvas = await html2canvas(scheduleGridRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2, // 提高圖片清晰度
+        logging: false,
+        useCORS: true,
+      });
+
+      // 創建下載連結
+      const link = document.createElement('a');
+      const currentSchedule = schedules.find((s) => s._id === currentScheduleId);
+      const fileName = currentSchedule
+        ? `${currentSchedule.name}_${new Date().toISOString().split('T')[0]}.png`
+        : `課表_${new Date().toISOString().split('T')[0]}.png`;
+      
+      link.download = fileName;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('匯出圖片失敗:', error);
+      alert('匯出圖片失敗，請稍後再試');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   if (isAuthenticated === null || loading) {
     return (
       <Box
@@ -365,9 +404,32 @@ export default function SchedulePage() {
             borderRadius: 2,
           }}
         >
+          {/* 匯出按鈕 */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              p: 1.5,
+              borderBottom: '1px solid #eee',
+            }}
+          >
+            <Button
+              variant="outlined"
+              startIcon={<DownloadIcon />}
+              onClick={handleExportImage}
+              disabled={!currentScheduleId || exporting || items.length === 0}
+              sx={{
+                textTransform: 'none',
+              }}
+            >
+              {exporting ? '匯出中...' : '匯出課表圖片'}
+            </Button>
+          </Box>
           <Box sx={{ flexGrow: 1, overflow: 'auto', p: 2 }}>
             {currentScheduleId ? (
               <ScheduleGrid
+                ref={scheduleGridRef}
                 items={items}
                 onCellClick={handleCellClick}
                 onItemClick={handleItemClick}

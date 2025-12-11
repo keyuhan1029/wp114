@@ -42,23 +42,20 @@ const CELL_HEIGHT = 48;
 const TIME_COLUMN_WIDTH = 70;
 const HEADER_HEIGHT = 32;
 
-export default function ScheduleGrid({
-  items,
-  onCellClick,
-  onItemClick,
-}: ScheduleGridProps) {
-  // 找到覆蓋某個時間段的課程
-  const getItemForCell = (dayOfWeek: number, periodIndex: number): ScheduleItem | null => {
-    return items.find(
-      (item) =>
-        item.dayOfWeek === dayOfWeek &&
-        item.periodStart <= periodIndex &&
-        item.periodEnd >= periodIndex
-    ) || null;
-  };
+const ScheduleGrid = React.forwardRef<HTMLDivElement, ScheduleGridProps>(
+  ({ items, onCellClick, onItemClick }, ref) => {
+    // 找到覆蓋某個時間段的課程
+    const getItemForCell = (dayOfWeek: number, periodIndex: number): ScheduleItem | null => {
+      return items.find(
+        (item) =>
+          item.dayOfWeek === dayOfWeek &&
+          item.periodStart <= periodIndex &&
+          item.periodEnd >= periodIndex
+      ) || null;
+    };
 
-  return (
-    <Box sx={{ width: '100%', minWidth: 600 }}>
+    return (
+      <Box ref={ref} id="schedule-grid" sx={{ width: '100%', minWidth: 600 }}>
       {/* 表頭 - 星期 */}
       <Box sx={{ display: 'flex', borderBottom: '1px solid #ddd' }}>
         <Box
@@ -205,5 +202,10 @@ export default function ScheduleGrid({
         </Box>
       ))}
     </Box>
-  );
-}
+    );
+  }
+);
+
+ScheduleGrid.displayName = 'ScheduleGrid';
+
+export default ScheduleGrid;
