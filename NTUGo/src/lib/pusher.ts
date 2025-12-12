@@ -40,6 +40,7 @@ export const EVENT_NAMES = {
   TYPING: 'typing',
   FRIEND_REQUEST: 'friend-request',
   FRIEND_ACCEPTED: 'friend-accepted',
+  CHAT_UPDATE: 'chat-update', // 聊天室列表更新（新訊息預覽）
 };
 
 // 觸發聊天室訊息事件
@@ -100,5 +101,20 @@ export async function triggerFriendAccepted(
 ) {
   const pusher = getPusher();
   await pusher.trigger(CHANNEL_NAMES.userPrivate(userId), EVENT_NAMES.FRIEND_ACCEPTED, data);
+}
+
+// 觸發聊天室更新通知（新訊息預覽）
+export async function triggerChatUpdate(
+  userId: string,
+  data: {
+    roomId: string;
+    lastMessage: string;
+    lastMessageAt: string;
+    senderId: string;
+    senderName?: string;
+  }
+) {
+  const pusher = getPusher();
+  await pusher.trigger(CHANNEL_NAMES.userPrivate(userId), EVENT_NAMES.CHAT_UPDATE, data);
 }
 

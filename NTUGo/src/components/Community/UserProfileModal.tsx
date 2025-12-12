@@ -60,28 +60,24 @@ export default function UserProfileModal({
       setError(null);
       const token = localStorage.getItem('token');
 
-      // 搜尋用戶取得詳細資訊
-      const response = await fetch(
-        `/api/community/users/search?q=${encodeURIComponent(userId)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // 根據 ID 取得用戶詳細資訊
+      const response = await fetch(`/api/community/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
-        throw new Error('獲取用戶資訊失敗');
+        if (response.status === 404) {
+          setError('找不到此用戶');
+        } else {
+          throw new Error('獲取用戶資訊失敗');
+        }
+        return;
       }
 
       const data = await response.json();
-      const foundUser = data.users.find((u: any) => u.id === userId);
-      
-      if (foundUser) {
-        setUser(foundUser);
-      } else {
-        setError('找不到此用戶');
-      }
+      setUser(data.user);
     } catch (err: any) {
       setError(err.message || '載入用戶資訊時發生錯誤');
     } finally {

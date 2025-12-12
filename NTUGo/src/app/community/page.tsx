@@ -154,6 +154,7 @@ export default function CommunityPage() {
             <MessageList
               key={`messages-${refreshKey}`}
               onSelectChat={handleSelectChat}
+              selectedRoomId={selectedChat?.roomId}
             />
           </Box>
         </Box>
@@ -180,6 +181,7 @@ export default function CommunityPage() {
               onRoomCreated={(newRoomId) => {
                 setSelectedChat(prev => prev ? { ...prev, roomId: newRoomId } : null);
               }}
+              onViewProfile={handleViewProfile}
             />
           ) : (
             <Box

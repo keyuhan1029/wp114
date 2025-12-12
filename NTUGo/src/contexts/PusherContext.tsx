@@ -168,6 +168,7 @@ export function useUserNotifications(
   callbacks?: {
     onFriendRequest?: (data: any) => void;
     onFriendAccepted?: (data: any) => void;
+    onChatUpdate?: (data: any) => void;
   }
 ) {
   const { subscribeToChannel, unsubscribeFromChannel } = usePusher();
@@ -184,6 +185,9 @@ export function useUserNotifications(
       }
       if (callbacks?.onFriendAccepted) {
         channel.bind('friend-accepted', callbacks.onFriendAccepted);
+      }
+      if (callbacks?.onChatUpdate) {
+        channel.bind('chat-update', callbacks.onChatUpdate);
       }
     }
 

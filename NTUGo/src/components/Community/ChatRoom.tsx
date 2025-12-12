@@ -32,6 +32,7 @@ interface ChatRoomProps {
   avatar?: string;
   onClose: () => void;
   onRoomCreated?: (roomId: string) => void;
+  onViewProfile?: (userId: string) => void;
 }
 
 export default function ChatRoom({
@@ -41,6 +42,7 @@ export default function ChatRoom({
   avatar,
   onClose,
   onRoomCreated,
+  onViewProfile,
 }: ChatRoomProps) {
   const [roomId, setRoomId] = React.useState(initialRoomId);
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -48,10 +50,39 @@ export default function ChatRoom({
   const [sending, setSending] = React.useState(false);
   const [newMessage, setNewMessage] = React.useState('');
   const [friendStatus, setFriendStatus] = React.useState<string>('');
+  const [currentUserId, setCurrentUserId] = React.useState<string | null>(null);
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
+
+  // 取得當前用戶 ID
+  React.useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const response = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCurrentUserId(data.user.id);
+        }
+      } catch (error) {
+        console.error('取得用戶資訊錯誤:', error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
 
   // Pusher 即時訊息
   const handleNewMessage = React.useCallback((data: any) => {
+    // 忽略自己發送的訊息（已經通過 API 響應添加了）
+    if (currentUserId && data.senderId === currentUserId) {
+      return;
+    }
+
     setMessages((prev) => {
       // 避免重複
       if (prev.some((m) => m.id === data.id)) {
@@ -69,11 +100,11 @@ export default function ChatRoom({
           },
           content: data.content,
           createdAt: data.createdAt,
-          isOwn: false, // 來自 Pusher 的不是自己的訊息
+          isOwn: false, // 來自 Pusher 的是對方的訊息
         },
       ];
     });
-  }, []);
+  }, [currentUserId]);
 
   useChatRoomMessages(roomId || null, handleNewMessage);
 
@@ -178,7 +209,7 @@ export default function ChatRoom({
       } else if (data.status === 'in class') {
         setFriendStatus(data.courseName || '上課中');
       } else {
-        setFriendStatus('no class');
+        setFriendStatus('無課程');
       }
     } catch (error) {
       console.error('取得好友狀態錯誤:', error);
@@ -209,7 +240,13 @@ export default function ChatRoom({
       }
 
       const data = await response.json();
-      setMessages((prev) => [...prev, data.message]);
+      setMessages((prev) => {
+        // 避免重複添加（可能 Pusher 已經先收到）
+        if (prev.some((m) => m.id === data.message.id)) {
+          return prev;
+        }
+        return [...prev, data.message];
+      });
     } catch (error) {
       console.error('發送訊息錯誤:', error);
       setNewMessage(messageContent); // 恢復訊息
@@ -252,21 +289,38 @@ export default function ChatRoom({
             width: 44,
             height: 44,
             mr: 2,
+            cursor: friendId ? 'pointer' : 'default',
+            '&:hover': friendId ? {
+              opacity: 0.8,
+            } : {},
           }}
+          onClick={() => friendId && onViewProfile?.(friendId)}
         >
           {name?.[0]?.toUpperCase()}
         </Avatar>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontWeight: 600, color: '#1a1a2e' }}>{name}</Typography>
+          <Typography 
+            sx={{ 
+              fontWeight: 600, 
+              color: '#1a1a2e',
+              cursor: friendId ? 'pointer' : 'default',
+              '&:hover': friendId ? {
+                textDecoration: 'underline',
+              } : {},
+            }}
+            onClick={() => friendId && onViewProfile?.(friendId)}
+          >
+            {name}
+          </Typography>
           {friendStatus && (
             <Typography
               variant="body2"
               sx={{
-                color: friendStatus === 'no class' ? '#9e9e9e' : '#2e7d32',
+                color: friendStatus === '無課程' ? '#9e9e9e' : '#2e7d32',
                 fontSize: '0.8rem',
               }}
             >
-              status: {friendStatus}
+              狀態：{friendStatus}
             </Typography>
           )}
         </Box>
@@ -312,7 +366,7 @@ export default function ChatRoom({
 
               return (
                 <Box
-                  key={message.id}
+                  key={`${message.id}-${index}`}
                   sx={{
                     display: 'flex',
                     justifyContent: message.isOwn ? 'flex-end' : 'flex-start',

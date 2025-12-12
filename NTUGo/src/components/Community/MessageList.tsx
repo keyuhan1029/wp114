@@ -15,6 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import CircularProgress from '@mui/material/CircularProgress';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
+import { useUserNotifications } from '@/contexts/PusherContext';
 
 interface ChatRoom {
   id: string;
@@ -42,30 +43,18 @@ interface SelectedChat {
 
 interface MessageListProps {
   onSelectChat: (chat: SelectedChat) => void;
+  selectedRoomId?: string | null;
 }
 
-export default function MessageList({ onSelectChat }: MessageListProps) {
+export default function MessageList({ onSelectChat, selectedRoomId }: MessageListProps) {
   const [chatRooms, setChatRooms] = React.useState<ChatRoom[]>([]);
   const [filteredRooms, setFilteredRooms] = React.useState<ChatRoom[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [currentUserId, setCurrentUserId] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    fetchChatRooms();
-  }, []);
-
-  React.useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredRooms(chatRooms);
-    } else {
-      const query = searchQuery.toLowerCase();
-      setFilteredRooms(
-        chatRooms.filter((room) => room.name.toLowerCase().includes(query))
-      );
-    }
-  }, [searchQuery, chatRooms]);
-
-  const fetchChatRooms = async () => {
+  // 獲取聊天室列表
+  const fetchChatRooms = React.useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
@@ -88,7 +77,101 @@ export default function MessageList({ onSelectChat }: MessageListProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // 獲取當前用戶 ID
+  React.useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const response = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCurrentUserId(data.user.id);
+        }
+      } catch (error) {
+        console.error('取得用戶資訊錯誤:', error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  // 處理即時訊息更新
+  const handleChatUpdate = React.useCallback((data: {
+    roomId: string;
+    lastMessage: string;
+    lastMessageAt: string;
+    senderId: string;
+    senderName?: string;
+  }) => {
+    setChatRooms((prev) => {
+      const roomIndex = prev.findIndex((room) => room.id === data.roomId);
+      
+      if (roomIndex === -1) {
+        // 如果聊天室不存在，重新獲取列表
+        fetchChatRooms();
+        return prev;
+      }
+
+      const updatedRooms = [...prev];
+      const room = updatedRooms[roomIndex];
+      
+      // 更新訊息預覽和時間
+      updatedRooms[roomIndex] = {
+        ...room,
+        lastMessage: data.lastMessage,
+        lastMessageAt: data.lastMessageAt,
+        // 如果不是當前選中的聊天室，增加未讀數
+        unreadCount: selectedRoomId === data.roomId ? 0 : room.unreadCount + 1,
+      };
+
+      // 將有新訊息的聊天室移到最前面
+      const [updatedRoom] = updatedRooms.splice(roomIndex, 1);
+      updatedRooms.unshift(updatedRoom);
+
+      return updatedRooms;
+    });
+  }, [selectedRoomId, fetchChatRooms]);
+
+  // 訂閱即時更新
+  useUserNotifications(currentUserId, {
+    onChatUpdate: handleChatUpdate,
+  });
+
+  React.useEffect(() => {
+    fetchChatRooms();
+  }, [fetchChatRooms]);
+
+  React.useEffect(() => {
+    // 只顯示有訊息的聊天室
+    const roomsWithMessages = chatRooms.filter((room) => room.lastMessage);
+    
+    if (searchQuery.trim() === '') {
+      setFilteredRooms(roomsWithMessages);
+    } else {
+      const query = searchQuery.toLowerCase();
+      setFilteredRooms(
+        roomsWithMessages.filter((room) => room.name.toLowerCase().includes(query))
+      );
+    }
+  }, [searchQuery, chatRooms]);
+
+  // 當選擇聊天室時，將該聊天室的未讀數設為 0
+  React.useEffect(() => {
+    if (selectedRoomId) {
+      setChatRooms((prev) =>
+        prev.map((room) =>
+          room.id === selectedRoomId ? { ...room, unreadCount: 0 } : room
+        )
+      );
+    }
+  }, [selectedRoomId]);
 
   const formatTime = (dateStr: string) => {
     const date = new Date(dateStr);

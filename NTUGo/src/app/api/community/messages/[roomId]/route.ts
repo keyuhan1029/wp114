@@ -3,7 +3,8 @@ import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { ChatRoomModel } from '@/lib/models/ChatRoom';
 import { MessageModel } from '@/lib/models/Message';
 import { UserModel } from '@/lib/models/User';
-import { triggerNewMessage } from '@/lib/pusher';
+import { triggerNewMessage, triggerChatUpdate } from '@/lib/pusher';
+import { ChatRoom } from '@/lib/models/ChatRoom';
 import { ObjectId } from 'mongodb';
 
 interface RouteParams {
@@ -166,6 +167,29 @@ export async function POST(request: Request, { params }: RouteParams) {
     // 透過 Pusher 推送訊息（如果 Pusher 設定了的話）
     try {
       await triggerNewMessage(roomId, messageData);
+      
+      // 向聊天室其他成員發送更新通知（用於更新訊息列表）
+      const chatRoom = await ChatRoomModel.findById(roomId);
+      if (chatRoom) {
+        const otherMembers = chatRoom.members.filter(
+          (memberId) => memberId.toString() !== payload.userId
+        );
+        
+        const chatUpdateData = {
+          roomId,
+          lastMessage: content.trim(),
+          lastMessageAt: message.createdAt.toISOString(),
+          senderId: payload.userId,
+          senderName: sender?.name || undefined,
+        };
+        
+        // 向每個其他成員發送通知
+        await Promise.all(
+          otherMembers.map((memberId) =>
+            triggerChatUpdate(memberId.toString(), chatUpdateData)
+          )
+        );
+      }
     } catch (pusherError) {
       // Pusher 錯誤不影響訊息發送
       console.warn('Pusher 推送失敗:', pusherError);

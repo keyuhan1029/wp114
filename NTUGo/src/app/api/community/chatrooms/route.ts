@@ -25,7 +25,42 @@ export async function GET(request: Request) {
       );
     }
 
-    const chatRooms = await ChatRoomModel.findByUser(payload.userId);
+    const allChatRooms = await ChatRoomModel.findByUser(payload.userId);
+
+    // 去除重複的私聊聊天室（保留最新的）
+    const seenPrivateChats = new Map<string, typeof allChatRooms[0]>();
+    const chatRooms: typeof allChatRooms = [];
+
+    for (const room of allChatRooms) {
+      if (room.type === 'private') {
+        // 對於私聊，使用排序後的成員 ID 作為唯一鍵
+        const memberKey = room.members
+          .map(m => m.toString())
+          .sort()
+          .join('-');
+        
+        const existing = seenPrivateChats.get(memberKey);
+        if (!existing) {
+          seenPrivateChats.set(memberKey, room);
+          chatRooms.push(room);
+        } else {
+          // 如果已存在，保留最新的（有最新訊息的）
+          const existingTime = existing.lastMessageAt || existing.createdAt;
+          const currentTime = room.lastMessageAt || room.createdAt;
+          if (currentTime > existingTime) {
+            // 替換為更新的聊天室
+            const idx = chatRooms.indexOf(existing);
+            if (idx !== -1) {
+              chatRooms[idx] = room;
+            }
+            seenPrivateChats.set(memberKey, room);
+          }
+        }
+      } else {
+        // 群組聊天直接添加
+        chatRooms.push(room);
+      }
+    }
 
     // 取得未讀數量
     const roomIds = chatRooms.map(room => 
