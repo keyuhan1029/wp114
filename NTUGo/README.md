@@ -24,6 +24,12 @@
   - 🏫 **校園設施**：圖書館、體育館等校內設施
 - **地圖樣式**：黑白灰階主題
 - **InfoWindow**：點擊圖標顯示詳細資訊
+- **🚲 腳踏車標記**：標記自己停放腳踏車的位置，方便找車
+  - 點擊「標記腳踏車位置」按鈕進入標記模式
+  - 在地圖上點擊想標記的位置
+  - 每位用戶可保存一個標記（新標記會覆蓋舊標記）
+  - 可添加備註說明
+  - 可刪除標記
 
 ### 🚌 公車資訊（TDX API）
 - 即時公車到站時間
@@ -60,6 +66,7 @@
 - **視覺化時間選擇器**：彈出式小課表直覺選擇時間
 - **課程資訊**：課程名稱、上課地點、教師姓名
 - **黑白極簡設計**：深色系課程顏色，白色文字
+- **匯出圖片**：將課表匯出為 PNG 圖片，方便分享或保存
 
 ### 👥 社群功能
 - **好友系統**：發送/接受/拒絕好友請求
@@ -174,6 +181,7 @@ NTUGo/
 │   │   │   │   └── items/            # 課程項目 CRUD
 │   │   │   ├── gym/occupancy/        # 健身房人數
 │   │   │   ├── library/info/         # 圖書館資訊
+│   │   │   ├── map/bike-markers/     # 腳踏車標記 API
 │   │   │   └── tdx/                  # TDX 公車 API
 │   │   ├── calendar/                 # 行事曆頁面
 │   │   ├── schedule/                 # 課表頁面
@@ -214,7 +222,8 @@ NTUGo/
 │   │   │   ├── ScheduleItem.ts       # 課程項目模型
 │   │   │   ├── Friendship.ts         # 好友關係模型
 │   │   │   ├── ChatRoom.ts           # 聊天室模型
-│   │   │   └── Message.ts            # 訊息模型
+│   │   │   ├── Message.ts            # 訊息模型
+│   │   │   └── BikeMarker.ts         # 腳踏車標記模型
 │   │   ├── jwt.ts                    # JWT 工具
 │   │   ├── pusher.ts                 # Pusher 伺服器端
 │   │   └── mongodb.ts                # MongoDB 連線
@@ -279,6 +288,13 @@ NTUGo/
 | GET | `/api/tdx/bus-stops` | 公車站點資訊 |
 | GET | `/api/tdx/bus-realtime` | 公車即時到站 |
 | GET | `/api/tdx/bus-news` | 公車動態消息 |
+
+### 地圖 API
+| 方法 | 路徑 | 說明 |
+|------|------|------|
+| GET | `/api/map/bike-markers` | 取得用戶腳踏車標記 |
+| POST | `/api/map/bike-markers` | 新增腳踏車標記 |
+| DELETE | `/api/map/bike-markers/:id` | 刪除腳踏車標記 |
 
 ### 社群 API
 | 方法 | 路徑 | 說明 |

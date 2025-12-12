@@ -20,8 +20,8 @@ export default function BikeMarkerButton({
     <Box
       sx={{
         position: 'absolute',
-        bottom: 100,
-        right: 16,
+        bottom: 70, // 在「當前位置」按鈕上方
+        left: 16,
         zIndex: 1200,
         pointerEvents: 'auto',
       }}

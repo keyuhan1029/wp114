@@ -50,7 +50,7 @@ interface InfoWindowContentProps {
   metroStationTimeTable?: MetroStationTimeTable[];
   metroStationTimeTableLoading?: boolean;
   metroStationTimeTableError?: string | null;
-  selectedUserMarker?: { _id: string; lat: number; lng: number; note?: string } | null;
+  selectedUserMarker?: { _id: string; lat: number; lng: number; note?: string; createdAt?: Date | string } | null;
   onDeleteUserMarker?: (markerId: string) => void;
 }
 
@@ -87,6 +87,7 @@ export default function InfoWindowContent({
           note={selectedUserMarker.note}
           lat={selectedUserMarker.lat}
           lng={selectedUserMarker.lng}
+          createdAt={selectedUserMarker.createdAt}
           onDelete={onDeleteUserMarker}
         />
       )}

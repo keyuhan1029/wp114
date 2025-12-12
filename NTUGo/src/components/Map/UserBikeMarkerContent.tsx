@@ -12,6 +12,7 @@ interface UserBikeMarkerContentProps {
   note?: string;
   lat: number;
   lng: number;
+  createdAt?: Date | string;
   onDelete: (markerId: string) => void;
 }
 
@@ -20,8 +21,21 @@ export default function UserBikeMarkerContent({
   note,
   lat,
   lng,
+  createdAt,
   onDelete,
 }: UserBikeMarkerContentProps) {
+  // 格式化日期時間
+  const formatDateTime = (date: Date | string | undefined) => {
+    if (!date) return null;
+    const d = typeof date === 'string' ? new Date(date) : date;
+    return d.toLocaleString('zh-TW', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
   return (
     <Box>
       <Box
@@ -58,6 +72,17 @@ export default function UserBikeMarkerContent({
           緯度: {lat.toFixed(6)}, 經度: {lng.toFixed(6)}
         </Typography>
       </Box>
+
+      {createdAt && (
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+            標記時間：
+          </Typography>
+          <Typography variant="body2">
+            {formatDateTime(createdAt)}
+          </Typography>
+        </Box>
+      )}
 
       <Button
         variant="outlined"

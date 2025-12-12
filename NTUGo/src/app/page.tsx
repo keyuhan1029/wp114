@@ -29,15 +29,15 @@ function OverlayCard({
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         color: 'white',
         borderRadius: 4,
-        minWidth: 250,
+        width: 300,
         backdropFilter: 'blur(4px)',
       }}
     >
-      <CardContent>
-        <Typography variant="h6" component="div" sx={{ mb: 1, fontWeight: 'bold' }}>
+      <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
+        <Typography variant="subtitle2" component="div" sx={{ mb: 1, fontWeight: 'bold', fontSize: '0.9rem' }}>
           {title}
         </Typography>
-        <List dense disablePadding>
+        <List dense disablePadding sx={{ '& .MuiListItem-root': { py: 0.25 } }}>
           {items.map((item, index) => (
             <ListItem key={index} disablePadding>
               <Box component="span" sx={{ mr: 1 }}>•</Box>
@@ -213,15 +213,11 @@ export default function Home() {
                     .slice(0, 3)
                     .map((event) => {
                       const start = new Date(event.startTime);
-                      const label = `${start.getMonth() + 1}/${
-                        start.getDate()
-                      } ${start
-                        .getHours()
-                        .toString()
-                        .padStart(2, '0')}:${start
-                        .getMinutes()
-                        .toString()
-                        .padStart(2, '0')} - ${event.title}`;
+                      const dateStr = `${start.getMonth() + 1}/${start.getDate()}`;
+                      // 截斷過長的標題
+                      const shortTitle = event.title.length > 15
+                        ? event.title.slice(0, 8) + '...' 
+                        : event.title;
                       return (
                         <Box
                           key={event.id}
@@ -229,20 +225,41 @@ export default function Home() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            gap: 1,
+                            width: '100%',
+                            gap: 0.5,
                           }}
                         >
                           <Typography
-                            variant="body2"
+                            variant="caption"
                             component="span"
-                            sx={{ mr: 1 }}
+                            sx={{ 
+                              flex: 1,
+                              fontSize: '0.7rem',
+                              lineHeight: 1.3,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
                           >
-                            {label}
+                            {dateStr} {shortTitle}
                           </Typography>
                           <Button
                             size="small"
-                            variant="outlined"
+                            variant="contained"
                             onClick={() => handleAddNtuToPersonal(event)}
+                            sx={{
+                              backgroundColor: '#ffffff',
+                              color: '#000000',
+                              fontWeight: 600,
+                              minWidth: 'auto',
+                              px: 1,
+                              py: 0.25,
+                              fontSize: '0.65rem',
+                              flexShrink: 0,
+                              '&:hover': {
+                                backgroundColor: '#e0e0e0',
+                              },
+                            }}
                           >
                             加入
                           </Button>
@@ -254,27 +271,27 @@ export default function Home() {
           <OverlayCard
             title="論壇熱門"
             items={[
-              <Typography key="forum-1" variant="body2" component="span">
+              <Typography key="forum-1" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
-              <Typography key="forum-2" variant="body2" component="span">
+              <Typography key="forum-2" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
-              <Typography key="forum-3" variant="body2" component="span">
+              <Typography key="forum-3" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
             ]}
           />
           <OverlayCard
-            title="交流版最新消息"
+            title="交流版最新"
             items={[
-              <Typography key="exchange-1" variant="body2" component="span">
+              <Typography key="exchange-1" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
-              <Typography key="exchange-2" variant="body2" component="span">
+              <Typography key="exchange-2" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
-              <Typography key="exchange-3" variant="body2" component="span">
+              <Typography key="exchange-3" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
                 XXXXXXXXXXXXXXX
               </Typography>,
             ]}
