@@ -58,6 +58,28 @@ export class ScheduleModel {
     return schedule;
   }
 
+  static async findDefaultByUser(
+    userId: string | ObjectId
+  ): Promise<Schedule | null> {
+    const db = await getDatabase();
+    const queryUserId =
+      typeof userId === 'string' ? new ObjectId(userId) : userId;
+
+    const schedule = await db
+      .collection<Schedule>(this.collectionName)
+      .findOne({ userId: queryUserId, isDefault: true });
+
+    // 如果沒有默認課表，返回第一個課表
+    if (!schedule) {
+      const firstSchedule = await db
+        .collection<Schedule>(this.collectionName)
+        .findOne({ userId: queryUserId });
+      return firstSchedule || null;
+    }
+
+    return schedule;
+  }
+
   static async create(
     data: Omit<Schedule, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<Schedule> {

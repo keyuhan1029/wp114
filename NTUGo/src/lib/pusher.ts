@@ -41,6 +41,8 @@ export const EVENT_NAMES = {
   FRIEND_REQUEST: 'friend-request',
   FRIEND_ACCEPTED: 'friend-accepted',
   CHAT_UPDATE: 'chat-update', // 聊天室列表更新（新訊息預覽）
+  SCHEDULE_SHARE_REQUEST: 'schedule-share-request',
+  SCHEDULE_SHARE_ACCEPTED: 'schedule-share-accepted',
 };
 
 // 觸發聊天室訊息事件
@@ -138,5 +140,29 @@ export async function triggerMessageRead(
 ) {
   const pusher = getPusher();
   await pusher.trigger(CHANNEL_NAMES.chatRoom(roomId), EVENT_NAMES.MESSAGE_READ, data);
+}
+
+// 觸發課表分享請求通知
+export async function triggerScheduleShareRequest(
+  userId: string,
+  data: {
+    shareId?: string;
+    senderId: string;
+  }
+) {
+  const pusher = getPusher();
+  await pusher.trigger(CHANNEL_NAMES.userPrivate(userId), EVENT_NAMES.SCHEDULE_SHARE_REQUEST, data);
+}
+
+// 觸發課表分享接受通知
+export async function triggerScheduleShareAccepted(
+  userId: string,
+  data: {
+    shareId?: string;
+    receiverId: string;
+  }
+) {
+  const pusher = getPusher();
+  await pusher.trigger(CHANNEL_NAMES.userPrivate(userId), EVENT_NAMES.SCHEDULE_SHARE_ACCEPTED, data);
 }
 

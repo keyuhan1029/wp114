@@ -20,6 +20,18 @@ interface FriendRequest {
   createdAt: string;
 }
 
+interface ScheduleShareRequest {
+  shareId: string;
+  user: {
+    id: string;
+    userId?: string | null;
+    name?: string | null;
+    avatar?: string | null;
+    department?: string | null;
+  } | null;
+  createdAt: string;
+}
+
 interface FriendRequestsProps {
   onRequestHandled?: () => void;
   onViewProfile?: (userId: string) => void;
@@ -28,6 +40,8 @@ interface FriendRequestsProps {
 export default function FriendRequests({ onRequestHandled, onViewProfile }: FriendRequestsProps) {
   const [receivedRequests, setReceivedRequests] = React.useState<FriendRequest[]>([]);
   const [sentRequests, setSentRequests] = React.useState<FriendRequest[]>([]);
+  const [receivedScheduleShares, setReceivedScheduleShares] = React.useState<ScheduleShareRequest[]>([]);
+  const [sentScheduleShares, setSentScheduleShares] = React.useState<ScheduleShareRequest[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [processingIds, setProcessingIds] = React.useState<Set<string>>(new Set());
 
@@ -41,11 +55,17 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
       const token = localStorage.getItem('token');
 
       // 同時獲取收到的和已送出的請求
-      const [receivedRes, sentRes] = await Promise.all([
+      const [receivedRes, sentRes, receivedScheduleRes, sentScheduleRes] = await Promise.all([
         fetch('/api/community/friends/requests?type=received', {
           headers: { Authorization: `Bearer ${token}` },
         }),
         fetch('/api/community/friends/requests?type=sent', {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch('/api/community/schedule-share/requests?type=received', {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch('/api/community/schedule-share/requests?type=sent', {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -59,8 +79,18 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
         const data = await sentRes.json();
         setSentRequests(data.requests);
       }
+
+      if (receivedScheduleRes.ok) {
+        const data = await receivedScheduleRes.json();
+        setReceivedScheduleShares(data.requests);
+      }
+
+      if (sentScheduleRes.ok) {
+        const data = await sentScheduleRes.json();
+        setSentScheduleShares(data.requests);
+      }
     } catch (error) {
-      console.error('取得好友請求錯誤:', error);
+      console.error('取得請求錯誤:', error);
     } finally {
       setLoading(false);
     }
@@ -158,6 +188,127 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
     }
   };
 
+  const handleAcceptScheduleShare = async (shareId: string) => {
+    try {
+      console.log('接受課表分享請求:', shareId);
+      setProcessingIds((prev) => new Set(prev).add(shareId));
+      const token = localStorage.getItem('token');
+
+      if (!shareId) {
+        throw new Error('分享 ID 不能為空');
+      }
+
+      const response = await fetch(`/api/community/schedule-share/${encodeURIComponent(shareId)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        let errorMessage = '接受課表分享請求失敗';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          // 如果 JSON 解析失败，使用默认错误消息
+          errorMessage = `接受課表分享請求失敗 (${response.status})`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      // 移除已處理的請求
+      setReceivedScheduleShares((prev) => prev.filter((r) => r.shareId !== shareId));
+      onRequestHandled?.();
+    } catch (error: any) {
+      console.error('接受課表分享請求錯誤:', error);
+      alert(error.message || '接受課表分享請求失敗');
+    } finally {
+      setProcessingIds((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(shareId);
+        return newSet;
+      });
+    }
+  };
+
+  const handleRejectScheduleShare = async (shareId: string) => {
+    try {
+      setProcessingIds((prev) => new Set(prev).add(shareId));
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`/api/community/schedule-share/${shareId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        let errorMessage = '拒絕課表分享請求失敗';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          errorMessage = `拒絕課表分享請求失敗 (${response.status})`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      // 移除已處理的請求
+      setReceivedScheduleShares((prev) => prev.filter((r) => r.shareId !== shareId));
+      onRequestHandled?.();
+    } catch (error) {
+      console.error('拒絕課表分享請求錯誤:', error);
+      alert('拒絕課表分享請求失敗');
+    } finally {
+      setProcessingIds((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(shareId);
+        return newSet;
+      });
+    }
+  };
+
+  const handleCancelSentScheduleShare = async (shareId: string) => {
+    try {
+      setProcessingIds((prev) => new Set(prev).add(shareId));
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`/api/community/schedule-share/${shareId}?action=cancel`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        let errorMessage = '取消課表分享請求失敗';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          errorMessage = `取消課表分享請求失敗 (${response.status})`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      // 移除已取消的請求
+      setSentScheduleShares((prev) => prev.filter((r) => r.shareId !== shareId));
+      onRequestHandled?.();
+    } catch (error) {
+      console.error('取消課表分享請求錯誤:', error);
+      alert('取消課表分享請求失敗');
+    } finally {
+      setProcessingIds((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(shareId);
+        return newSet;
+      });
+    }
+  };
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
@@ -166,7 +317,8 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
     );
   }
 
-  if (receivedRequests.length === 0 && sentRequests.length === 0) {
+  if (receivedRequests.length === 0 && sentRequests.length === 0 && 
+      receivedScheduleShares.length === 0 && sentScheduleShares.length === 0) {
     return null;
   }
 
@@ -383,6 +535,234 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
                     '取消請求'
                   )}
                 </Button>
+              </Box>
+            ))}
+          </Box>
+        </>
+      )}
+
+      {/* 收到的課表分享請求 */}
+      {receivedScheduleShares.length > 0 && (
+        <>
+          <Typography variant="h6" sx={{ fontWeight: 600, color: '#1a1a2e', mb: 2, mt: 3 }}>
+            課表分享請求
+          </Typography>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 3 }}>
+            {receivedScheduleShares.map((request) => (
+              <Box
+                key={request.shareId}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  p: 2,
+                  bgcolor: '#f5f7fa',
+                  borderRadius: 2,
+                  border: '1px solid #e0e4e8',
+                }}
+              >
+                {request.user && (
+                  <>
+                    <Avatar
+                      src={request.user.avatar || undefined}
+                      sx={{
+                        bgcolor: '#0F4C75',
+                        width: 48,
+                        height: 48,
+                        mr: 2,
+                        cursor: 'pointer',
+                        '&:hover': {
+                          opacity: 0.8,
+                        },
+                      }}
+                      onClick={() => onViewProfile?.(request.user!.id)}
+                    >
+                      {(request.user.name || request.user.userId)?.[0]?.toUpperCase()}
+                    </Avatar>
+
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Typography 
+                          sx={{ 
+                            fontWeight: 500, 
+                            color: '#1a1a2e',
+                            cursor: 'pointer',
+                            '&:hover': {
+                              textDecoration: 'underline',
+                            },
+                          }}
+                          onClick={() => onViewProfile?.(request.user!.id)}
+                        >
+                          {request.user.name || request.user.userId || '用戶'}
+                        </Typography>
+                        {request.user.department && (
+                          <Chip
+                            label={request.user.department}
+                            size="small"
+                            sx={{
+                              height: 20,
+                              fontSize: '0.7rem',
+                              bgcolor: '#e8f5e9',
+                              color: '#2e7d32',
+                            }}
+                          />
+                        )}
+                      </Box>
+                      <Typography variant="caption" sx={{ color: '#9e9e9e' }}>
+                        想與您分享課表
+                      </Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => handleAcceptScheduleShare(request.shareId)}
+                        disabled={processingIds.has(request.shareId)}
+                        sx={{
+                          borderRadius: 4,
+                          textTransform: 'none',
+                          minWidth: 70,
+                          borderColor: '#4caf50',
+                          color: '#4caf50',
+                          '&:hover': {
+                            borderColor: '#45a049',
+                            bgcolor: 'rgba(76, 175, 80, 0.04)',
+                          },
+                        }}
+                      >
+                        {processingIds.has(request.shareId) ? (
+                          <CircularProgress size={16} />
+                        ) : (
+                          '同意'
+                        )}
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => handleRejectScheduleShare(request.shareId)}
+                        disabled={processingIds.has(request.shareId)}
+                        sx={{
+                          borderRadius: 4,
+                          textTransform: 'none',
+                          minWidth: 70,
+                          borderColor: '#bdbdbd',
+                          color: '#757575',
+                          '&:hover': {
+                            borderColor: '#9e9e9e',
+                            bgcolor: 'rgba(0, 0, 0, 0.04)',
+                          },
+                        }}
+                      >
+                        取消
+                      </Button>
+                    </Box>
+                  </>
+                )}
+              </Box>
+            ))}
+          </Box>
+        </>
+      )}
+
+      {/* 已送出的課表分享請求 */}
+      {sentScheduleShares.length > 0 && (
+        <>
+          <Typography variant="h6" sx={{ fontWeight: 600, color: '#1a1a2e', mb: 2, mt: 3 }}>
+            已送出的課表分享邀請
+          </Typography>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            {sentScheduleShares.map((request) => (
+              <Box
+                key={request.shareId}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  p: 2,
+                  bgcolor: '#fff8e1',
+                  borderRadius: 2,
+                  border: '1px solid #ffe0b2',
+                }}
+              >
+                {request.user && (
+                  <>
+                    <Avatar
+                      src={request.user.avatar || undefined}
+                      sx={{
+                        bgcolor: '#0F4C75',
+                        width: 48,
+                        height: 48,
+                        mr: 2,
+                        cursor: 'pointer',
+                        '&:hover': {
+                          opacity: 0.8,
+                        },
+                      }}
+                      onClick={() => onViewProfile?.(request.user!.id)}
+                    >
+                      {(request.user.name || request.user.userId)?.[0]?.toUpperCase()}
+                    </Avatar>
+
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Typography 
+                          sx={{ 
+                            fontWeight: 500, 
+                            color: '#1a1a2e',
+                            cursor: 'pointer',
+                            '&:hover': {
+                              textDecoration: 'underline',
+                            },
+                          }}
+                          onClick={() => onViewProfile?.(request.user!.id)}
+                        >
+                          {request.user.name || request.user.userId || '用戶'}
+                        </Typography>
+                        {request.user.department && (
+                          <Chip
+                            label={request.user.department}
+                            size="small"
+                            sx={{
+                              height: 20,
+                              fontSize: '0.7rem',
+                              bgcolor: '#e8f5e9',
+                              color: '#2e7d32',
+                            }}
+                          />
+                        )}
+                      </Box>
+                      <Typography variant="caption" sx={{ color: '#9e9e9e' }}>
+                        等待對方回應
+                      </Typography>
+                    </Box>
+
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleCancelSentScheduleShare(request.shareId)}
+                      disabled={processingIds.has(request.shareId)}
+                      sx={{
+                        borderRadius: 4,
+                        textTransform: 'none',
+                        minWidth: 90,
+                        borderColor: '#bdbdbd',
+                        color: '#757575',
+                        '&:hover': {
+                          borderColor: '#f44336',
+                          color: '#f44336',
+                          bgcolor: 'rgba(244, 67, 54, 0.04)',
+                        },
+                      }}
+                    >
+                      {processingIds.has(request.shareId) ? (
+                        <CircularProgress size={16} />
+                      ) : (
+                        '取消請求'
+                      )}
+                    </Button>
+                  </>
+                )}
               </Box>
             ))}
           </Box>

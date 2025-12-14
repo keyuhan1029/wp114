@@ -16,7 +16,7 @@ import NotificationMenu from '@/components/Layout/NotificationMenu';
 
 interface NotificationItem {
   id: string;
-  type: 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite';
+  type: 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite' | 'schedule_share';
   title: string;
   content: string;
   relatedId?: string | null;
@@ -254,6 +254,8 @@ export default function TopBar() {
     } else if (notification.type === 'new_message' && notification.relatedId) {
       router.push('/community');
     } else if (notification.type === 'group_invite') {
+      router.push('/community');
+    } else if (notification.type === 'schedule_share') {
       router.push('/community');
     }
   };

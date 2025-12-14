@@ -1,18 +1,20 @@
 import { ObjectId } from 'mongodb';
 import { getDatabase } from '../mongodb';
 
-export type NotificationType = 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite';
+export type NotificationType = 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite' | 'schedule_share';
 
 export interface Notification {
   _id?: string | ObjectId;
-  userId: ObjectId;           // 接收通知的用戶
-  type: NotificationType;
-  title: string;
-  content: string;
-  relatedId?: string;         // 相關資源 ID（如 friendshipId, roomId）
-  senderId?: ObjectId;        // 發送者 ID（用於顯示頭像）
-  isRead: boolean;
-  createdAt: Date;
+    userId: ObjectId;           // 接收通知的用戶
+    type: NotificationType;
+    title: string;
+    content?: string;           // 改為可選，因為有些通知使用 message 欄位
+    message?: string;           // 通知訊息
+    relatedId?: string;         // 相關資源 ID（如 friendshipId, roomId, shareId）
+    relatedType?: string;       // 相關資源類型（如 'friendship', 'schedule_share'）
+    senderId?: ObjectId;        // 發送者 ID（用於顯示頭像）
+    isRead: boolean;
+    createdAt: Date;
 }
 
 export interface NotificationWithSender extends Notification {
@@ -31,8 +33,10 @@ export class NotificationModel {
     userId: string | ObjectId;
     type: NotificationType;
     title: string;
-    content: string;
+    content?: string;
+    message?: string;
     relatedId?: string;
+    relatedType?: string;
     senderId?: string | ObjectId;
   }): Promise<Notification> {
     const db = await getDatabase();
@@ -47,7 +51,9 @@ export class NotificationModel {
       type: data.type,
       title: data.title,
       content: data.content,
+      message: data.message,
       relatedId: data.relatedId,
+      relatedType: data.relatedType,
       senderId: senderObjId,
       isRead: false,
       createdAt: new Date(),

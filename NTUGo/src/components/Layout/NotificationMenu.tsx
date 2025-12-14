@@ -13,10 +13,11 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import MessageIcon from '@mui/icons-material/Message';
 import GroupIcon from '@mui/icons-material/Group';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 interface NotificationItem {
   id: string;
-  type: 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite';
+  type: 'friend_request' | 'friend_accepted' | 'new_message' | 'group_invite' | 'schedule_share';
   title: string;
   content: string;
   relatedId?: string | null;
@@ -60,6 +61,8 @@ export default function NotificationMenu({
         return <MessageIcon sx={{ color: '#ff9800' }} />;
       case 'group_invite':
         return <GroupIcon sx={{ color: '#9c27b0' }} />;
+      case 'schedule_share':
+        return <CalendarTodayIcon sx={{ color: '#00bcd4' }} />;
       default:
         return <PersonIcon sx={{ color: '#757575' }} />;
     }

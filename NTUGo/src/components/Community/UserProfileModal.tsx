@@ -47,6 +47,7 @@ export default function UserProfileModal({
   const [status, setStatus] = React.useState<string>('');
   const [sendingRequest, setSendingRequest] = React.useState(false);
   const [removingFriend, setRemovingFriend] = React.useState(false);
+  const [sendingScheduleShare, setSendingScheduleShare] = React.useState(false);
 
   React.useEffect(() => {
     if (open && userId) {
@@ -193,6 +194,35 @@ export default function UserProfileModal({
     }
   };
 
+  const handleShareSchedule = async () => {
+    if (!userId || sendingScheduleShare) return;
+
+    try {
+      setSendingScheduleShare(true);
+      const token = localStorage.getItem('token');
+
+      const response = await fetch('/api/community/schedule-share', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ targetUserId: userId }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || '發送課表分享請求失敗');
+      }
+
+      alert('課表分享請求已發送！');
+    } catch (error: any) {
+      alert(error.message || '發送課表分享請求失敗');
+    } finally {
+      setSendingScheduleShare(false);
+    }
+  };
+
   const getFriendshipButton = () => {
     if (!user) return null;
 
@@ -217,6 +247,26 @@ export default function UserProfileModal({
             }}
           >
             發送訊息
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleShareSchedule}
+            disabled={sendingScheduleShare}
+            sx={{
+              mb: 1.5,
+              py: 1.5,
+              borderRadius: 2,
+              backgroundColor: '#4caf50',
+              color: '#ffffff',
+              fontWeight: 600,
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#45a049',
+              },
+            }}
+          >
+            {sendingScheduleShare ? <CircularProgress size={20} sx={{ color: '#ffffff' }} /> : '分享課表'}
           </Button>
           <Button
             fullWidth

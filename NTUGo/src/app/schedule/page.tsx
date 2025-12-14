@@ -8,6 +8,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 import DownloadIcon from '@mui/icons-material/Download';
 import MainLayout from '@/components/Layout/MainLayout';
 import ScheduleGrid from '@/components/Schedule/ScheduleGrid';
@@ -25,6 +29,24 @@ interface Schedule {
 interface ScheduleItemClient extends ScheduleItem {
   _id: string;
   scheduleId: string;
+  isFriendSchedule?: boolean; // 標記是否為好友的課程
+  friendName?: string; // 好友名稱（用於顯示）
+}
+
+interface SharedSchedule {
+  shareId: string;
+  friend: {
+    id: string;
+    userId?: string | null;
+    name?: string | null;
+    avatar?: string | null;
+    department?: string | null;
+  };
+  schedule: {
+    _id: string;
+    name: string;
+    items: ScheduleItemClient[];
+  };
 }
 
 export default function SchedulePage() {
@@ -52,6 +74,9 @@ export default function SchedulePage() {
     editingItemId?: string | null;
   } | null>(null);
   const [exporting, setExporting] = React.useState(false);
+  const [sharedSchedules, setSharedSchedules] = React.useState<SharedSchedule[]>([]);
+  const [selectedFriendIds, setSelectedFriendIds] = React.useState<Set<string>>(new Set());
+  const [loadingSharedSchedules, setLoadingSharedSchedules] = React.useState(false);
 
   const loadScheduleItems = React.useCallback(async (scheduleId: string) => {
     try {
@@ -124,6 +149,39 @@ export default function SchedulePage() {
   React.useEffect(() => {
     loadSchedulesRef.current = loadSchedules;
   }, [loadSchedules]);
+
+  // 載入已接受的好友課表分享
+  const loadSharedSchedules = React.useCallback(async () => {
+    try {
+      setLoadingSharedSchedules(true);
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const response = await fetch('/api/schedule/shared', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('載入好友課表失敗');
+      }
+
+      const data = await response.json();
+      setSharedSchedules(data.sharedSchedules || []);
+    } catch (error) {
+      console.error('載入好友課表失敗:', error);
+    } finally {
+      setLoadingSharedSchedules(false);
+    }
+  }, []);
+
+  // 在認證後載入好友課表
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      loadSharedSchedules();
+    }
+  }, [isAuthenticated, loadSharedSchedules]);
 
   // 驗證登入
   React.useEffect(() => {
@@ -231,6 +289,12 @@ export default function SchedulePage() {
   };
 
   const handleItemClick = (item: ScheduleItem) => {
+    // 如果是好友的課程，不允許編輯
+    const itemClient = item as ScheduleItemClient;
+    if (itemClient.isFriendSchedule) {
+      return; // 不打開編輯對話框
+    }
+
     setCourseDialogData({
       dayOfWeek: item.dayOfWeek,
       periodStart: item.periodStart,
@@ -374,6 +438,61 @@ export default function SchedulePage() {
     }
   };
 
+  // 處理好友課表選擇
+  const handleFriendScheduleToggle = (friendId: string) => {
+    setSelectedFriendIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(friendId)) {
+        newSet.delete(friendId);
+      } else {
+        newSet.add(friendId);
+      }
+      return newSet;
+    });
+  };
+
+  // 為好友分配不同的顏色（用於區分）
+  const friendColors = React.useMemo(() => {
+    const colors = [
+      '#9c27b0', // 紫色
+      '#f44336', // 紅色
+      '#ff9800', // 橙色
+      '#4caf50', // 綠色
+      '#2196f3', // 藍色
+      '#00bcd4', // 青色
+      '#e91e63', // 粉紅色
+      '#795548', // 棕色
+    ];
+    const colorMap = new Map<string, string>();
+    sharedSchedules.forEach((shared, index) => {
+      if (selectedFriendIds.has(shared.friend.id)) {
+        colorMap.set(shared.friend.id, colors[index % colors.length]);
+      }
+    });
+    return colorMap;
+  }, [sharedSchedules, selectedFriendIds]);
+
+  // 合併自己的課表和選中好友的課表
+  const mergedItems = React.useMemo(() => {
+    let allItems: ScheduleItemClient[] = [...items];
+    
+    // 添加選中好友的課表項目
+    sharedSchedules.forEach((shared) => {
+      if (selectedFriendIds.has(shared.friend.id)) {
+        // 為好友的課表項目添加標記，標記為好友課程
+        const friendItems = shared.schedule.items.map((item) => ({
+          ...item,
+          isFriendSchedule: true,
+          friendName: shared.friend.name || shared.friend.userId || '好友',
+          // 好友的課程使用透明背景，保留原顏色作為邊框顏色
+        }));
+        allItems = [...allItems, ...friendItems];
+      }
+    });
+
+    return allItems;
+  }, [items, sharedSchedules, selectedFriendIds]);
+
   if (isAuthenticated === null || loading) {
     return (
       <MainLayout>
@@ -453,7 +572,7 @@ export default function SchedulePage() {
             {currentScheduleId ? (
               <ScheduleGrid
                 ref={scheduleGridRef}
-                items={items}
+                items={mergedItems}
                 onCellClick={handleCellClick}
                 onItemClick={handleItemClick}
               />
@@ -474,24 +593,122 @@ export default function SchedulePage() {
           </Box>
         </Card>
 
-        {/* 右側課表列表 */}
-        <Card
+        {/* 右側課表列表和好友課表 */}
+        <Box
           sx={{
-            width: 160,
+            width: 280,
             flexShrink: 0,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-            borderRadius: 2,
-            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
           }}
         >
-          <ScheduleSidebar
-            schedules={schedules}
-            currentScheduleId={currentScheduleId}
-            onSelectSchedule={handleSelectSchedule}
-            onAddSchedule={handleAddSchedule}
-            onDeleteSchedule={handleDeleteSchedule}
-          />
-        </Card>
+          {/* 我的課表 */}
+          <Card
+            sx={{
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              borderRadius: 2,
+              overflow: 'hidden',
+            }}
+          >
+            <ScheduleSidebar
+              schedules={schedules}
+              currentScheduleId={currentScheduleId}
+              onSelectSchedule={handleSelectSchedule}
+              onAddSchedule={handleAddSchedule}
+              onDeleteSchedule={handleDeleteSchedule}
+            />
+          </Card>
+
+          {/* 好友課表 */}
+          {sharedSchedules.length > 0 && (
+            <Card
+              sx={{
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                borderRadius: 2,
+                overflow: 'hidden',
+                maxHeight: 'calc(100vh - 200px)',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Box
+                sx={{
+                  p: 2,
+                  borderBottom: '1px solid #eee',
+                  bgcolor: '#f5f7fa',
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }}>
+                  好友課表
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  overflow: 'auto',
+                  flex: 1,
+                }}
+              >
+                {loadingSharedSchedules ? (
+                  <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+                    <CircularProgress size={24} />
+                  </Box>
+                ) : (
+                  sharedSchedules.map((shared) => (
+                    <Box key={shared.shareId}>
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          display: 'flex',
+                          alignItems: 'center',
+                          '&:hover': {
+                            bgcolor: '#fafafa',
+                          },
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={selectedFriendIds.has(shared.friend.id)}
+                              onChange={() => handleFriendScheduleToggle(shared.friend.id)}
+                              size="small"
+                              sx={{
+                                color: '#0F4C75',
+                                '&.Mui-checked': {
+                                  color: '#0F4C75',
+                                },
+                              }}
+                            />
+                          }
+                          label={
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
+                              <Avatar
+                                src={shared.friend.avatar || undefined}
+                                sx={{
+                                  width: 28,
+                                  height: 28,
+                                  bgcolor: '#0F4C75',
+                                  fontSize: '0.75rem',
+                                }}
+                              >
+                                {(shared.friend.name || shared.friend.userId)?.[0]?.toUpperCase()}
+                              </Avatar>
+                              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                                {shared.friend.name || shared.friend.userId || '用戶'}
+                              </Typography>
+                            </Box>
+                          }
+                          sx={{ margin: 0, flex: 1 }}
+                        />
+                      </Box>
+                      <Divider />
+                    </Box>
+                  ))
+                )}
+              </Box>
+            </Card>
+          )}
+        </Box>
       </Box>
       {courseDialogData && (
         <CourseDialog
