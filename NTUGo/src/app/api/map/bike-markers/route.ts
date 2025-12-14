@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { BikeMarkerModel } from '@/lib/models/BikeMarker';
+import { deleteFile } from '@/lib/cloudinary';
 import { ObjectId } from 'mongodb';
 
 // 獲取當前用戶的所有腳踏車標記
@@ -35,6 +36,8 @@ export async function GET(request: Request) {
         lat: marker.lat,
         lng: marker.lng,
         note: marker.note,
+        imageUrl: marker.imageUrl,
+        imagePublicId: marker.imagePublicId,
         createdAt: marker.createdAt,
         updatedAt: marker.updatedAt,
       } : null,
@@ -68,7 +71,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { lat, lng, note } = await request.json();
+    const { lat, lng, note, imageUrl, imagePublicId } = await request.json();
 
     if (typeof lat !== 'number' || typeof lng !== 'number') {
       return NextResponse.json(
@@ -77,7 +80,22 @@ export async function POST(request: Request) {
       );
     }
 
-    // 先刪除該用戶的所有舊標記（每個用戶只能有一個標記）
+    // 先獲取舊標記，以便刪除 Cloudinary 上的照片
+    const oldMarkers = await BikeMarkerModel.findByUserId(payload.userId);
+    
+    // 刪除舊標記的 Cloudinary 照片
+    for (const oldMarker of oldMarkers) {
+      if (oldMarker.imagePublicId) {
+        try {
+          await deleteFile(oldMarker.imagePublicId);
+        } catch (error) {
+          console.error('刪除 Cloudinary 照片失敗:', error);
+          // 繼續刪除標記，即使照片刪除失敗
+        }
+      }
+    }
+
+    // 刪除該用戶的所有舊標記（每個用戶只能有一個標記）
     await BikeMarkerModel.deleteAllByUserId(payload.userId);
 
     // 創建新標記
@@ -86,6 +104,8 @@ export async function POST(request: Request) {
       lat,
       lng,
       note: note || undefined,
+      imageUrl: imageUrl || undefined,
+      imagePublicId: imagePublicId || undefined,
     });
 
     return NextResponse.json({
@@ -95,6 +115,8 @@ export async function POST(request: Request) {
         lat: marker.lat,
         lng: marker.lng,
         note: marker.note,
+        imageUrl: marker.imageUrl,
+        imagePublicId: marker.imagePublicId,
         createdAt: marker.createdAt,
         updatedAt: marker.updatedAt,
       },

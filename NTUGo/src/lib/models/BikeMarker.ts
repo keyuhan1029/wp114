@@ -7,6 +7,8 @@ export interface BikeMarker {
   lat: number;
   lng: number;
   note?: string; // 可選的備註
+  imageUrl?: string; // 照片的 Cloudinary URL
+  imagePublicId?: string; // 照片的 Cloudinary publicId（用於刪除）
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +19,8 @@ export class BikeMarkerModel {
     lat: number;
     lng: number;
     note?: string;
+    imageUrl?: string;
+    imagePublicId?: string;
   }): Promise<BikeMarker> {
     const db = await getDatabase();
     const now = new Date();
@@ -28,6 +32,8 @@ export class BikeMarkerModel {
       lat: markerData.lat,
       lng: markerData.lng,
       note: markerData.note,
+      imageUrl: markerData.imageUrl,
+      imagePublicId: markerData.imagePublicId,
       createdAt: now,
       updatedAt: now,
     };
@@ -71,6 +77,19 @@ export class BikeMarkerModel {
     });
     
     return result.deletedCount;
+  }
+
+  static async findById(markerId: string | ObjectId, userId: string | ObjectId): Promise<BikeMarker | null> {
+    const db = await getDatabase();
+    const markerIdObj = typeof markerId === 'string' ? new ObjectId(markerId) : markerId;
+    const userIdObj = typeof userId === 'string' ? new ObjectId(userId) : userId;
+    
+    const marker = await db.collection<BikeMarker>('bikeMarkers').findOne({
+      _id: markerIdObj,
+      userId: userIdObj,
+    });
+    
+    return marker || null;
   }
 }
 

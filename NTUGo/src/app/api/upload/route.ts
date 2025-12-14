@@ -46,6 +46,7 @@ export async function POST(request: Request) {
 
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
+    const folderParam = formData.get('folder') as string | null;
 
     if (!file) {
       return NextResponse.json(
@@ -78,9 +79,13 @@ export async function POST(request: Request) {
     const isImage = ALLOWED_IMAGE_TYPES.includes(file.type);
     const resourceType = isImage ? 'image' : 'raw';
 
+    // 決定文件夾路徑
+    const folderName = folderParam || 'chat';
+    const folder = `ntugo/${folderName}/${payload.userId}`;
+
     // 上傳到 Cloudinary
     const result = await uploadFile(buffer, {
-      folder: `ntugo/chat/${payload.userId}`,
+      folder,
       resourceType,
     });
 

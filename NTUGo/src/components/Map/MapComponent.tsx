@@ -10,6 +10,7 @@ import InfoWindowHeader from './InfoWindowHeader';
 import InfoWindowContent from './InfoWindowContent';
 import CurrentLocationButton from './CurrentLocationButton';
 import BikeMarkerButton from './BikeMarkerButton';
+import BikeMarkerPhotoDialog from './BikeMarkerPhotoDialog';
 import SVGOverlay from './SVGOverlay';
 import {
   fetchYouBikeStations,
@@ -204,6 +205,8 @@ export default function MapComponent() {
     lat: number;
     lng: number;
     note?: string;
+    imageUrl?: string;
+    imagePublicId?: string;
     createdAt: Date;
     updatedAt: Date;
   }
@@ -211,6 +214,8 @@ export default function MapComponent() {
   const [userBikeMarkers, setUserBikeMarkers] = React.useState<UserBikeMarker[]>([]);
   const [markerLoading, setMarkerLoading] = React.useState<boolean>(false);
   const [selectedUserMarker, setSelectedUserMarker] = React.useState<UserBikeMarker | null>(null);
+  const [photoDialogOpen, setPhotoDialogOpen] = React.useState<boolean>(false);
+  const [pendingMarkerLocation, setPendingMarkerLocation] = React.useState<{ lat: number; lng: number } | null>(null);
 
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
@@ -246,18 +251,29 @@ export default function MapComponent() {
   }, []);
 
   // 在地圖上添加標記
-  const handleMapClick = React.useCallback(async (e: google.maps.MapMouseEvent) => {
+  const handleMapClick = React.useCallback((e: google.maps.MapMouseEvent) => {
     if (!isMarkingMode || !e.latLng) return;
 
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
 
+    // 打開照片上傳對話框
+    setPendingMarkerLocation({ lat, lng });
+    setPhotoDialogOpen(true);
+  }, [isMarkingMode]);
+
+  // 確認創建標記（包含照片信息）
+  const handleConfirmMarker = React.useCallback(async (imageUrl: string | null, imagePublicId: string | null) => {
+    if (!pendingMarkerLocation) return;
+
     try {
       setMarkerLoading(true);
+      setPhotoDialogOpen(false);
       const token = localStorage.getItem('token');
       if (!token) {
         alert('請先登入');
         setIsMarkingMode(false);
+        setPendingMarkerLocation(null);
         return;
       }
 
@@ -267,7 +283,12 @@ export default function MapComponent() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ lat, lng }),
+        body: JSON.stringify({
+          lat: pendingMarkerLocation.lat,
+          lng: pendingMarkerLocation.lng,
+          imageUrl: imageUrl || undefined,
+          imagePublicId: imagePublicId || undefined,
+        }),
       });
 
       if (response.ok) {
@@ -287,8 +308,15 @@ export default function MapComponent() {
       alert('添加標記失敗');
     } finally {
       setMarkerLoading(false);
+      setPendingMarkerLocation(null);
     }
-  }, [isMarkingMode]);
+  }, [pendingMarkerLocation]);
+
+  // 取消標記
+  const handleCancelMarker = React.useCallback(() => {
+    setPhotoDialogOpen(false);
+    setPendingMarkerLocation(null);
+  }, []);
 
   // 刪除用戶標記
   const handleDeleteUserMarker = React.useCallback(async (markerId: string) => {
@@ -940,8 +968,17 @@ export default function MapComponent() {
           if (isMarkingMode) {
             setSelectedMarker(null);
             setSelectedUserMarker(null);
+            setPhotoDialogOpen(false);
+            setPendingMarkerLocation(null);
           }
         }}
+      />
+
+      {/* 照片上傳對話框 */}
+      <BikeMarkerPhotoDialog
+        open={photoDialogOpen}
+        onClose={handleCancelMarker}
+        onConfirm={handleConfirmMarker}
       />
 
       {/* 位置錯誤提示 */}

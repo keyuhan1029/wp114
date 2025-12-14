@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { BikeMarkerModel } from '@/lib/models/BikeMarker';
+import { deleteFile } from '@/lib/cloudinary';
 import { ObjectId } from 'mongodb';
 
 // 刪除指定的腳踏車標記
@@ -33,6 +34,19 @@ export async function DELETE(
         { message: '無效的標記 ID' },
         { status: 400 }
       );
+    }
+
+    // 先獲取標記信息，以便刪除 Cloudinary 上的照片
+    const marker = await BikeMarkerModel.findById(id, payload.userId);
+
+    // 如果標記存在且有照片，先刪除 Cloudinary 上的照片
+    if (marker && marker.imagePublicId) {
+      try {
+        await deleteFile(marker.imagePublicId);
+      } catch (error) {
+        console.error('刪除 Cloudinary 照片失敗:', error);
+        // 繼續刪除標記，即使照片刪除失敗
+      }
     }
 
     const deleted = await BikeMarkerModel.deleteById(id, payload.userId);
