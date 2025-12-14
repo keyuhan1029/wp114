@@ -220,6 +220,48 @@ export default function MapComponent() {
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
+    // 地圖載入完成後自動獲取當前位置
+    if (navigator.geolocation) {
+      setIsGettingLocation(true);
+      setLocationError(null);
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCurrentLocation(location);
+          setIsGettingLocation(false);
+
+          // 將地圖中心移動到當前位置
+          map.setCenter(location);
+          map.setZoom(17);
+        },
+        (error) => {
+          setIsGettingLocation(false);
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setLocationError('已拒絕地理定位權限，請在瀏覽器設定中允許位置存取');
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setLocationError('無法取得位置資訊');
+              break;
+            case error.TIMEOUT:
+              setLocationError('取得位置資訊逾時');
+              break;
+            default:
+              setLocationError('取得位置資訊時發生錯誤');
+              break;
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        }
+      );
+    }
   }, []);
 
   const onUnmount = React.useCallback(function callback() {
