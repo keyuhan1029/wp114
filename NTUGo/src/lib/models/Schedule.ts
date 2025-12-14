@@ -80,7 +80,7 @@ export class ScheduleModel {
       await db
         .collection<Schedule>(this.collectionName)
         .updateMany(
-          { userId: userObjectId, _id: { $ne: null } },
+          { userId: userObjectId },
           { $set: { isDefault: false } }
         );
     } else {

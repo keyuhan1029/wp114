@@ -37,10 +37,11 @@ async function getTDXToken(): Promise<string> {
   }
 
   const data = await response.json();
-  cachedToken = data.access_token;
+  const token: string = data.access_token;
+  cachedToken = token;
   tokenExpiryTime = now + TOKEN_CACHE_DURATION;
   
-  return cachedToken;
+  return token;
 }
 
 /**

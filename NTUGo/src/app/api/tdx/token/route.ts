@@ -37,11 +37,12 @@ async function getTDXToken(): Promise<string> {
     }
 
     const data = await response.json();
-    cachedToken = data.access_token;
+    const token: string = data.access_token;
+    cachedToken = token;
     // Token 有效期通常是 3600 秒，提前 5 分鐘過期
     tokenExpiry = Date.now() + (data.expires_in - 300) * 1000;
 
-    return cachedToken;
+    return token;
   } catch (error) {
     console.error('獲取 TDX token 失敗:', error);
     throw error;

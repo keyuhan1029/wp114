@@ -230,11 +230,11 @@ export default function SchedulePage() {
     setCourseDialogOpen(true);
   };
 
-  const handleItemClick = (item: ScheduleItemClient) => {
+  const handleItemClick = (item: ScheduleItem) => {
     setCourseDialogData({
       dayOfWeek: item.dayOfWeek,
       periodStart: item.periodStart,
-      editingItemId: item._id,
+      editingItemId: item._id?.toString(),
       initialData: {
         courseName: item.courseName,
         location: item.location || '',
