@@ -87,6 +87,7 @@ export default function ChatRoom({
   const [addMemberModalOpen, setAddMemberModalOpen] = React.useState(false);
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const messageInputRef = React.useRef<HTMLTextAreaElement>(null);
 
   // 當 initialRoomId prop 變化時，同步更新 roomId 狀態並清除訊息
   React.useEffect(() => {
@@ -230,6 +231,20 @@ export default function ChatRoom({
     scrollToBottom();
   }, [messages]);
 
+  // 自動聚焦輸入框
+  React.useEffect(() => {
+    // 當聊天室 ID 變化或組件載入時，自動聚焦輸入框
+    if (roomId && !loading) {
+      // 使用 setTimeout 確保 DOM 已完全渲染
+      const timer = setTimeout(() => {
+        if (messageInputRef.current) {
+          messageInputRef.current.focus();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [roomId, loading]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -350,6 +365,12 @@ export default function ChatRoom({
         }
         return [...prev, data.message];
       });
+      // 發送訊息後重新聚焦輸入框
+      setTimeout(() => {
+        if (messageInputRef.current) {
+          messageInputRef.current.focus();
+        }
+      }, 50);
     } catch (error) {
       console.error('發送訊息錯誤:', error);
       setNewMessage(messageContent); // 恢復訊息
@@ -426,6 +447,12 @@ export default function ChatRoom({
         }
         return [...prev, data.message];
       });
+      // 上傳檔案後重新聚焦輸入框
+      setTimeout(() => {
+        if (messageInputRef.current) {
+          messageInputRef.current.focus();
+        }
+      }, 50);
     } catch (error: any) {
       console.error('檔案上傳錯誤:', error);
       alert(error.message || '檔案上傳失敗');
@@ -809,6 +836,7 @@ export default function ChatRoom({
         </IconButton>
         
         <TextField
+          inputRef={messageInputRef}
           fullWidth
           multiline
           maxRows={4}
