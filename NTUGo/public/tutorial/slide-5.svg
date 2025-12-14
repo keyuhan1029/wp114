@@ -1,0 +1,7 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#6A1B9A"/>
+  <path d="M 300 200 L 400 300 L 300 400" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 400 200 L 500 300 L 400 400" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle" font-weight="bold">開始您的旅程</text>
+  <text x="400" y="530" font-family="Arial, sans-serif" font-size="20" fill="#F3E5F5" text-anchor="middle">現在就開始探索 NTUGo 的所有功能吧！</text>
+</svg>

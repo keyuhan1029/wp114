@@ -1,0 +1,11 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#2E7D32"/>
+  <rect x="250" y="150" width="80" height="80" fill="white" opacity="0.3" rx="8"/>
+  <rect x="350" y="150" width="80" height="80" fill="white" opacity="0.3" rx="8"/>
+  <rect x="450" y="150" width="80" height="80" fill="white" opacity="0.3" rx="8"/>
+  <rect x="250" y="250" width="80" height="80" fill="white" opacity="0.5" rx="8"/>
+  <rect x="350" y="250" width="80" height="80" fill="white" rx="8"/>
+  <rect x="450" y="250" width="80" height="80" fill="white" opacity="0.3" rx="8"/>
+  <text x="400" y="400" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle" font-weight="bold">管理您的課表</text>
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="20" fill="#E8F5E9" text-anchor="middle">輕鬆管理課程並與好友分享</text>
+</svg>

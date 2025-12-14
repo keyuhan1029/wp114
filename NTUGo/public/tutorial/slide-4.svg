@@ -1,0 +1,10 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#F57C00"/>
+  <circle cx="320" cy="250" r="50" fill="white"/>
+  <circle cx="400" cy="250" r="50" fill="white"/>
+  <circle cx="480" cy="250" r="50" fill="white"/>
+  <line x1="320" y1="250" x2="400" y2="250" stroke="white" stroke-width="4"/>
+  <line x1="400" y1="250" x2="480" y2="250" stroke="white" stroke-width="4"/>
+  <text x="400" y="380" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle" font-weight="bold">加入社群</text>
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="20" fill="#FFF3E0" text-anchor="middle">與同學交流，加入聊天室，建立友誼</text>
+</svg>

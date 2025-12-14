@@ -1,0 +1,7 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#1565C0"/>
+  <circle cx="400" cy="250" r="80" fill="white" opacity="0.3"/>
+  <circle cx="400" cy="250" r="50" fill="white"/>
+  <text x="400" y="380" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle" font-weight="bold">探索校園地圖</text>
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="20" fill="#E3F2FD" text-anchor="middle">找到教室、圖書館、健身房等設施</text>
+</svg>

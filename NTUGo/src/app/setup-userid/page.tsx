@@ -59,8 +59,8 @@ function SetupUserIdContent() {
         throw new Error(data.message || '設定失敗');
       }
 
-      // 設定成功，重定向到首頁
-      router.push('/');
+      // 設定成功，重定向到教学页面
+      router.push('/tutorial');
     } catch (err: any) {
       setError(err.message || '設定失敗，請稍後再試');
     } finally {
