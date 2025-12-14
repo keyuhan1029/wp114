@@ -66,14 +66,73 @@ export function PusherProvider({ children }: PusherProviderProps) {
       console.log('Pusher 已斷線');
     });
 
+    pusherInstance.connection.bind('failed', () => {
+      setIsConnected(false);
+      console.error('Pusher 連線失敗');
+    });
+
+    pusherInstance.connection.bind('unavailable', () => {
+      setIsConnected(false);
+      console.error('Pusher 服務不可用');
+    });
+
+    pusherInstance.connection.bind('connecting', () => {
+      console.log('Pusher 正在連線...');
+    });
+
+    pusherInstance.connection.bind('state_change', (states: { previous: string; current: string }) => {
+      console.log(`Pusher 狀態變更: ${states.previous} -> ${states.current}`);
+    });
+
     pusherInstance.connection.bind('error', (err: any) => {
       // Pusher 錯誤物件需要特殊處理才能正確顯示
+      let errorMessage = '未知錯誤';
+      let errorCode = '';
+      let errorType = '';
+
+      // 嘗試提取各種可能的錯誤信息格式
       if (err?.error?.data) {
-        console.error('Pusher 錯誤:', err.error.data.code, err.error.data.message);
+        errorCode = err.error.data.code || '';
+        errorMessage = err.error.data.message || errorMessage;
+        errorType = err.type || 'PusherError';
+      } else if (err?.error?.message) {
+        errorMessage = err.error.message;
+        errorCode = err.error.code || '';
+        errorType = err.type || 'PusherError';
       } else if (err?.type) {
-        console.error('Pusher 錯誤類型:', err.type, err.error || '');
-      } else {
-        console.error('Pusher 連線錯誤:', JSON.stringify(err, null, 2));
+        errorType = err.type;
+        errorMessage = err.message || err.error || errorMessage;
+        errorCode = err.code || '';
+      } else if (err?.message) {
+        errorMessage = err.message;
+        errorCode = err.code || '';
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      } else if (err && typeof err === 'object') {
+        // 嘗試提取所有可能的屬性
+        errorMessage = err.message || err.msg || err.error || JSON.stringify(err);
+        errorCode = err.code || err.status || '';
+      }
+
+      // 輸出詳細錯誤信息
+      const errorDetails: any = {
+        type: errorType || 'PusherError',
+        message: errorMessage,
+      };
+      
+      if (errorCode) {
+        errorDetails.code = errorCode;
+      }
+
+      // 檢查連接狀態
+      errorDetails.state = pusherInstance.connection.state;
+      errorDetails.socketId = pusherInstance.connection.socket_id || '未連接';
+
+      console.error('Pusher 連線錯誤:', errorDetails);
+      
+      // 如果是關鍵錯誤，輸出原始錯誤對象以便調試
+      if (process.env.NODE_ENV === 'development') {
+        console.error('原始錯誤對象:', err);
       }
     });
 
