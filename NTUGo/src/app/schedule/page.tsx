@@ -254,6 +254,43 @@ export default function SchedulePage() {
     }
   };
 
+  const handleUpdateSchedule = async (scheduleId: string, name: string, isDefault: boolean) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/schedule/${scheduleId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name, isDefault }),
+      });
+
+      if (!response.ok) {
+        throw new Error('更新課表失敗');
+      }
+
+      const data = await response.json();
+      
+      // 更新課表列表
+      const updatedSchedules = schedules.map((s) =>
+        s._id === scheduleId ? { ...s, name: data.schedule.name, isDefault: data.schedule.isDefault } : s
+      );
+      setSchedules(updatedSchedules);
+
+      // 如果設為默認，確保其他課表不是默認
+      if (isDefault) {
+        const finalSchedules = updatedSchedules.map((s) =>
+          s._id !== scheduleId ? { ...s, isDefault: false } : s
+        );
+        setSchedules(finalSchedules);
+      }
+    } catch (error) {
+      console.error('更新課表失敗:', error);
+      alert('更新課表失敗');
+    }
+  };
+
   const handleDeleteSchedule = async (scheduleId: string) => {
     try {
       const token = localStorage.getItem('token');
@@ -663,6 +700,7 @@ export default function SchedulePage() {
               onSelectSchedule={handleSelectSchedule}
               onAddSchedule={handleAddSchedule}
               onDeleteSchedule={handleDeleteSchedule}
+              onUpdateSchedule={handleUpdateSchedule}
             />
           </Card>
 
