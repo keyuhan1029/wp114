@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { targetUserId } = body;
+    const { targetUserId, scheduleId } = body;
 
     if (!targetUserId) {
       return NextResponse.json({ message: '缺少目標用戶 ID' }, { status: 400 });
@@ -34,8 +34,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: '只能與好友分享課表' }, { status: 403 });
     }
 
-    // 發送分享請求
-    const share = await ScheduleShareModel.sendRequest(userId, targetUserId);
+    // 檢查是否已經分享過相同的課表（在 sendRequest 中會檢查並返回現有記錄）
+    // 這裡不需要重複檢查，讓 sendRequest 處理
+
+    // 發送分享請求（scheduleId 是可選的，如果未提供則使用默認課表）
+    const share = await ScheduleShareModel.sendRequest(userId, targetUserId, scheduleId);
+
+    // 檢查是否是已存在的分享（sendRequest 會返回已接受的分享記錄）
+    if (share.status === 'accepted') {
+      return NextResponse.json(
+        { message: '此刻表已分享', alreadyShared: true, share: {
+          ...share,
+          _id: share._id?.toString(),
+          senderId: share.senderId.toString(),
+          receiverId: share.receiverId.toString(),
+          scheduleId: share.scheduleId?.toString(),
+          createdAt: share.createdAt.toISOString(),
+          updatedAt: share.updatedAt.toISOString(),
+        }},
+        { status: 200 }
+      );
+    }
 
     // 發送通知
     try {
@@ -62,6 +81,7 @@ export async function POST(request: NextRequest) {
       _id: share._id?.toString(),
       senderId: share.senderId.toString(),
       receiverId: share.receiverId.toString(),
+      scheduleId: share.scheduleId?.toString(),
       createdAt: share.createdAt.toISOString(),
       updatedAt: share.updatedAt.toISOString(),
     };

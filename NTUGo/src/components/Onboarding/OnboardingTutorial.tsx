@@ -231,3 +231,4 @@ export default function OnboardingTutorial({ slides, onComplete }: OnboardingTut
     </Box>
   );
 }
+

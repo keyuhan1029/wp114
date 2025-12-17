@@ -7,6 +7,8 @@ export interface ScheduleShare {
   _id?: string | ObjectId;
   senderId: ObjectId; // 發送分享請求的用戶
   receiverId: ObjectId; // 接收分享請求的用戶
+  scheduleId?: ObjectId; // 發送者要分享的課表 ID（如果未指定，則分享默認課表）
+  receiverScheduleId?: ObjectId; // 接收者要分享的課表 ID（在接受請求時選擇）
   status: ScheduleShareStatus;
   createdAt: Date;
   updatedAt: Date;
@@ -18,44 +20,93 @@ export class ScheduleShareModel {
   // 發送課表分享請求
   static async sendRequest(
     senderId: string | ObjectId,
-    receiverId: string | ObjectId
+    receiverId: string | ObjectId,
+    scheduleId?: string | ObjectId
   ): Promise<ScheduleShare> {
     const db = await getDatabase();
 
     const senderObjId = typeof senderId === 'string' ? new ObjectId(senderId) : senderId;
     const receiverObjId = typeof receiverId === 'string' ? new ObjectId(receiverId) : receiverId;
+    const scheduleObjId = scheduleId 
+      ? (typeof scheduleId === 'string' ? new ObjectId(scheduleId) : scheduleId)
+      : undefined;
 
-    // 檢查是否已存在分享關係
-    const existing = await db.collection<ScheduleShare>(this.collectionName).findOne({
-      senderId: senderObjId,
-      receiverId: receiverObjId,
-    });
+    // 檢查是否已存在相同課表的分享關係
+    if (scheduleObjId) {
+      const existing = await db.collection<ScheduleShare>(this.collectionName).findOne({
+        senderId: senderObjId,
+        receiverId: receiverObjId,
+        scheduleId: scheduleObjId,
+      });
 
-    if (existing) {
-      if (existing.status === 'pending') {
-        throw new Error('已發送課表分享請求，等待對方回應');
+      if (existing) {
+        if (existing.status === 'pending') {
+          throw new Error('已發送課表分享請求，等待對方回應');
+        }
+        if (existing.status === 'accepted') {
+          // 如果已接受的分享是相同的課表，返回現有記錄（前端會顯示已分享提示）
+          return existing;
+        }
       }
-      if (existing.status === 'accepted') {
-        throw new Error('已與對方分享課表');
+    } else {
+      // 如果沒有指定 scheduleId，檢查是否有未指定 scheduleId 的分享
+      const existing = await db.collection<ScheduleShare>(this.collectionName).findOne({
+        senderId: senderObjId,
+        receiverId: receiverObjId,
+        $or: [
+          { scheduleId: { $exists: false } },
+          { scheduleId: { $eq: null } },
+        ],
+      } as any);
+
+      if (existing) {
+        if (existing.status === 'pending') {
+          throw new Error('已發送課表分享請求，等待對方回應');
+        }
+        if (existing.status === 'accepted') {
+          return existing;
+        }
       }
-      // 如果是 rejected，可以重新發送
     }
 
     const share: ScheduleShare = {
       senderId: senderObjId,
       receiverId: receiverObjId,
+      scheduleId: scheduleObjId,
       status: 'pending',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
-    if (existing && existing.status === 'rejected') {
+    // 檢查是否有 rejected 的記錄需要更新
+    let rejectedExisting: ScheduleShare | null = null;
+    if (scheduleObjId) {
+      rejectedExisting = await db.collection<ScheduleShare>(this.collectionName).findOne({
+        senderId: senderObjId,
+        receiverId: receiverObjId,
+        scheduleId: scheduleObjId,
+        status: 'rejected',
+      });
+    } else {
+      rejectedExisting = await db.collection<ScheduleShare>(this.collectionName).findOne({
+        senderId: senderObjId,
+        receiverId: receiverObjId,
+        $or: [
+          { scheduleId: { $exists: false } },
+          { scheduleId: { $eq: null } },
+        ],
+        status: 'rejected',
+      } as any);
+    }
+
+    if (rejectedExisting) {
       // 更新現有的 rejected 記錄
       const result = await db.collection<ScheduleShare>(this.collectionName).findOneAndUpdate(
-        { _id: existing._id },
+        { _id: rejectedExisting._id },
         {
           $set: {
             status: 'pending',
+            scheduleId: scheduleObjId,
             updatedAt: new Date(),
           },
         },
@@ -71,7 +122,8 @@ export class ScheduleShareModel {
   // 接受課表分享請求
   static async acceptRequest(
     shareId: string | ObjectId,
-    receiverId: string | ObjectId
+    receiverId: string | ObjectId,
+    receiverScheduleId?: string | ObjectId
   ): Promise<ScheduleShare> {
     const db = await getDatabase();
 
@@ -83,6 +135,9 @@ export class ScheduleShareModel {
     }
 
     const receiverObjId = typeof receiverId === 'string' ? new ObjectId(receiverId) : receiverId;
+    const receiverScheduleObjId = receiverScheduleId 
+      ? (typeof receiverScheduleId === 'string' ? new ObjectId(receiverScheduleId) : receiverScheduleId)
+      : undefined;
 
     // 先查找分享記錄，不限制 receiverId，以便調試
     const share = await db.collection<ScheduleShare>(this.collectionName).findOne({
@@ -102,6 +157,16 @@ export class ScheduleShareModel {
       throw new Error(`此請求已處理 (狀態: ${share.status})`);
     }
 
+    const updateData: any = {
+      status: 'accepted',
+      updatedAt: new Date(),
+    };
+
+    // 如果提供了接收者的課表 ID，則保存
+    if (receiverScheduleObjId) {
+      updateData.receiverScheduleId = receiverScheduleObjId;
+    }
+
     const result = await db.collection<ScheduleShare>(this.collectionName).findOneAndUpdate(
       { 
         _id: shareObjId,
@@ -109,10 +174,7 @@ export class ScheduleShareModel {
         status: 'pending'
       },
       {
-        $set: {
-          status: 'accepted',
-          updatedAt: new Date(),
-        },
+        $set: updateData,
       },
       { returnDocument: 'after' }
     );

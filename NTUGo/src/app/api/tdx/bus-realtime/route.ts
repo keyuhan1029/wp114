@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { safeJsonParse } from '@/lib/utils/safeJsonParse';
 
 // TDX API 認證資訊
 const TDX_CLIENT_ID = process.env.TDX_CLIENT_ID || '';
@@ -36,7 +37,7 @@ async function getTDXToken(): Promise<string> {
     throw new Error(`TDX 認證失敗: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = await safeJsonParse<{ access_token: string }>(response, 'TDX Token API');
   const token: string = data.access_token;
   cachedToken = token;
   tokenExpiryTime = now + TOKEN_CACHE_DURATION;
@@ -89,7 +90,7 @@ async function fetchWithRetry(
         return [];
       }
 
-      const data = await response.json();
+      const data = await safeJsonParse<any[]>(response, 'Bus RealTime API');
       return Array.isArray(data) ? data : [];
     } catch (error) {
       if (attempt < maxRetries - 1) {
@@ -150,7 +151,7 @@ export async function GET(request: NextRequest) {
       );
 
       if (stopsResponse.ok) {
-        const stopsData = await stopsResponse.json();
+        const stopsData = await safeJsonParse<any[]>(stopsResponse, 'Bus Stops Search API');
         const matchingStops = Array.isArray(stopsData) ? stopsData : [];
         
         // 只保留完全匹配的站點（eq 查詢應該已經完全匹配，但為了安全再過濾一次）
