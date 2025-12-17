@@ -1,0 +1,13 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/bus-reminders",
+      "schedule": "*/1 * * * *"
+    },
+    {
+      "path": "/api/cron/announcements",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}
+

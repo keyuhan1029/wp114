@@ -15,6 +15,7 @@ import DirectionsSubwayIcon from '@mui/icons-material/DirectionsSubway';
 import PeopleIcon from '@mui/icons-material/People';
 import SchoolIcon from '@mui/icons-material/School';
 import EmailIcon from '@mui/icons-material/Email';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 import { useMapContext } from '@/contexts/MapContext';
 import { useRouter } from 'next/navigation';
 
@@ -107,15 +108,20 @@ export default function Sidebar() {
     window.open('https://wmail1.cc.ntu.edu.tw/rc/index.php', '_blank');
   }, []);
 
+  const handleAnnouncementsClick = React.useCallback(() => {
+    router.push('/announcements');
+  }, [router]);
+
   const menuItems = React.useMemo(() => [
     { text: '主頁', icon: <HomeIcon />, action: handleHomeClick, active: false },
     { text: '公車', icon: <DirectionsBusIcon />, action: handleBusClick, active: showBusStops },
     { text: 'YouBike', icon: <PedalBikeIcon />, action: handleYouBikeClick, active: showYouBikeStations },
     { text: '捷運', icon: <DirectionsSubwayIcon />, action: handleMetroClick, active: showMetroStations },
     { text: '社群', icon: <PeopleIcon />, action: handleCommunityClick, active: false },
+    { text: '活動', icon: <AnnouncementIcon />, action: handleAnnouncementsClick, active: false },
     { text: 'NTU COOL', icon: <SchoolIcon />, action: handleNTUCOOLClick, active: false },
     { text: 'NTU Mail', icon: <EmailIcon />, action: handleNTUMailClick, active: false },
-  ], [handleHomeClick, handleBusClick, handleYouBikeClick, handleMetroClick, handleCommunityClick, handleNTUCOOLClick, handleNTUMailClick, showBusStops, showYouBikeStations, showMetroStations]);
+  ], [handleHomeClick, handleBusClick, handleYouBikeClick, handleMetroClick, handleCommunityClick, handleAnnouncementsClick, handleNTUCOOLClick, handleNTUMailClick, showBusStops, showYouBikeStations, showMetroStations]);
 
   return (
     <Drawer 
