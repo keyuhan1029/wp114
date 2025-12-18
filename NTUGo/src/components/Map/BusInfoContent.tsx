@@ -87,8 +87,8 @@ const RouteCard = React.memo(({
           </Typography>
           {estimateMinutes !== null && estimateMinutes >= 0 ? (
             <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-              ⏱️ 預估 {estimateMinutes} 分鐘後到站
-              {secondBusTime !== null && (
+              ⏱️ {estimateMinutes === 0 ? '即將進站' : `預估 ${estimateMinutes} 分鐘後到站`}
+              {secondBusTime !== null && secondBusTime > 0 && (
                 <Typography component="span" sx={{ ml: 1, fontSize: '0.85rem' }}>
                   / {secondBusTime} 分鐘
                 </Typography>

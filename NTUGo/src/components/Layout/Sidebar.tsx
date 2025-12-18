@@ -16,6 +16,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import SchoolIcon from '@mui/icons-material/School';
 import EmailIcon from '@mui/icons-material/Email';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useMapContext } from '@/contexts/MapContext';
 import { useRouter } from 'next/navigation';
 
@@ -112,6 +113,10 @@ export default function Sidebar() {
     router.push('/announcements');
   }, [router]);
 
+  const handleNTUCourseClick = React.useCallback(() => {
+    window.open('https://course.ntu.edu.tw/', '_blank');
+  }, []);
+
   const menuItems = React.useMemo(() => [
     { text: '主頁', icon: <HomeIcon />, action: handleHomeClick, active: false },
     { text: '公車', icon: <DirectionsBusIcon />, action: handleBusClick, active: showBusStops },
@@ -121,7 +126,8 @@ export default function Sidebar() {
     { text: '活動', icon: <AnnouncementIcon />, action: handleAnnouncementsClick, active: false },
     { text: 'NTU COOL', icon: <SchoolIcon />, action: handleNTUCOOLClick, active: false },
     { text: 'NTU Mail', icon: <EmailIcon />, action: handleNTUMailClick, active: false },
-  ], [handleHomeClick, handleBusClick, handleYouBikeClick, handleMetroClick, handleCommunityClick, handleAnnouncementsClick, handleNTUCOOLClick, handleNTUMailClick, showBusStops, showYouBikeStations, showMetroStations]);
+    { text: '臺大課程網', icon: <MenuBookIcon />, action: handleNTUCourseClick, active: false },
+  ], [handleHomeClick, handleBusClick, handleYouBikeClick, handleMetroClick, handleCommunityClick, handleAnnouncementsClick, handleNTUCOOLClick, handleNTUMailClick, handleNTUCourseClick, showBusStops, showYouBikeStations, showMetroStations]);
 
   return (
     <Drawer 

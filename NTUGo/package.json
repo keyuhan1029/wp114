@@ -29,7 +29,8 @@
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "resend": "^6.6.0"
   },
   "devDependencies": {
     "@types/google.maps": "^3.58.1",

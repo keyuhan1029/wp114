@@ -65,6 +65,9 @@ export class ScheduleModel {
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
+    // 確保只有一個默認課表
+    await this.ensureSingleDefault(userId);
+
     const schedule = await db
       .collection<Schedule>(this.collectionName)
       .findOne({ userId: queryUserId, isDefault: true });
@@ -80,6 +83,42 @@ export class ScheduleModel {
     return schedule;
   }
 
+  /**
+   * 確保用戶只有一個默認課表
+   * 如果有多個默認課表，只保留最早創建的那個
+   */
+  static async ensureSingleDefault(
+    userId: string | ObjectId
+  ): Promise<void> {
+    const db = await getDatabase();
+    const queryUserId =
+      typeof userId === 'string' ? new ObjectId(userId) : userId;
+
+    const defaultSchedules = await db
+      .collection<Schedule>(this.collectionName)
+      .find({ userId: queryUserId, isDefault: true })
+      .sort({ createdAt: 1 })
+      .toArray();
+
+    // 如果有多個默認課表，只保留第一個（最早創建的）
+    if (defaultSchedules.length > 1) {
+      const keepId = defaultSchedules[0]._id;
+      const idsToUpdate = defaultSchedules
+        .slice(1)
+        .map((s) => s._id)
+        .filter((id) => id && id.toString() !== keepId?.toString());
+
+      if (idsToUpdate.length > 0) {
+        await db
+          .collection<Schedule>(this.collectionName)
+          .updateMany(
+            { _id: { $in: idsToUpdate } },
+            { $set: { isDefault: false } }
+          );
+      }
+    }
+  }
+
   static async create(
     data: Omit<Schedule, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<Schedule> {
@@ -87,6 +126,18 @@ export class ScheduleModel {
 
     const userObjectId =
       typeof data.userId === 'string' ? new ObjectId(data.userId) : data.userId;
+
+    // 檢查是否已有相同名稱的課表
+    const existingSchedule = await db
+      .collection<Schedule>(this.collectionName)
+      .findOne({
+        userId: userObjectId,
+        name: data.name.trim(),
+      });
+
+    if (existingSchedule) {
+      throw new Error('已存在相同名稱的課表');
+    }
 
     const now = new Date();
     const newSchedule: Schedule = {
@@ -133,6 +184,21 @@ export class ScheduleModel {
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
+    // 如果要更新名稱，檢查是否已有相同名稱的課表（排除當前課表）
+    if (data.name !== undefined) {
+      const existingSchedule = await db
+        .collection<Schedule>(this.collectionName)
+        .findOne({
+          userId: queryUserId,
+          name: data.name.trim(),
+          _id: { $ne: queryId },
+        });
+
+      if (existingSchedule) {
+        throw new Error('已存在相同名稱的課表');
+      }
+    }
+
     // 如果設為默認，將其他課表設為非默認
     if (data.isDefault === true) {
       await db
@@ -147,6 +213,11 @@ export class ScheduleModel {
       ...data,
       updatedAt: new Date(),
     };
+
+    // 如果更新了名稱，確保 trim
+    if (updateData.name) {
+      updateData.name = updateData.name.trim();
+    }
 
     const result = await db
       .collection<Schedule>(this.collectionName)

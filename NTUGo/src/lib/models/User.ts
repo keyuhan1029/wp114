@@ -12,6 +12,9 @@ export interface User {
   avatar?: string;
   department?: string; // 系所
   provider: 'email' | 'google'; // 登入方式
+  emailVerified?: boolean; // 郵箱是否已驗證
+  emailVerifiedAt?: Date; // 郵箱驗證時間
+  isSchoolEmail?: boolean; // 是否為學校郵箱（通過域名判斷）
   lastSeen?: Date; // 最後上線時間
   createdAt: Date;
   updatedAt: Date;
@@ -62,6 +65,9 @@ export class UserModel {
       avatar: userData.avatar,
       provider: userData.provider,
       userId: userData.userId,
+      emailVerified: false,
+      emailVerifiedAt: undefined,
+      isSchoolEmail: false,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -223,6 +229,32 @@ export class UserModel {
       { _id: queryId },
       { $set: { lastSeen: new Date() } }
     );
+  }
+
+  // 更新郵箱驗證狀態
+  static async updateEmailVerificationStatus(
+    userId: string | ObjectId,
+    verified: boolean
+  ): Promise<User | null> {
+    const db = await getDatabase();
+    const queryId = typeof userId === 'string' ? new ObjectId(userId) : userId;
+    
+    const updateData: any = {
+      emailVerified: verified,
+      updatedAt: new Date(),
+    };
+    
+    if (verified) {
+      updateData.emailVerifiedAt = new Date();
+    }
+    
+    const result = await db.collection<User>('users').findOneAndUpdate(
+      { _id: queryId },
+      { $set: updateData },
+      { returnDocument: 'after' }
+    );
+    
+    return (result as User) || null;
   }
 }
 

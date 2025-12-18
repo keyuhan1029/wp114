@@ -8,16 +8,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import DownloadIcon from '@mui/icons-material/Download';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import MainLayout from '@/components/Layout/MainLayout';
 import ScheduleGrid from '@/components/Schedule/ScheduleGrid';
 import ScheduleSidebar from '@/components/Schedule/ScheduleSidebar';
+import FriendSchedulesList from '@/components/Schedule/FriendSchedulesList';
 import CourseDialog, { CourseFormData } from '@/components/Schedule/CourseDialog';
 import { ScheduleItem } from '@/lib/models/ScheduleItem';
 import html2canvas from 'html2canvas';
@@ -81,6 +78,19 @@ export default function SchedulePage() {
   const [loadingSharedSchedules, setLoadingSharedSchedules] = React.useState(false);
   const [deleteMode, setDeleteMode] = React.useState(false);
   const [deletingShareIds, setDeletingShareIds] = React.useState<Set<string>>(new Set());
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error' | 'info' | 'warning'>('info');
+
+  const showSnackbar = (message: string, severity: 'success' | 'error' | 'info' | 'warning' = 'info') => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
 
   const loadScheduleItems = React.useCallback(async (scheduleId: string) => {
     try {
@@ -230,6 +240,16 @@ export default function SchedulePage() {
 
   const handleAddSchedule = async (name: string) => {
     try {
+      // 前端檢查：是否已有相同名稱的課表
+      const trimmedName = name.trim();
+      const duplicateSchedule = schedules.find(
+        (s) => s.name.trim().toLowerCase() === trimmedName.toLowerCase()
+      );
+      if (duplicateSchedule) {
+        showSnackbar('已存在相同名稱的課表，請使用不同的名稱', 'error');
+        return;
+      }
+
       const token = localStorage.getItem('token');
       const response = await fetch('/api/schedule', {
         method: 'POST',
@@ -237,25 +257,36 @@ export default function SchedulePage() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name: trimmedName }),
       });
 
       if (!response.ok) {
-        throw new Error('創建課表失敗');
+        const data = await response.json();
+        throw new Error(data.message || '創建課表失敗');
       }
 
       const data = await response.json();
       setSchedules([...schedules, data.schedule]);
       setCurrentScheduleId(data.schedule._id);
       await loadScheduleItems(data.schedule._id);
-    } catch (error) {
+    } catch (error: any) {
       console.error('創建課表失敗:', error);
-      alert('創建課表失敗');
+      showSnackbar(error.message || '創建課表失敗', 'error');
     }
   };
 
   const handleUpdateSchedule = async (scheduleId: string, name: string, isDefault: boolean) => {
     try {
+      // 前端檢查：是否已有相同名稱的課表（排除當前課表）
+      const trimmedName = name.trim();
+      const duplicateSchedule = schedules.find(
+        (s) => s._id !== scheduleId && s.name.trim().toLowerCase() === trimmedName.toLowerCase()
+      );
+      if (duplicateSchedule) {
+        showSnackbar('已存在相同名稱的課表，請使用不同的名稱', 'error');
+        return;
+      }
+
       const token = localStorage.getItem('token');
       const response = await fetch(`/api/schedule/${scheduleId}`, {
         method: 'PUT',
@@ -263,11 +294,12 @@ export default function SchedulePage() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ name, isDefault }),
+        body: JSON.stringify({ name: trimmedName, isDefault }),
       });
 
       if (!response.ok) {
-        throw new Error('更新課表失敗');
+        const data = await response.json();
+        throw new Error(data.message || '更新課表失敗');
       }
 
       const data = await response.json();
@@ -276,18 +308,19 @@ export default function SchedulePage() {
       const updatedSchedules = schedules.map((s) =>
         s._id === scheduleId ? { ...s, name: data.schedule.name, isDefault: data.schedule.isDefault } : s
       );
-      setSchedules(updatedSchedules);
-
+      
       // 如果設為默認，確保其他課表不是默認
       if (isDefault) {
         const finalSchedules = updatedSchedules.map((s) =>
           s._id !== scheduleId ? { ...s, isDefault: false } : s
         );
         setSchedules(finalSchedules);
+      } else {
+        setSchedules(updatedSchedules);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('更新課表失敗:', error);
-      alert('更新課表失敗');
+      showSnackbar(error.message || '更新課表失敗', 'error');
     }
   };
 
@@ -319,7 +352,7 @@ export default function SchedulePage() {
       }
     } catch (error) {
       console.error('刪除課表失敗:', error);
-      alert('刪除課表失敗');
+      showSnackbar('刪除課表失敗', 'error');
     }
   };
 
@@ -410,7 +443,7 @@ export default function SchedulePage() {
       setCourseDialogData(null);
     } catch (error) {
       console.error('保存課程失敗:', error);
-      alert('保存課程失敗');
+      showSnackbar('保存課程失敗', 'error');
     }
   };
 
@@ -442,13 +475,13 @@ export default function SchedulePage() {
       setCourseDialogData(null);
     } catch (error) {
       console.error('刪除課程失敗:', error);
-      alert('刪除課程失敗');
+      showSnackbar('刪除課程失敗', 'error');
     }
   };
 
   const handleExportImage = async () => {
     if (!scheduleGridRef.current) {
-      alert('無法找到課表內容');
+      showSnackbar('無法找到課表內容', 'error');
       return;
     }
 
@@ -473,7 +506,7 @@ export default function SchedulePage() {
       link.click();
     } catch (error) {
       console.error('匯出圖片失敗:', error);
-      alert('匯出圖片失敗，請稍後再試');
+      showSnackbar('匯出圖片失敗，請稍後再試', 'error');
     } finally {
       setExporting(false);
     }
@@ -524,7 +557,7 @@ export default function SchedulePage() {
       }
     } catch (error: any) {
       console.error('刪除課表分享失敗:', error);
-      alert(error.message || '刪除課表分享失敗');
+      showSnackbar(error.message || '刪除課表分享失敗', 'error');
     } finally {
       setDeletingShareIds((prev) => {
         const newSet = new Set(prev);
@@ -705,129 +738,16 @@ export default function SchedulePage() {
           </Card>
 
           {/* 好友課表 */}
-          {sharedSchedules.length > 0 && (
-            <Card
-              sx={{
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                borderRadius: 2,
-                overflow: 'hidden',
-                maxHeight: 'calc(100vh - 200px)',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <Box
-                sx={{
-                  p: 2,
-                  borderBottom: '1px solid #eee',
-                  bgcolor: '#f5f7fa',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }}>
-                  好友課表
-                </Typography>
-                <IconButton
-                  size="small"
-                  onClick={() => setDeleteMode(!deleteMode)}
-                  sx={{
-                    color: deleteMode ? '#f44336' : 'text.secondary',
-                    '&:hover': {
-                      bgcolor: deleteMode ? 'rgba(244, 67, 54, 0.1)' : 'action.hover',
-                    },
-                  }}
-                >
-                  {deleteMode ? <CloseIcon fontSize="small" /> : <DeleteIcon fontSize="small" />}
-                </IconButton>
-              </Box>
-              <Box
-                sx={{
-                  overflow: 'auto',
-                  flex: 1,
-                }}
-              >
-                {loadingSharedSchedules ? (
-                  <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
-                    <CircularProgress size={24} />
-                  </Box>
-                ) : (
-                  sharedSchedules.map((shared) => (
-                    <Box key={shared.shareId}>
-                      <Box
-                        sx={{
-                          p: 1.5,
-                          display: 'flex',
-                          alignItems: 'center',
-                          '&:hover': {
-                            bgcolor: '#fafafa',
-                          },
-                        }}
-                      >
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={selectedFriendIds.has(shared.friend.id)}
-                              onChange={() => handleFriendScheduleToggle(shared.friend.id)}
-                              size="small"
-                              disabled={deleteMode}
-                              sx={{
-                                color: '#0F4C75',
-                                '&.Mui-checked': {
-                                  color: '#0F4C75',
-                                },
-                              }}
-                            />
-                          }
-                          label={
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1, flex: 1 }}>
-                              <Avatar
-                                src={shared.friend.avatar || undefined}
-                                sx={{
-                                  width: 28,
-                                  height: 28,
-                                  bgcolor: '#0F4C75',
-                                  fontSize: '0.75rem',
-                                }}
-                              >
-                                {(shared.friend.name || shared.friend.userId)?.[0]?.toUpperCase()}
-                              </Avatar>
-                              <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                {shared.friend.name || shared.friend.userId || '用戶'}
-                              </Typography>
-                              {deleteMode && (
-                                <IconButton
-                                  size="small"
-                                  onClick={() => handleDeleteSharedSchedule(shared.shareId)}
-                                  disabled={deletingShareIds.has(shared.shareId)}
-                                  sx={{
-                                    color: '#f44336',
-                                    ml: 'auto',
-                                    '&:hover': {
-                                      bgcolor: 'rgba(244, 67, 54, 0.1)',
-                                    },
-                                  }}
-                                >
-                                  {deletingShareIds.has(shared.shareId) ? (
-                                    <CircularProgress size={16} sx={{ color: '#f44336' }} />
-                                  ) : (
-                                    <CloseIcon fontSize="small" />
-                                  )}
-                                </IconButton>
-                              )}
-                            </Box>
-                          }
-                          sx={{ margin: 0, flex: 1 }}
-                        />
-                      </Box>
-                      <Divider />
-                    </Box>
-                  ))
-                )}
-              </Box>
-            </Card>
-          )}
+          <FriendSchedulesList
+            sharedSchedules={sharedSchedules}
+            selectedFriendIds={selectedFriendIds}
+            deleteMode={deleteMode}
+            loading={loadingSharedSchedules}
+            deletingShareIds={deletingShareIds}
+            onToggleFriend={handleFriendScheduleToggle}
+            onToggleDeleteMode={() => setDeleteMode(!deleteMode)}
+            onDeleteSharedSchedule={handleDeleteSharedSchedule}
+          />
         </Box>
       </Box>
       {courseDialogData && (
@@ -850,6 +770,16 @@ export default function SchedulePage() {
           editingItemId={courseDialogData.editingItemId}
         />
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </MainLayout>
   );
 }
