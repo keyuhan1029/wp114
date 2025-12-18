@@ -29,9 +29,12 @@ export async function PUT(
       return NextResponse.json({ message: '缺少分享 ID' }, { status: 400 });
     }
 
-    console.log('接受課表分享請求:', { shareId, userId });
+    const body = await request.json().catch(() => ({}));
+    const { receiverScheduleId } = body;
+
+    console.log('接受課表分享請求:', { shareId, userId, receiverScheduleId });
     
-    const share = await ScheduleShareModel.acceptRequest(shareId, userId);
+    const share = await ScheduleShareModel.acceptRequest(shareId, userId, receiverScheduleId);
 
     // 發送 Pusher 通知
     try {
@@ -48,6 +51,8 @@ export async function PUT(
       _id: share._id?.toString(),
       senderId: share.senderId.toString(),
       receiverId: share.receiverId.toString(),
+      scheduleId: share.scheduleId?.toString(),
+      receiverScheduleId: share.receiverScheduleId?.toString(),
       createdAt: share.createdAt.toISOString(),
       updatedAt: share.updatedAt.toISOString(),
     };

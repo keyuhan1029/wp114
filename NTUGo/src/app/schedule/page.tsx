@@ -13,6 +13,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import DownloadIcon from '@mui/icons-material/Download';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 import MainLayout from '@/components/Layout/MainLayout';
 import ScheduleGrid from '@/components/Schedule/ScheduleGrid';
 import ScheduleSidebar from '@/components/Schedule/ScheduleSidebar';
@@ -77,6 +79,8 @@ export default function SchedulePage() {
   const [sharedSchedules, setSharedSchedules] = React.useState<SharedSchedule[]>([]);
   const [selectedFriendIds, setSelectedFriendIds] = React.useState<Set<string>>(new Set());
   const [loadingSharedSchedules, setLoadingSharedSchedules] = React.useState(false);
+  const [deleteMode, setDeleteMode] = React.useState(false);
+  const [deletingShareIds, setDeletingShareIds] = React.useState<Set<string>>(new Set());
 
   const loadScheduleItems = React.useCallback(async (scheduleId: string) => {
     try {
@@ -247,6 +251,43 @@ export default function SchedulePage() {
     } catch (error) {
       console.error('創建課表失敗:', error);
       alert('創建課表失敗');
+    }
+  };
+
+  const handleUpdateSchedule = async (scheduleId: string, name: string, isDefault: boolean) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/schedule/${scheduleId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name, isDefault }),
+      });
+
+      if (!response.ok) {
+        throw new Error('更新課表失敗');
+      }
+
+      const data = await response.json();
+      
+      // 更新課表列表
+      const updatedSchedules = schedules.map((s) =>
+        s._id === scheduleId ? { ...s, name: data.schedule.name, isDefault: data.schedule.isDefault } : s
+      );
+      setSchedules(updatedSchedules);
+
+      // 如果設為默認，確保其他課表不是默認
+      if (isDefault) {
+        const finalSchedules = updatedSchedules.map((s) =>
+          s._id !== scheduleId ? { ...s, isDefault: false } : s
+        );
+        setSchedules(finalSchedules);
+      }
+    } catch (error) {
+      console.error('更新課表失敗:', error);
+      alert('更新課表失敗');
     }
   };
 
@@ -440,6 +481,7 @@ export default function SchedulePage() {
 
   // 處理好友課表選擇
   const handleFriendScheduleToggle = (friendId: string) => {
+    if (deleteMode) return; // 刪除模式下不允許切換選擇
     setSelectedFriendIds((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(friendId)) {
@@ -449,6 +491,47 @@ export default function SchedulePage() {
       }
       return newSet;
     });
+  };
+
+  // 刪除好友課表分享
+  const handleDeleteSharedSchedule = async (shareId: string) => {
+    try {
+      setDeletingShareIds((prev) => new Set(prev).add(shareId));
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`/api/community/schedule-share/${shareId}?action=delete`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || '刪除課表分享失敗');
+      }
+
+      // 從列表中移除
+      setSharedSchedules((prev) => prev.filter((s) => s.shareId !== shareId));
+      // 如果該好友的課表正在顯示，從選中列表中移除
+      const deletedShare = sharedSchedules.find((s) => s.shareId === shareId);
+      if (deletedShare) {
+        setSelectedFriendIds((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(deletedShare.friend.id);
+          return newSet;
+        });
+      }
+    } catch (error: any) {
+      console.error('刪除課表分享失敗:', error);
+      alert(error.message || '刪除課表分享失敗');
+    } finally {
+      setDeletingShareIds((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(shareId);
+        return newSet;
+      });
+    }
   };
 
   // 為好友分配不同的顏色（用於區分）
@@ -617,6 +700,7 @@ export default function SchedulePage() {
               onSelectSchedule={handleSelectSchedule}
               onAddSchedule={handleAddSchedule}
               onDeleteSchedule={handleDeleteSchedule}
+              onUpdateSchedule={handleUpdateSchedule}
             />
           </Card>
 
@@ -637,11 +721,26 @@ export default function SchedulePage() {
                   p: 2,
                   borderBottom: '1px solid #eee',
                   bgcolor: '#f5f7fa',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}
               >
                 <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1rem' }}>
                   好友課表
                 </Typography>
+                <IconButton
+                  size="small"
+                  onClick={() => setDeleteMode(!deleteMode)}
+                  sx={{
+                    color: deleteMode ? '#f44336' : 'text.secondary',
+                    '&:hover': {
+                      bgcolor: deleteMode ? 'rgba(244, 67, 54, 0.1)' : 'action.hover',
+                    },
+                  }}
+                >
+                  {deleteMode ? <CloseIcon fontSize="small" /> : <DeleteIcon fontSize="small" />}
+                </IconButton>
               </Box>
               <Box
                 sx={{
@@ -672,6 +771,7 @@ export default function SchedulePage() {
                               checked={selectedFriendIds.has(shared.friend.id)}
                               onChange={() => handleFriendScheduleToggle(shared.friend.id)}
                               size="small"
+                              disabled={deleteMode}
                               sx={{
                                 color: '#0F4C75',
                                 '&.Mui-checked': {
@@ -681,7 +781,7 @@ export default function SchedulePage() {
                             />
                           }
                           label={
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1, flex: 1 }}>
                               <Avatar
                                 src={shared.friend.avatar || undefined}
                                 sx={{
@@ -696,6 +796,26 @@ export default function SchedulePage() {
                               <Typography variant="body2" sx={{ fontWeight: 500 }}>
                                 {shared.friend.name || shared.friend.userId || '用戶'}
                               </Typography>
+                              {deleteMode && (
+                                <IconButton
+                                  size="small"
+                                  onClick={() => handleDeleteSharedSchedule(shared.shareId)}
+                                  disabled={deletingShareIds.has(shared.shareId)}
+                                  sx={{
+                                    color: '#f44336',
+                                    ml: 'auto',
+                                    '&:hover': {
+                                      bgcolor: 'rgba(244, 67, 54, 0.1)',
+                                    },
+                                  }}
+                                >
+                                  {deletingShareIds.has(shared.shareId) ? (
+                                    <CircularProgress size={16} sx={{ color: '#f44336' }} />
+                                  ) : (
+                                    <CloseIcon fontSize="small" />
+                                  )}
+                                </IconButton>
+                              )}
                             </Box>
                           }
                           sx={{ margin: 0, flex: 1 }}

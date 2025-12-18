@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { safeJsonParse } from '@/lib/utils/safeJsonParse';
 
 // TDX API 認證資訊
 const TDX_CLIENT_ID = process.env.TDX_CLIENT_ID || '';
@@ -24,7 +25,7 @@ async function getTDXToken(): Promise<string> {
     throw new Error(`TDX 認證失敗: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = await safeJsonParse<{ access_token: string }>(response, 'TDX Token API');
   return data.access_token;
 }
 
@@ -70,7 +71,7 @@ export async function GET(request: NextRequest) {
       throw new Error(`TDX API 請求失敗: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = await safeJsonParse<any[]>(response, 'Bus Stops API');
     return NextResponse.json({ Stops: data });
   } catch (error: any) {
     console.error('獲取公車站牌失敗:', error);

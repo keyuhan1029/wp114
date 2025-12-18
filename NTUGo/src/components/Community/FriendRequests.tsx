@@ -7,6 +7,13 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 
 interface FriendRequest {
   friendshipId: string;
@@ -44,6 +51,11 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
   const [sentScheduleShares, setSentScheduleShares] = React.useState<ScheduleShareRequest[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [processingIds, setProcessingIds] = React.useState<Set<string>>(new Set());
+  const [scheduleSelectDialogOpen, setScheduleSelectDialogOpen] = React.useState(false);
+  const [currentShareId, setCurrentShareId] = React.useState<string | null>(null);
+  const [schedules, setSchedules] = React.useState<Array<{ _id: string; name: string; isDefault?: boolean }>>([]);
+  const [selectedScheduleId, setSelectedScheduleId] = React.useState<string>('');
+  const [loadingSchedules, setLoadingSchedules] = React.useState(false);
 
   React.useEffect(() => {
     fetchRequests();
@@ -188,14 +200,60 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
     }
   };
 
-  const handleAcceptScheduleShare = async (shareId: string) => {
+  const fetchSchedules = async () => {
     try {
-      console.log('接受課表分享請求:', shareId);
+      setLoadingSchedules(true);
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/schedule', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('獲取課表列表失敗');
+      }
+
+      const data = await response.json();
+      const schedulesList = data.schedules || [];
+      setSchedules(schedulesList);
+      
+      // 自動選擇默認課表
+      const defaultSchedule = schedulesList.find((s: any) => s.isDefault) || schedulesList[0];
+      if (defaultSchedule) {
+        setSelectedScheduleId(defaultSchedule._id);
+      }
+    } catch (error) {
+      console.error('獲取課表列表失敗:', error);
+    } finally {
+      setLoadingSchedules(false);
+    }
+  };
+
+  const handleOpenScheduleSelectDialog = (shareId: string) => {
+    setCurrentShareId(shareId);
+    setScheduleSelectDialogOpen(true);
+    fetchSchedules();
+  };
+
+  const handleCloseScheduleSelectDialog = () => {
+    setScheduleSelectDialogOpen(false);
+    setCurrentShareId(null);
+    setSelectedScheduleId('');
+  };
+
+  const handleAcceptScheduleShare = async () => {
+    const shareId = currentShareId;
+    if (!shareId) return;
+
+    try {
+      console.log('接受課表分享請求:', shareId, selectedScheduleId);
       setProcessingIds((prev) => new Set(prev).add(shareId));
       const token = localStorage.getItem('token');
 
-      if (!shareId) {
-        throw new Error('分享 ID 不能為空');
+      const requestBody: { receiverScheduleId?: string } = {};
+      if (selectedScheduleId) {
+        requestBody.receiverScheduleId = selectedScheduleId;
       }
 
       const response = await fetch(`/api/community/schedule-share/${encodeURIComponent(shareId)}`, {
@@ -204,6 +262,7 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
@@ -220,6 +279,7 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
 
       // 移除已處理的請求
       setReceivedScheduleShares((prev) => prev.filter((r) => r.shareId !== shareId));
+      handleCloseScheduleSelectDialog();
       onRequestHandled?.();
     } catch (error: any) {
       console.error('接受課表分享請求錯誤:', error);
@@ -617,7 +677,7 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
                       <Button
                         variant="outlined"
                         size="small"
-                        onClick={() => handleAcceptScheduleShare(request.shareId)}
+                        onClick={() => handleOpenScheduleSelectDialog(request.shareId)}
                         disabled={processingIds.has(request.shareId)}
                         sx={{
                           borderRadius: 4,
@@ -768,6 +828,73 @@ export default function FriendRequests({ onRequestHandled, onViewProfile }: Frie
           </Box>
         </>
       )}
+
+      {/* 課表選擇對話框（用於接受分享時選擇要分享的課表） */}
+      <Dialog 
+        open={scheduleSelectDialogOpen} 
+        onClose={handleCloseScheduleSelectDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>選擇要分享的課表</DialogTitle>
+        <DialogContent>
+          {loadingSchedules ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+              <CircularProgress />
+            </Box>
+          ) : schedules.length === 0 ? (
+            <Typography color="text.secondary" sx={{ py: 2 }}>
+              您還沒有課表
+            </Typography>
+          ) : (
+            <RadioGroup
+              value={selectedScheduleId}
+              onChange={(e) => setSelectedScheduleId(e.target.value)}
+            >
+              {schedules.map((schedule) => (
+                <FormControlLabel
+                  key={schedule._id}
+                  value={schedule._id}
+                  control={<Radio />}
+                  label={
+                    <Box>
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        {schedule.name}
+                      </Typography>
+                      {schedule.isDefault && (
+                        <Typography variant="caption" color="text.secondary">
+                          預設課表
+                        </Typography>
+                      )}
+                    </Box>
+                  }
+                  sx={{ mb: 1 }}
+                />
+              ))}
+            </RadioGroup>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseScheduleSelectDialog}>取消</Button>
+          <Button
+            onClick={handleAcceptScheduleShare}
+            variant="contained"
+            disabled={!selectedScheduleId || loadingSchedules || schedules.length === 0 || processingIds.has(currentShareId || '')}
+            sx={{
+              backgroundColor: '#4caf50',
+              '&:hover': {
+                backgroundColor: '#45a049',
+              },
+            }}
+          >
+            {processingIds.has(currentShareId || '') ? (
+              <CircularProgress size={20} sx={{ color: '#ffffff' }} />
+            ) : (
+              '確認分享'
+            )}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
