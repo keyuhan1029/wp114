@@ -17,7 +17,7 @@ import { useHeartbeat } from '@/hooks/useHeartbeat';
 
 interface SelectedChat {
   roomId: string;
-  type: 'private' | 'group';
+  type: 'private' | 'group' | 'ai';
   name: string;
   avatar?: string;
   friendId?: string;

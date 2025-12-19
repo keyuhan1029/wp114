@@ -17,6 +17,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import ImageIcon from '@mui/icons-material/Image';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DownloadIcon from '@mui/icons-material/Download';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { useChatRoomMessages } from '@/contexts/PusherContext';
 import GroupMembersModal from './GroupMembersModal';
 
@@ -51,7 +52,7 @@ interface ChatRoomProps {
   friendId?: string;
   name: string;
   avatar?: string;
-  type?: 'private' | 'group';
+  type?: 'private' | 'group' | 'ai';
   memberCount?: number;
   onClose: () => void;
   onRoomCreated?: (roomId: string) => void;
@@ -76,6 +77,7 @@ export default function ChatRoom({
   const [newMessage, setNewMessage] = React.useState('');
   const [friendStatus, setFriendStatus] = React.useState<string>('');
   const [currentUserId, setCurrentUserId] = React.useState<string | null>(null);
+  const [currentUserName, setCurrentUserName] = React.useState<string | null>(null);
   const [uploading, setUploading] = React.useState(false);
   const [groupMembers, setGroupMembers] = React.useState<Array<{
     id: string;
@@ -113,6 +115,7 @@ export default function ChatRoom({
         if (response.ok) {
           const data = await response.json();
           setCurrentUserId(data.user.id);
+          setCurrentUserName(data.user.name || data.user.userId || data.user.email || null);
         }
       } catch (error) {
         console.error('取得用戶資訊錯誤:', error);
@@ -174,16 +177,38 @@ export default function ChatRoom({
     }
   }, [currentUserId]);
 
-  useChatRoomMessages(roomId || null, handleNewMessage, handleMessageRead);
+  // 只在非 AI 类型时订阅 Pusher
+  useChatRoomMessages(type !== 'ai' ? (roomId || null) : null, handleNewMessage, handleMessageRead);
 
   React.useEffect(() => {
-    if (roomId) {
+    if (type === 'ai') {
+      // AI 客服模式：添加预设欢迎消息
+      const welcomeMessage: Message = {
+        id: 'welcome-ai-' + Date.now(),
+        senderId: 'ntu-ai-support',
+        sender: {
+          id: 'ntu-ai-support',
+          name: 'NTU AI 客服',
+          avatar: null,
+        },
+        type: 'text',
+        content: currentUserName 
+          ? `您好，${currentUserName}！歡迎使用 NTU AI 客服，我是您的智能助手，隨時為您提供協助。有什麼問題都可以問我哦！😊`
+          : '您好！歡迎使用 NTU AI 客服，我是您的智能助手，隨時為您提供協助。有什麼問題都可以問我哦！😊',
+        file: null,
+        createdAt: new Date().toISOString(),
+        isOwn: false,
+        readBy: [],
+      };
+      setMessages([welcomeMessage]);
+      setLoading(false);
+    } else if (roomId) {
       fetchMessages();
     } else if (friendId) {
       // 如果沒有 roomId 但有 friendId，建立或取得聊天室
       createOrGetRoom();
     }
-  }, [roomId, friendId]);
+  }, [roomId, friendId, type, currentUserName]);
 
   React.useEffect(() => {
     if (friendId) {
@@ -334,7 +359,17 @@ export default function ChatRoom({
   };
 
   const handleSend = async () => {
-    if (!newMessage.trim() || !roomId || sending) return;
+    if (!newMessage.trim() || sending) return;
+    
+    // AI 客服模式：暂时禁用发送，稍后接入 API
+    if (type === 'ai') {
+      console.log('AI 客服消息发送功能待接入 OpenAI API:', newMessage.trim());
+      // TODO: 接入 OpenAI API
+      setNewMessage('');
+      return;
+    }
+
+    if (!roomId) return;
 
     const messageContent = newMessage.trim();
     setNewMessage('');
@@ -491,7 +526,18 @@ export default function ChatRoom({
         }}
       >
         {/* 頭像區域 */}
-        {type === 'group' ? (
+        {type === 'ai' ? (
+          <Avatar
+            sx={{
+              bgcolor: '#0F4C75',
+              width: 44,
+              height: 44,
+              mr: 2,
+            }}
+          >
+            <SmartToyIcon sx={{ color: '#ffffff' }} />
+          </Avatar>
+        ) : type === 'group' ? (
           <AvatarGroup
             max={2}
             total={currentMemberCount - 1} // 不包含自己，正確顯示 +X
@@ -568,6 +614,17 @@ export default function ChatRoom({
               </Typography>
             )}
           </Typography>
+          {type === 'ai' && (
+            <Typography
+              variant="body2"
+              sx={{
+                color: '#9e9e9e',
+                fontSize: '0.85rem',
+              }}
+            >
+              AI 智能助手
+            </Typography>
+          )}
           {type === 'private' && friendStatus && (
             <Typography
               variant="body2"

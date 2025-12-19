@@ -16,6 +16,7 @@ export interface User {
   emailVerifiedAt?: Date; // 郵箱驗證時間
   isSchoolEmail?: boolean; // 是否為學校郵箱（通過域名判斷）
   lastSeen?: Date; // 最後上線時間
+  customStatus?: string; // 用戶自定義狀態
   createdAt: Date;
   updatedAt: Date;
 }
@@ -140,6 +141,7 @@ export class UserModel {
       avatar?: string;
       userId?: string;
       department?: string;
+      customStatus?: string;
     }
   ): Promise<User | null> {
     const db = await getDatabase();
@@ -171,6 +173,9 @@ export class UserModel {
     }
     if (updateData.department !== undefined) {
       updateFields.department = updateData.department;
+    }
+    if (updateData.customStatus !== undefined) {
+      updateFields.customStatus = updateData.customStatus;
     }
 
     const result = await db.collection<User>('users').findOneAndUpdate(

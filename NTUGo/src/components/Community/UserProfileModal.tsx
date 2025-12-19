@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
@@ -70,11 +72,16 @@ export default function UserProfileModal({
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error' | 'info'>('info');
+  const [currentUserId, setCurrentUserId] = React.useState<string | null>(null);
+  const [editingStatus, setEditingStatus] = React.useState(false);
+  const [statusEditValue, setStatusEditValue] = React.useState('');
+  const [savingStatus, setSavingStatus] = React.useState(false);
 
   React.useEffect(() => {
     if (open && userId) {
       fetchUserInfo();
       fetchUserStatus();
+      fetchCurrentUserId();
     }
   }, [open, userId]);
 
@@ -124,7 +131,9 @@ export default function UserProfileModal({
 
       if (response.ok) {
         const data = await response.json();
-        if (data.location) {
+        if (data.status === 'custom' && data.customStatus) {
+          setStatus(data.customStatus);
+        } else if (data.location) {
           setStatus(`@ ${data.location}`);
         } else if (data.status === 'in class') {
           setStatus(data.courseName || '上課中');
@@ -135,6 +144,62 @@ export default function UserProfileModal({
     } catch (error) {
       // 靜默失敗
     }
+  };
+
+  const fetchCurrentUserId = () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      
+      // 從 JWT token 中解析用戶 ID
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload.userId) {
+        setCurrentUserId(payload.userId);
+      }
+    } catch (error) {
+      // 靜默失敗
+    }
+  };
+
+  const handleEditStatus = () => {
+    setStatusEditValue(status);
+    setEditingStatus(true);
+  };
+
+  const handleSaveStatus = async () => {
+    if (savingStatus) return;
+
+    try {
+      setSavingStatus(true);
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/auth/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ customStatus: statusEditValue }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || '更新狀態失敗');
+      }
+
+      setEditingStatus(false);
+      // 重新獲取狀態以確保顯示最新值
+      await fetchUserStatus();
+      showSnackbar('狀態更新成功', 'success');
+    } catch (error: any) {
+      showSnackbar(error.message || '更新狀態失敗', 'error');
+    } finally {
+      setSavingStatus(false);
+    }
+  };
+
+  const handleCancelEditStatus = () => {
+    setEditingStatus(false);
+    setStatusEditValue('');
   };
 
   const handleSendRequest = async () => {
@@ -536,14 +601,64 @@ export default function UserProfileModal({
                     
                     {/* 狀態 */}
                     {status && (
-                      <Chip
-                        label={`狀態：${status}`}
-                        size="small"
-                        sx={{
-                          bgcolor: status === '無課程' ? '#f5f5f5' : '#e8f5e9',
-                          color: status === '無課程' ? '#757575' : '#2e7d32',
-                        }}
-                      />
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        {editingStatus ? (
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <TextField
+                              size="small"
+                              value={statusEditValue}
+                              onChange={(e) => setStatusEditValue(e.target.value)}
+                              placeholder="輸入狀態"
+                              sx={{
+                                '& .MuiOutlinedInput-root': {
+                                  fontSize: '0.875rem',
+                                },
+                              }}
+                              autoFocus
+                            />
+                            <IconButton
+                              size="small"
+                              onClick={handleSaveStatus}
+                              disabled={savingStatus}
+                              sx={{ color: '#4caf50' }}
+                            >
+                              <Typography variant="body2">✓</Typography>
+                            </IconButton>
+                            <IconButton
+                              size="small"
+                              onClick={handleCancelEditStatus}
+                              sx={{ color: '#757575' }}
+                            >
+                              <Typography variant="body2">✕</Typography>
+                            </IconButton>
+                          </Box>
+                        ) : (
+                          <>
+                            <Chip
+                              label={`狀態：${status}`}
+                              size="small"
+                              sx={{
+                                bgcolor: status === '無課程' ? '#f5f5f5' : '#e8f5e9',
+                                color: status === '無課程' ? '#757575' : '#2e7d32',
+                              }}
+                            />
+                            {currentUserId === userId && (
+                              <IconButton
+                                size="small"
+                                onClick={handleEditStatus}
+                                sx={{
+                                  color: 'text.secondary',
+                                  '&:hover': {
+                                    backgroundColor: 'action.hover',
+                                  },
+                                }}
+                              >
+                                <EditIcon fontSize="small" />
+                              </IconButton>
+                            )}
+                          </>
+                        )}
+                      </Box>
                     )}
                   </Box>
 

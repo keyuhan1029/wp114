@@ -48,7 +48,6 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
 
   // Form fields
   const [name, setName] = React.useState('');
-  const [avatar, setAvatar] = React.useState('');
   const [userId, setUserId] = React.useState('');
   const [department, setDepartment] = React.useState('');
 
@@ -77,7 +76,6 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
       const data = await response.json();
       setUser(data.user);
       setName(data.user.name || '');
-      setAvatar(data.user.avatar || '');
       setUserId(data.user.userId || '');
       setDepartment(data.user.department || '');
     } catch (err: any) {
@@ -107,16 +105,12 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
 
       const updateData: {
         name?: string;
-        avatar?: string;
         userId?: string;
         department?: string;
       } = {};
 
       if (name.trim() !== (user?.name || '')) {
         updateData.name = name.trim();
-      }
-      if (avatar.trim() !== (user?.avatar || '')) {
-        updateData.avatar = avatar.trim() || undefined;
       }
       if (userId.trim() !== (user?.userId || '')) {
         updateData.userId = userId.trim();
@@ -170,7 +164,6 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
     // 重置表單
     if (user) {
       setName(user.name || '');
-      setAvatar(user.avatar || '');
       setUserId(user.userId || '');
       setDepartment(user.department || '');
     }
@@ -297,7 +290,7 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
                   }}
                 >
                   <Avatar
-                    src={avatar || undefined}
+                    src={user?.avatar || undefined}
                     alt={name || user?.email}
                     sx={{
                       width: 100,
@@ -320,17 +313,6 @@ export default function EditProfileModal({ open, onClose, onUpdate }: EditProfil
                     fullWidth
                     variant="outlined"
                     disabled={saving}
-                  />
-
-                  <TextField
-                    label="頭像 URL"
-                    value={avatar}
-                    onChange={(e) => setAvatar(e.target.value)}
-                    fullWidth
-                    variant="outlined"
-                    placeholder="輸入頭像圖片網址"
-                    disabled={saving}
-                    helperText="輸入圖片網址以設定頭像"
                   />
 
                   <TextField

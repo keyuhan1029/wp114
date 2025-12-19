@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { ScheduleModel } from '@/lib/models/Schedule';
 import { ScheduleItemModel } from '@/lib/models/ScheduleItem';
+import { UserModel } from '@/lib/models/User';
 import { ObjectId } from 'mongodb';
 
 // 課程時間對照表（台大標準時間）
@@ -72,6 +73,18 @@ export async function GET(request: Request) {
         { message: '無效的用戶 ID' },
         { status: 400 }
       );
+    }
+
+    // 先檢查是否有自定義狀態
+    const user = await UserModel.findById(targetUserId);
+    if (user?.customStatus) {
+      return NextResponse.json({
+        status: 'custom',
+        customStatus: user.customStatus,
+        location: null,
+        courseName: null,
+        message: user.customStatus,
+      });
     }
 
     // 取得用戶的預設課表

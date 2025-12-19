@@ -18,6 +18,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import Chip from '@mui/material/Chip';
 import { useUserNotifications } from '@/contexts/PusherContext';
 
 interface ChatRoom {
@@ -38,7 +40,7 @@ interface ChatRoom {
 
 interface SelectedChat {
   roomId: string;
-  type: 'private' | 'group';
+  type: 'private' | 'group' | 'ai';
   name: string;
   avatar?: string;
   friendId?: string;
@@ -282,15 +284,104 @@ export default function MessageList({ onSelectChat, selectedRoomId, onCreateGrou
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
             <CircularProgress size={24} />
           </Box>
-        ) : filteredRooms.length === 0 ? (
-          <Box sx={{ p: 3, textAlign: 'center' }}>
-            <Typography color="text.secondary" variant="body2">
-              {searchQuery ? '找不到符合的對話' : '還沒有對話'}
-            </Typography>
-          </Box>
         ) : (
           <List sx={{ py: 0 }}>
-            {filteredRooms.map((room) => (
+            {/* NTU AI 客服 - 固定在列表顶部，始终显示 */}
+            {(!searchQuery || 'NTU AI 客服'.toLowerCase().includes(searchQuery.toLowerCase())) && (
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    onSelectChat({
+                      roomId: 'ntu-ai-support',
+                      type: 'ai',
+                      name: 'NTU AI 客服',
+                    });
+                  }}
+                  selected={selectedRoomId === 'ntu-ai-support'}
+                  sx={{
+                    py: 1.5,
+                    px: 2,
+                    bgcolor: selectedRoomId === 'ntu-ai-support' ? '#e3f2fd' : 'transparent',
+                    '&:hover': {
+                      bgcolor: '#f5f7fa',
+                    },
+                    '&.Mui-selected': {
+                      bgcolor: '#e3f2fd',
+                      '&:hover': {
+                        bgcolor: '#e3f2fd',
+                      },
+                    },
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar
+                      sx={{
+                        bgcolor: '#0F4C75',
+                        width: 44,
+                        height: 44,
+                      }}
+                    >
+                      <SmartToyIcon sx={{ color: '#ffffff' }} />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <Typography
+                            sx={{
+                              fontWeight: 600,
+                              color: '#1a1a2e',
+                            }}
+                          >
+                            NTU AI 客服
+                          </Typography>
+                          <Chip
+                            label="AI"
+                            size="small"
+                            sx={{
+                              height: 18,
+                              fontSize: '0.65rem',
+                              bgcolor: '#0F4C75',
+                              color: '#ffffff',
+                              fontWeight: 600,
+                            }}
+                          />
+                        </Box>
+                      </Box>
+                    }
+                    secondary={
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: '#9e9e9e',
+                          fontSize: '0.8rem',
+                        }}
+                      >
+                        隨時為您提供協助
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            )}
+            
+            {filteredRooms.length === 0 ? (
+              (!searchQuery || !'NTU AI 客服'.toLowerCase().includes(searchQuery.toLowerCase())) && (
+                <Box sx={{ p: 3, textAlign: 'center' }}>
+                  <Typography color="text.secondary" variant="body2">
+                    {searchQuery ? '找不到符合的對話' : '還沒有對話'}
+                  </Typography>
+                </Box>
+              )
+            ) : (
+              filteredRooms.map((room) => (
               <ListItem key={room.id} disablePadding>
                 <ListItemButton
                   onClick={() => handleSelectRoom(room)}
@@ -407,7 +498,8 @@ export default function MessageList({ onSelectChat, selectedRoomId, onCreateGrou
                   />
                 </ListItemButton>
               </ListItem>
-            ))}
+              ))
+            )}
           </List>
         )}
       </Box>
