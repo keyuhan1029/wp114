@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { AnnouncementModel } from '@/lib/models/Announcement';
 import { getDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 import * as cheerio from 'cheerio';
 import crypto from 'crypto';
 
@@ -152,11 +153,12 @@ export async function GET(request: Request) {
     // 檢查是否已存在，如果存在則更新
     const existing = await AnnouncementModel.findBySourceId(sourceId);
     
-    if (existing) {
+    if (existing && existing._id) {
       // 更新現有公告的內容
       const db = await getDatabase();
+      const id = typeof existing._id === 'string' ? new ObjectId(existing._id) : existing._id;
       await db.collection('announcements').updateOne(
-        { _id: existing._id },
+        { _id: id },
         { $set: { content: formattedContent, publishDate } }
       );
       

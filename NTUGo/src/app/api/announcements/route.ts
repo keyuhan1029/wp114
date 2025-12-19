@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     // 過濾掉標題為「置頂公告」的公告，以及「一般公告」類別的公告（已移除該類別）
     announcements = announcements.filter(ann => 
       ann.title !== '置頂公告' && 
-      ann.category !== '一般公告'
+      (ann.category as string) !== '一般公告'
     );
 
     return NextResponse.json({
