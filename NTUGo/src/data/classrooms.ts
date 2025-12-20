@@ -1,0 +1,13196 @@
+/**
+ * 台大教室資料
+ * 自動生成於 2025-12-20T06:30:40.758Z
+ * 來源: https://gra206.aca.ntu.edu.tw/classrm/acarm/webcr-use-new
+ */
+
+export interface Classroom {
+  buildingValue: string;
+  buildingName: string;
+  classroomId: string;
+  classroomName: string;
+}
+
+export const BUILDINGS = [
+  "共同",
+  "普通",
+  "新生",
+  "綜合",
+  "博雅",
+  "文學院",
+  "理學院",
+  "社科院",
+  "醫學院",
+  "工學院",
+  "生農學院",
+  "管理院",
+  "公衛院",
+  "電資院",
+  "法律院",
+  "生科院",
+  "其他"
+] as const;
+
+export type BuildingName = typeof BUILDINGS[number];
+
+export const CLASSROOMS: Classroom[] = [
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共101",
+    "classroomName": "共101"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共102",
+    "classroomName": "共102"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共103",
+    "classroomName": "共103"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共104",
+    "classroomName": "共104"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共105",
+    "classroomName": "共105"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共201",
+    "classroomName": "共201"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共202",
+    "classroomName": "共202"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共203",
+    "classroomName": "共203"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共204",
+    "classroomName": "共204"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共205",
+    "classroomName": "共205"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共206",
+    "classroomName": "共206"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共207",
+    "classroomName": "共207"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共208",
+    "classroomName": "共208"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共301",
+    "classroomName": "共301"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共302",
+    "classroomName": "共302"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共303",
+    "classroomName": "共303"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共304",
+    "classroomName": "共304"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共305",
+    "classroomName": "共305"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共306",
+    "classroomName": "共306"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共307",
+    "classroomName": "共307"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共308",
+    "classroomName": "共308"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共401",
+    "classroomName": "共401"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共402",
+    "classroomName": "共402"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共403",
+    "classroomName": "共403"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共404",
+    "classroomName": "共404"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共405",
+    "classroomName": "共405"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共406",
+    "classroomName": "共406"
+  },
+  {
+    "buildingValue": "共同",
+    "buildingName": "共同",
+    "classroomId": "共407",
+    "classroomName": "共407"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普101",
+    "classroomName": "普101"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普102",
+    "classroomName": "普102"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普103",
+    "classroomName": "普103"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普201",
+    "classroomName": "普201"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普202",
+    "classroomName": "普202"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普203",
+    "classroomName": "普203"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普204",
+    "classroomName": "普204"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普205",
+    "classroomName": "普205"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普301",
+    "classroomName": "普301"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普302",
+    "classroomName": "普302"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普303",
+    "classroomName": "普303"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普304",
+    "classroomName": "普304"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普305",
+    "classroomName": "普305"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普306",
+    "classroomName": "普306"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普401",
+    "classroomName": "普401"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普402",
+    "classroomName": "普402"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普403",
+    "classroomName": "普403"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普404",
+    "classroomName": "普404"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普405",
+    "classroomName": "普405"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普406",
+    "classroomName": "普406"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普501",
+    "classroomName": "普501"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普502",
+    "classroomName": "普502"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普503",
+    "classroomName": "普503"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普504",
+    "classroomName": "普504"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普505",
+    "classroomName": "普505"
+  },
+  {
+    "buildingValue": "普通",
+    "buildingName": "普通",
+    "classroomId": "普506",
+    "classroomName": "普506"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新102",
+    "classroomName": "新102"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新103",
+    "classroomName": "新103"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新201",
+    "classroomName": "新201"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新202",
+    "classroomName": "新202"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新203",
+    "classroomName": "新203"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新204",
+    "classroomName": "新204"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新301",
+    "classroomName": "新301"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新302",
+    "classroomName": "新302"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新303",
+    "classroomName": "新303"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新304",
+    "classroomName": "新304"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新401",
+    "classroomName": "新401"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新402",
+    "classroomName": "新402"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新403",
+    "classroomName": "新403"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新404",
+    "classroomName": "新404"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新405",
+    "classroomName": "新405"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新501",
+    "classroomName": "新501"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新502",
+    "classroomName": "新502"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新503",
+    "classroomName": "新503"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新504",
+    "classroomName": "新504"
+  },
+  {
+    "buildingValue": "新生",
+    "buildingName": "新生",
+    "classroomId": "新505",
+    "classroomName": "新505"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜201",
+    "classroomName": "綜201"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜202",
+    "classroomName": "綜202"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜203",
+    "classroomName": "綜203"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜301",
+    "classroomName": "綜301"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜302",
+    "classroomName": "綜302"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜401",
+    "classroomName": "綜401"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜402",
+    "classroomName": "綜402"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜403",
+    "classroomName": "綜403"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜404",
+    "classroomName": "綜404"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜501",
+    "classroomName": "綜501"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜502",
+    "classroomName": "綜502"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜503",
+    "classroomName": "綜503"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜504",
+    "classroomName": "綜504"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜505",
+    "classroomName": "綜505"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜601",
+    "classroomName": "綜601"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜602",
+    "classroomName": "綜602"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜603",
+    "classroomName": "綜603"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜604",
+    "classroomName": "綜604"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜605",
+    "classroomName": "綜605"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜606",
+    "classroomName": "綜606"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜607",
+    "classroomName": "綜607"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜701",
+    "classroomName": "綜701"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜702",
+    "classroomName": "綜702"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜703",
+    "classroomName": "綜703"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜704",
+    "classroomName": "綜704"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜705",
+    "classroomName": "綜705"
+  },
+  {
+    "buildingValue": "綜合",
+    "buildingName": "綜合",
+    "classroomId": "綜合大講堂",
+    "classroomName": "綜合大講堂"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅101/華南講堂",
+    "classroomName": "博雅101/華南講堂"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅102",
+    "classroomName": "博雅102"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅103",
+    "classroomName": "博雅103"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅201",
+    "classroomName": "博雅201"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅202",
+    "classroomName": "博雅202"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅203",
+    "classroomName": "博雅203"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅204",
+    "classroomName": "博雅204"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅205",
+    "classroomName": "博雅205"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅206",
+    "classroomName": "博雅206"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅301",
+    "classroomName": "博雅301"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅302",
+    "classroomName": "博雅302"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅303",
+    "classroomName": "博雅303"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅304",
+    "classroomName": "博雅304"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅305",
+    "classroomName": "博雅305"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅306",
+    "classroomName": "博雅306"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅307",
+    "classroomName": "博雅307"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅308",
+    "classroomName": "博雅308"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅309",
+    "classroomName": "博雅309"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅310",
+    "classroomName": "博雅310"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅311",
+    "classroomName": "博雅311"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅312",
+    "classroomName": "博雅312"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅401",
+    "classroomName": "博雅401"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅402",
+    "classroomName": "博雅402"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅403",
+    "classroomName": "博雅403"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅404",
+    "classroomName": "博雅404"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅405",
+    "classroomName": "博雅405"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅406",
+    "classroomName": "博雅406"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅407",
+    "classroomName": "博雅407"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅408",
+    "classroomName": "博雅408"
+  },
+  {
+    "buildingValue": "博雅",
+    "buildingName": "博雅",
+    "classroomId": "博雅409",
+    "classroomName": "博雅409"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文232",
+    "classroomName": "人文232"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文302",
+    "classroomName": "人文302"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文336",
+    "classroomName": "人文336"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文337",
+    "classroomName": "人文337"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文342",
+    "classroomName": "人文342"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文345",
+    "classroomName": "人文345"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文530",
+    "classroomName": "人文530"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文532",
+    "classroomName": "人文532"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B106",
+    "classroomName": "人文B106"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B106-2",
+    "classroomName": "人文B106-2"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B107",
+    "classroomName": "人文B107"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B109",
+    "classroomName": "人文B109"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B111",
+    "classroomName": "人文B111"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B114-1",
+    "classroomName": "人文B114-1"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B201-1",
+    "classroomName": "人文B201-1"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "人文B208",
+    "classroomName": "人文B208"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "中文研討",
+    "classroomName": "中文研討"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "中研院",
+    "classroomName": "中研院"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文16",
+    "classroomName": "文16"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文17",
+    "classroomName": "文17"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文18",
+    "classroomName": "文18"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文19",
+    "classroomName": "文19"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文20",
+    "classroomName": "文20"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文研討室",
+    "classroomName": "文研討室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "文演講廳",
+    "classroomName": "文演講廳"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "水源人105",
+    "classroomName": "水源人105"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "水源人201",
+    "classroomName": "水源人201"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "水源人302",
+    "classroomName": "水源人302"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "水源人308",
+    "classroomName": "水源人308"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "外文會議室",
+    "classroomName": "外文會議室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "外研一",
+    "classroomName": "外研一"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "外研三",
+    "classroomName": "外研三"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲201",
+    "classroomName": "哲201"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲210",
+    "classroomName": "哲210"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲314",
+    "classroomName": "哲314"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲研討室一",
+    "classroomName": "哲研討室一"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲研討室二",
+    "classroomName": "哲研討室二"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "哲研討室三",
+    "classroomName": "哲研討室三"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "校史日108",
+    "classroomName": "校史日108"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "校史館205",
+    "classroomName": "校史館205"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "國青322",
+    "classroomName": "國青322"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "國青323",
+    "classroomName": "國青323"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "國青324",
+    "classroomName": "國青324"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "第6研究室",
+    "classroomName": "第6研究室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "第五研究",
+    "classroomName": "第五研究"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "普506",
+    "classroomName": "普506"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討2A",
+    "classroomName": "圖資研討2A"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討3A",
+    "classroomName": "圖資研討3A"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討3B",
+    "classroomName": "圖資研討3B"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討一",
+    "classroomName": "圖資研討一"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討二",
+    "classroomName": "圖資研討二"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資研討三",
+    "classroomName": "圖資研討三"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資視聽室",
+    "classroomName": "圖資視聽室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資視聽資",
+    "classroomName": "圖資視聽資"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資會議室",
+    "classroomName": "圖資會議室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資資訊室",
+    "classroomName": "圖資資訊室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "圖資編目室",
+    "classroomName": "圖資編目室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "實驗劇場",
+    "classroomName": "實驗劇場"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學201-1",
+    "classroomName": "樂學201-1"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學205",
+    "classroomName": "樂學205"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館104",
+    "classroomName": "樂學館104"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館105",
+    "classroomName": "樂學館105"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館106",
+    "classroomName": "樂學館106"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館211",
+    "classroomName": "樂學館211"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館304",
+    "classroomName": "樂學館304"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "樂學館305",
+    "classroomName": "樂學館305"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "歷史研討室",
+    "classroomName": "歷史研討室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "戲夢空間",
+    "classroomName": "戲夢空間"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館102",
+    "classroomName": "總一館102"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館106",
+    "classroomName": "總一館106"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館108",
+    "classroomName": "總一館108"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館110",
+    "classroomName": "總一館110"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館112",
+    "classroomName": "總一館112"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館113",
+    "classroomName": "總一館113"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館114",
+    "classroomName": "總一館114"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館115",
+    "classroomName": "總一館115"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館116",
+    "classroomName": "總一館116"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館118",
+    "classroomName": "總一館118"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館201",
+    "classroomName": "總一館201"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館202",
+    "classroomName": "總一館202"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館208",
+    "classroomName": "總一館208"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "總一館210",
+    "classroomName": "總一館210"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "翻譯會議室",
+    "classroomName": "翻譯會議室"
+  },
+  {
+    "buildingValue": "1",
+    "buildingName": "文學院",
+    "classroomId": "舊圖會議室",
+    "classroomName": "舊圖會議室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "115研討室",
+    "classroomName": "115研討室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣A104",
+    "classroomName": "大氣A104"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣A108",
+    "classroomName": "大氣A108"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣A206",
+    "classroomName": "大氣A206"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣B105",
+    "classroomName": "大氣B105"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣C202",
+    "classroomName": "大氣C202"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣C407",
+    "classroomName": "大氣C407"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "大氣系A100",
+    "classroomName": "大氣系A100"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "中庭大講堂",
+    "classroomName": "中庭大講堂"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "化121",
+    "classroomName": "化121"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "化210室",
+    "classroomName": "化210室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "化217",
+    "classroomName": "化217"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數101",
+    "classroomName": "天數101"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數102",
+    "classroomName": "天數102"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數201",
+    "classroomName": "天數201"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數202",
+    "classroomName": "天數202"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數204",
+    "classroomName": "天數204"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數302",
+    "classroomName": "天數302"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數304",
+    "classroomName": "天數304"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數305",
+    "classroomName": "天數305"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數430",
+    "classroomName": "天數430"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數440",
+    "classroomName": "天數440"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數519",
+    "classroomName": "天數519"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數526",
+    "classroomName": "天數526"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數537",
+    "classroomName": "天數537"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數539",
+    "classroomName": "天數539"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數810",
+    "classroomName": "天數810"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "天數812",
+    "classroomName": "天數812"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "北館A",
+    "classroomName": "北館A"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "北館B",
+    "classroomName": "北館B"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "北館N206",
+    "classroomName": "北館N206"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "北館N221",
+    "classroomName": "北館N221"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "北館視聽",
+    "classroomName": "北館視聽"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "示範實驗室",
+    "classroomName": "示範實驗室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "全變403",
+    "classroomName": "全變403"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "全變中心G202",
+    "classroomName": "全變中心G202"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理305",
+    "classroomName": "地理305"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理405",
+    "classroomName": "地理405"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理502",
+    "classroomName": "地理502"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理602",
+    "classroomName": "地理602"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理一教室",
+    "classroomName": "地理一教室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理二教室",
+    "classroomName": "地理二教室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地理電腦室",
+    "classroomName": "地理電腦室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地質212",
+    "classroomName": "地質212"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地質213",
+    "classroomName": "地質213"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地質300",
+    "classroomName": "地質300"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地質313",
+    "classroomName": "地質313"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "地質315",
+    "classroomName": "地質315"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "南館S217",
+    "classroomName": "南館S217"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "南館S309",
+    "classroomName": "南館S309"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "南館S409",
+    "classroomName": "南館S409"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "南館地下A",
+    "classroomName": "南館地下A"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "南館地下B",
+    "classroomName": "南館地下B"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮103",
+    "classroomName": "思亮103"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮104",
+    "classroomName": "思亮104"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮106",
+    "classroomName": "思亮106"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮201",
+    "classroomName": "思亮201"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮204",
+    "classroomName": "思亮204"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮207",
+    "classroomName": "思亮207"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮305",
+    "classroomName": "思亮305"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮308",
+    "classroomName": "思亮308"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "思亮309",
+    "classroomName": "思亮309"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研110教室",
+    "classroomName": "海研110教室"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研115",
+    "classroomName": "海研115"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研231",
+    "classroomName": "海研231"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研232",
+    "classroomName": "海研232"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研300",
+    "classroomName": "海研300"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研500",
+    "classroomName": "海研500"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "海研大講堂",
+    "classroomName": "海研大講堂"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "普物實驗一",
+    "classroomName": "普物實驗一"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "普物實驗二",
+    "classroomName": "普物實驗二"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "普物實驗三",
+    "classroomName": "普物實驗三"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物111",
+    "classroomName": "新物111"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物112",
+    "classroomName": "新物112"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物204",
+    "classroomName": "新物204"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物205",
+    "classroomName": "新物205"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物207",
+    "classroomName": "新物207"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物208",
+    "classroomName": "新物208"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物304",
+    "classroomName": "新物304"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物305",
+    "classroomName": "新物305"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物406",
+    "classroomName": "新物406"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物517",
+    "classroomName": "新物517"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物618",
+    "classroomName": "新物618"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物716",
+    "classroomName": "新物716"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物815",
+    "classroomName": "新物815"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新物833",
+    "classroomName": "新物833"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "新數101",
+    "classroomName": "新數101"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "楊金豹演講廳",
+    "classroomName": "楊金豹演講廳"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "潘貫講堂",
+    "classroomName": "潘貫講堂"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊物館108",
+    "classroomName": "舊物館108"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊物館114",
+    "classroomName": "舊物館114"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊物館115",
+    "classroomName": "舊物館115"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊物館122",
+    "classroomName": "舊物館122"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊數103",
+    "classroomName": "舊數103"
+  },
+  {
+    "buildingValue": "2",
+    "buildingName": "理學院",
+    "classroomId": "舊數110",
+    "classroomName": "舊數110"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社101",
+    "classroomName": "社101"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社103",
+    "classroomName": "社103"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社110",
+    "classroomName": "社110"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社112",
+    "classroomName": "社112"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社114",
+    "classroomName": "社114"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社116",
+    "classroomName": "社116"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社203",
+    "classroomName": "社203"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社205",
+    "classroomName": "社205"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社207",
+    "classroomName": "社207"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社209",
+    "classroomName": "社209"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社211",
+    "classroomName": "社211"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社213",
+    "classroomName": "社213"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社318",
+    "classroomName": "社318"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社401",
+    "classroomName": "社401"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科102",
+    "classroomName": "社科102"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科201",
+    "classroomName": "社科201"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科202",
+    "classroomName": "社科202"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科301",
+    "classroomName": "社科301"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科302",
+    "classroomName": "社科302"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科303",
+    "classroomName": "社科303"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科305",
+    "classroomName": "社科305"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科306",
+    "classroomName": "社科306"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科307",
+    "classroomName": "社科307"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科401",
+    "classroomName": "社科401"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科402",
+    "classroomName": "社科402"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科403",
+    "classroomName": "社科403"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科404",
+    "classroomName": "社科404"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科405",
+    "classroomName": "社科405"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科406",
+    "classroomName": "社科406"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科407",
+    "classroomName": "社科407"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科501",
+    "classroomName": "社科501"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科502",
+    "classroomName": "社科502"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科503",
+    "classroomName": "社科503"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科506",
+    "classroomName": "社科506"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科507",
+    "classroomName": "社科507"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科和碩講堂",
+    "classroomName": "社科和碩講堂"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研601",
+    "classroomName": "社科研601"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研602",
+    "classroomName": "社科研602"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研603",
+    "classroomName": "社科研603"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研604",
+    "classroomName": "社科研604"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研605",
+    "classroomName": "社科研605"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研606",
+    "classroomName": "社科研606"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研607",
+    "classroomName": "社科研607"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研608",
+    "classroomName": "社科研608"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "社科研609",
+    "classroomName": "社科研609"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發202",
+    "classroomName": "國發202"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發204",
+    "classroomName": "國發204"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發206",
+    "classroomName": "國發206"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發208",
+    "classroomName": "國發208"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發210",
+    "classroomName": "國發210"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發300",
+    "classroomName": "國發300"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發302",
+    "classroomName": "國發302"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發310",
+    "classroomName": "國發310"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "國發418",
+    "classroomName": "國發418"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞103",
+    "classroomName": "新聞103"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞105",
+    "classroomName": "新聞105"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞203",
+    "classroomName": "新聞203"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞207",
+    "classroomName": "新聞207"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞302",
+    "classroomName": "新聞302"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞304",
+    "classroomName": "新聞304"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞308",
+    "classroomName": "新聞308"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞313",
+    "classroomName": "新聞313"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞315",
+    "classroomName": "新聞315"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "新聞401",
+    "classroomName": "新聞401"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "經大講堂",
+    "classroomName": "經大講堂"
+  },
+  {
+    "buildingValue": "3",
+    "buildingName": "社科院",
+    "classroomId": "經會議室",
+    "classroomName": "經會議室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "(牙)討論一",
+    "classroomName": "(牙)討論一"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "(牙)實習一",
+    "classroomName": "(牙)實習一"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "(牙)實習二 ",
+    "classroomName": "(牙)實習二 "
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "341教室",
+    "classroomName": "341教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "3F會議室",
+    "classroomName": "3F會議室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "B2實驗室",
+    "classroomName": "B2實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "R557",
+    "classroomName": "R557"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "R753",
+    "classroomName": "R753"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "R834",
+    "classroomName": "R834"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "一東實驗室",
+    "classroomName": "一東實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "三東實驗室",
+    "classroomName": "三東實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "口生所討論室",
+    "classroomName": "口生所討論室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "口生會議室",
+    "classroomName": "口生會議室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室01",
+    "classroomName": "小班教室01"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室02",
+    "classroomName": "小班教室02"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室03",
+    "classroomName": "小班教室03"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室04",
+    "classroomName": "小班教室04"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室05",
+    "classroomName": "小班教室05"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室06",
+    "classroomName": "小班教室06"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室07",
+    "classroomName": "小班教室07"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室08",
+    "classroomName": "小班教室08"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室09",
+    "classroomName": "小班教室09"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室10",
+    "classroomName": "小班教室10"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室11",
+    "classroomName": "小班教室11"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室12",
+    "classroomName": "小班教室12"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室13",
+    "classroomName": "小班教室13"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室14",
+    "classroomName": "小班教室14"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室15",
+    "classroomName": "小班教室15"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室16",
+    "classroomName": "小班教室16"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室17",
+    "classroomName": "小班教室17"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室18",
+    "classroomName": "小班教室18"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室19",
+    "classroomName": "小班教室19"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "小班教室20",
+    "classroomName": "小班教室20"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治411",
+    "classroomName": "公職治411"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治412",
+    "classroomName": "公職治412"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治417",
+    "classroomName": "公職治417"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治422",
+    "classroomName": "公職治422"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治430",
+    "classroomName": "公職治430"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "公職治431",
+    "classroomName": "公職治431"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森205",
+    "classroomName": "水森205"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森305",
+    "classroomName": "水森305"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森316",
+    "classroomName": "水森316"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森326",
+    "classroomName": "水森326"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森415",
+    "classroomName": "水森415"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "水森505",
+    "classroomName": "水森505"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "四東實驗室",
+    "classroomName": "四東實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "生化實習室",
+    "classroomName": "生化實習室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "血液實習室",
+    "classroomName": "血液實習室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "血清實習室",
+    "classroomName": "血清實習室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "物治討論一",
+    "classroomName": "物治討論一"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "物治討論二",
+    "classroomName": "物治討論二"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "物治討論三",
+    "classroomName": "物治討論三"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "物治實習3F",
+    "classroomName": "物治實習3F"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "物治實習4F",
+    "classroomName": "物治實習4F"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "病毒實習室",
+    "classroomName": "病毒實習室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "病理03-80",
+    "classroomName": "病理03-80"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "討論室一",
+    "classroomName": "討論室一"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "討論室二",
+    "classroomName": "討論室二"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "討論室三",
+    "classroomName": "討論室三"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基1203",
+    "classroomName": "基1203"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基1234",
+    "classroomName": "基1234"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1003",
+    "classroomName": "基醫1003"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫101",
+    "classroomName": "基醫101"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫102",
+    "classroomName": "基醫102"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫103",
+    "classroomName": "基醫103"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫104",
+    "classroomName": "基醫104"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1105",
+    "classroomName": "基醫1105"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1209",
+    "classroomName": "基醫1209"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1214",
+    "classroomName": "基醫1214"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1222",
+    "classroomName": "基醫1222"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫1503",
+    "classroomName": "基醫1503"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫201",
+    "classroomName": "基醫201"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫202",
+    "classroomName": "基醫202"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫203",
+    "classroomName": "基醫203"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫204",
+    "classroomName": "基醫204"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫301",
+    "classroomName": "基醫301"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫302",
+    "classroomName": "基醫302"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫303",
+    "classroomName": "基醫303"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫304",
+    "classroomName": "基醫304"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫402",
+    "classroomName": "基醫402"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫403",
+    "classroomName": "基醫403"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫405",
+    "classroomName": "基醫405"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫406",
+    "classroomName": "基醫406"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫501",
+    "classroomName": "基醫501"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫502",
+    "classroomName": "基醫502"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫503",
+    "classroomName": "基醫503"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫504",
+    "classroomName": "基醫504"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫505",
+    "classroomName": "基醫505"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫506",
+    "classroomName": "基醫506"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫507",
+    "classroomName": "基醫507"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫508",
+    "classroomName": "基醫508"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫509",
+    "classroomName": "基醫509"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫701",
+    "classroomName": "基醫701"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫705",
+    "classroomName": "基醫705"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫807",
+    "classroomName": "基醫807"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫809",
+    "classroomName": "基醫809"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫816",
+    "classroomName": "基醫816"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫824",
+    "classroomName": "基醫824"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫901",
+    "classroomName": "基醫901"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫905",
+    "classroomName": "基醫905"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫913",
+    "classroomName": "基醫913"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫B03",
+    "classroomName": "基醫B03"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "基醫四西實",
+    "classroomName": "基醫四西實"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室401",
+    "classroomName": "教室401"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室402",
+    "classroomName": "教室402"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室403",
+    "classroomName": "教室403"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室404",
+    "classroomName": "教室404"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室405",
+    "classroomName": "教室405"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室一",
+    "classroomName": "教室一"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "教室二",
+    "classroomName": "教室二"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "第一實驗室",
+    "classroomName": "第一實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "第二實驗室",
+    "classroomName": "第二實驗室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "第八講堂",
+    "classroomName": "第八講堂"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "第十講堂",
+    "classroomName": "第十講堂"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "細菌實習室",
+    "classroomName": "細菌實習室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "圓形教室",
+    "classroomName": "圓形教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "電腦教室",
+    "classroomName": "電腦教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "實習教室",
+    "classroomName": "實習教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "實習教室432",
+    "classroomName": "實習教室432"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "檢403",
+    "classroomName": "檢403"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "檢506教室",
+    "classroomName": "檢506教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "檢511",
+    "classroomName": "檢511"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "檢521-7",
+    "classroomName": "檢521-7"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "檢驗醫學部",
+    "classroomName": "檢驗醫學部"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "臨藥討論室",
+    "classroomName": "臨藥討論室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "醫院牙科部",
+    "classroomName": "醫院牙科部"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護108室",
+    "classroomName": "護108室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護301室",
+    "classroomName": "護301室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護302室",
+    "classroomName": "護302室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護303室",
+    "classroomName": "護303室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護304室",
+    "classroomName": "護304室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護305室",
+    "classroomName": "護305室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護研究室1",
+    "classroomName": "護研究室1"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護討論室1",
+    "classroomName": "護討論室1"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護討論室2",
+    "classroomName": "護討論室2"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護討論室3",
+    "classroomName": "護討論室3"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護討論室4",
+    "classroomName": "護討論室4"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護智能教室",
+    "classroomName": "護智能教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護視聽教室",
+    "classroomName": "護視聽教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護階梯教室",
+    "classroomName": "護階梯教室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護會議室",
+    "classroomName": "護會議室"
+  },
+  {
+    "buildingValue": "4",
+    "buildingName": "醫學院",
+    "classroomId": "護綜討室",
+    "classroomName": "護綜討室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土220",
+    "classroomName": "土220"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土224",
+    "classroomName": "土224"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土318B",
+    "classroomName": "土318B"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土320",
+    "classroomName": "土320"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土研401",
+    "classroomName": "土研401"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土研402",
+    "classroomName": "土研402"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土研405",
+    "classroomName": "土研405"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土研406",
+    "classroomName": "土研406"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "土研407",
+    "classroomName": "土研407"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科127A",
+    "classroomName": "工科127A"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科201",
+    "classroomName": "工科201"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科202",
+    "classroomName": "工科202"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科203",
+    "classroomName": "工科203"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科204",
+    "classroomName": "工科204"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科205",
+    "classroomName": "工科205"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科206",
+    "classroomName": "工科206"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科207",
+    "classroomName": "工科207"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科視聽室",
+    "classroomName": "工科視聽室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工科實驗室",
+    "classroomName": "工科實驗室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜205",
+    "classroomName": "工綜205"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜207",
+    "classroomName": "工綜207"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜209",
+    "classroomName": "工綜209"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜211",
+    "classroomName": "工綜211"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜213",
+    "classroomName": "工綜213"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜215",
+    "classroomName": "工綜215"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜228",
+    "classroomName": "工綜228"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜230",
+    "classroomName": "工綜230"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜232",
+    "classroomName": "工綜232"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜302",
+    "classroomName": "工綜302"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜305",
+    "classroomName": "工綜305"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜311",
+    "classroomName": "工綜311"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜313",
+    "classroomName": "工綜313"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜494",
+    "classroomName": "工綜494"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜534-1",
+    "classroomName": "工綜534-1"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜534室",
+    "classroomName": "工綜534室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜536室",
+    "classroomName": "工綜536室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜734室",
+    "classroomName": "工綜734室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜736室",
+    "classroomName": "工綜736室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜742室",
+    "classroomName": "工綜742室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜B01",
+    "classroomName": "工綜B01"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜B02",
+    "classroomName": "工綜B02"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜B03",
+    "classroomName": "工綜B03"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "工綜B04",
+    "classroomName": "工綜B04"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "公館101",
+    "classroomName": "公館101"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "公館104",
+    "classroomName": "公館104"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "公館108",
+    "classroomName": "公館108"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "公館B01",
+    "classroomName": "公館B01"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "公館B04",
+    "classroomName": "公館B04"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "化工一",
+    "classroomName": "化工一"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "化工一館306",
+    "classroomName": "化工一館306"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "化工二",
+    "classroomName": "化工二"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "化工三",
+    "classroomName": "化工三"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "成志國際演講廳",
+    "classroomName": "成志國際演講廳"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "車輛實驗室",
+    "classroomName": "車輛實驗室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "信義講堂",
+    "classroomName": "信義講堂"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "展書樓506",
+    "classroomName": "展書樓506"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "展書樓507",
+    "classroomName": "展書樓507"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "高分201",
+    "classroomName": "高分201"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "高分子105",
+    "classroomName": "高分子105"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "國青101",
+    "classroomName": "國青101"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "國青235",
+    "classroomName": "國青235"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "望樂樓302",
+    "classroomName": "望樂樓302"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "進學講堂",
+    "classroomName": "進學講堂"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "楊斌彥廳",
+    "classroomName": "楊斌彥廳"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "輔研中心",
+    "classroomName": "輔研中心"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "慶琅廳",
+    "classroomName": "慶琅廳"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機皮教室",
+    "classroomName": "機皮教室"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械104",
+    "classroomName": "機械104"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械105",
+    "classroomName": "機械105"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械113",
+    "classroomName": "機械113"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械114",
+    "classroomName": "機械114"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械115",
+    "classroomName": "機械115"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械116",
+    "classroomName": "機械116"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械B113",
+    "classroomName": "機械B113"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械B114",
+    "classroomName": "機械B114"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械B117",
+    "classroomName": "機械B117"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械B118",
+    "classroomName": "機械B118"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械B119",
+    "classroomName": "機械B119"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械系計中",
+    "classroomName": "機械系計中"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械系實習工廠",
+    "classroomName": "機械系實習工廠"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "機械實習工場",
+    "classroomName": "機械實習工場"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應107",
+    "classroomName": "應107"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應109",
+    "classroomName": "應109"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應111",
+    "classroomName": "應111"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應113",
+    "classroomName": "應113"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應224",
+    "classroomName": "應224"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應226",
+    "classroomName": "應226"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應231",
+    "classroomName": "應231"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "應233",
+    "classroomName": "應233"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環工101",
+    "classroomName": "環工101"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環工102",
+    "classroomName": "環工102"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環工103",
+    "classroomName": "環工103"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環工104",
+    "classroomName": "環工104"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環工205",
+    "classroomName": "環工205"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "環研401",
+    "classroomName": "環研401"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "聯教館203",
+    "classroomName": "聯教館203"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "聯教館211",
+    "classroomName": "聯教館211"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "聯電講堂",
+    "classroomName": "聯電講堂"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "繡山演講廳",
+    "classroomName": "繡山演講廳"
+  },
+  {
+    "buildingValue": "5",
+    "buildingName": "工學院",
+    "classroomId": "繡山講堂",
+    "classroomName": "繡山講堂"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "一樓研討室",
+    "classroomName": "一樓研討室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非101",
+    "classroomName": "中非101"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非102",
+    "classroomName": "中非102"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非104",
+    "classroomName": "中非104"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非105",
+    "classroomName": "中非105"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非301A ",
+    "classroomName": "中非301A "
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "中非301B",
+    "classroomName": "中非301B"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "公共接待室",
+    "classroomName": "公共接待室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "木性",
+    "classroomName": "木性"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "加工105室",
+    "classroomName": "加工105室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "加工204室",
+    "classroomName": "加工204室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "加工實驗室",
+    "classroomName": "加工實驗室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "加工館B1",
+    "classroomName": "加工館B1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生工202",
+    "classroomName": "生工202"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生工二教室",
+    "classroomName": "生工二教室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生工研討室二",
+    "classroomName": "生工研討室二"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生技所415",
+    "classroomName": "生技所415"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生理研",
+    "classroomName": "生理研"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生統教室",
+    "classroomName": "生統教室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳402室",
+    "classroomName": "生傳402室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳417室",
+    "classroomName": "生傳417室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳418室",
+    "classroomName": "生傳418室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳421室",
+    "classroomName": "生傳421室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳423室",
+    "classroomName": "生傳423室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳425室",
+    "classroomName": "生傳425室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳427室",
+    "classroomName": "生傳427室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳502室",
+    "classroomName": "生傳502室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳505室",
+    "classroomName": "生傳505室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳515室",
+    "classroomName": "生傳515室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳520室",
+    "classroomName": "生傳520室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳525室",
+    "classroomName": "生傳525室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳527室",
+    "classroomName": "生傳527室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳一",
+    "classroomName": "生傳一"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳二",
+    "classroomName": "生傳二"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳三",
+    "classroomName": "生傳三"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳研討室",
+    "classroomName": "生傳研討室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生傳視聽室",
+    "classroomName": "生傳視聽室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生機101",
+    "classroomName": "生機101"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "生機201",
+    "classroomName": "生機201"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "自動化教學中心",
+    "classroomName": "自動化教學中心"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "昆蟲201",
+    "classroomName": "昆蟲201"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林303",
+    "classroomName": "林303"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林一",
+    "classroomName": "林一"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林二",
+    "classroomName": "林二"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林三",
+    "classroomName": "林三"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林五",
+    "classroomName": "林五"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "林四",
+    "classroomName": "林四"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "知201",
+    "classroomName": "知201"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "知203",
+    "classroomName": "知203"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "知206",
+    "classroomName": "知206"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "知207",
+    "classroomName": "知207"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "知武會議室",
+    "classroomName": "知武會議室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "花卉F103",
+    "classroomName": "花卉F103"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "花卉F-B1",
+    "classroomName": "花卉F-B1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "花卉館B1",
+    "classroomName": "花卉館B1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "食研222",
+    "classroomName": "食研222"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "食研B24",
+    "classroomName": "食研B24"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "食科102",
+    "classroomName": "食科102"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "食科演講廳",
+    "classroomName": "食科演講廳"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "畜一",
+    "classroomName": "畜一"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "畜二",
+    "classroomName": "畜二"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "畜三",
+    "classroomName": "畜三"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L101",
+    "classroomName": "造園L101"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L102",
+    "classroomName": "造園L102"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L103",
+    "classroomName": "造園L103"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L107",
+    "classroomName": "造園L107"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L108",
+    "classroomName": "造園L108"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園L109",
+    "classroomName": "造園L109"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R101",
+    "classroomName": "造園館R101"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R102",
+    "classroomName": "造園館R102"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R103",
+    "classroomName": "造園館R103"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R104",
+    "classroomName": "造園館R104"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R107",
+    "classroomName": "造園館R107"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R108",
+    "classroomName": "造園館R108"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "造園館R109",
+    "classroomName": "造園館R109"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝R106",
+    "classroomName": "園藝R106"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝R204",
+    "classroomName": "園藝R204"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝R205",
+    "classroomName": "園藝R205"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝大教室",
+    "classroomName": "園藝大教室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝普通室",
+    "classroomName": "園藝普通室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "園藝繪圖室",
+    "classroomName": "園藝繪圖室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "會議室",
+    "classroomName": "會議室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農工九",
+    "classroomName": "農工九"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農工十",
+    "classroomName": "農工十"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農工金城",
+    "classroomName": "農工金城"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農工繪圖室",
+    "classroomName": "農工繪圖室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化214",
+    "classroomName": "農化214"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化一213",
+    "classroomName": "農化一213"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化一第五",
+    "classroomName": "農化一第五"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化一第六-1",
+    "classroomName": "農化一第六-1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二105",
+    "classroomName": "農化二105"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二106",
+    "classroomName": "農化二106"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二107",
+    "classroomName": "農化二107"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二110-1",
+    "classroomName": "農化二110-1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二208",
+    "classroomName": "農化二208"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二211",
+    "classroomName": "農化二211"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二214-1",
+    "classroomName": "農化二214-1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二B10",
+    "classroomName": "農化二B10"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化二B11-1",
+    "classroomName": "農化二B11-1"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農化加工",
+    "classroomName": "農化加工"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農場考種館",
+    "classroomName": "農場考種館"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農經二",
+    "classroomName": "農經二"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農經三",
+    "classroomName": "農經三"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農經大講堂",
+    "classroomName": "農經大講堂"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農經四",
+    "classroomName": "農經四"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農經會議室",
+    "classroomName": "農經會議室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農機第二會議室",
+    "classroomName": "農機第二會議室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農機會議室",
+    "classroomName": "農機會議室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝108",
+    "classroomName": "農藝108"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝110",
+    "classroomName": "農藝110"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝112",
+    "classroomName": "農藝112"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝206",
+    "classroomName": "農藝206"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝212",
+    "classroomName": "農藝212"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "農藝304",
+    "classroomName": "農藝304"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "電電實驗室",
+    "classroomName": "電電實驗室"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新603",
+    "classroomName": "學新603"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新606",
+    "classroomName": "學新606"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新607",
+    "classroomName": "學新607"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新609",
+    "classroomName": "學新609"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新614",
+    "classroomName": "學新614"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新705",
+    "classroomName": "學新705"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "學新820",
+    "classroomName": "學新820"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "總一館304",
+    "classroomName": "總一館304"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "總一館308",
+    "classroomName": "總一館308"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "轉溫101",
+    "classroomName": "轉溫101"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "醫院大講堂",
+    "classroomName": "醫院大講堂"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館105",
+    "classroomName": "獸一館105"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館210",
+    "classroomName": "獸一館210"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館212",
+    "classroomName": "獸一館212"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館310",
+    "classroomName": "獸一館310"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館410",
+    "classroomName": "獸一館410"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸一館412",
+    "classroomName": "獸一館412"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸三館202",
+    "classroomName": "獸三館202"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸三館203",
+    "classroomName": "獸三館203"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸三館406",
+    "classroomName": "獸三館406"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸三館B01",
+    "classroomName": "獸三館B01"
+  },
+  {
+    "buildingValue": "6",
+    "buildingName": "生農學院",
+    "classroomId": "獸三館B09",
+    "classroomName": "獸三館B09"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "玉山廳",
+    "classroomName": "玉山廳"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "冠德講堂",
+    "classroomName": "冠德講堂"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "重光講堂",
+    "classroomName": "重光講堂"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "國學講堂",
+    "classroomName": "國學講堂"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一101",
+    "classroomName": "管一101"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一102",
+    "classroomName": "管一102"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一103",
+    "classroomName": "管一103"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一104",
+    "classroomName": "管一104"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一107",
+    "classroomName": "管一107"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一202",
+    "classroomName": "管一202"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一203",
+    "classroomName": "管一203"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一204",
+    "classroomName": "管一204"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一401",
+    "classroomName": "管一401"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一402",
+    "classroomName": "管一402"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一403",
+    "classroomName": "管一403"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一405",
+    "classroomName": "管一405"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一B01",
+    "classroomName": "管一B01"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一B02",
+    "classroomName": "管一B02"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一B03",
+    "classroomName": "管一B03"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一大電腦",
+    "classroomName": "管一大電腦"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一小電腦",
+    "classroomName": "管一小電腦"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一會九",
+    "classroomName": "管一會九"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一會八",
+    "classroomName": "管一會八"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管一會六",
+    "classroomName": "管一會六"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二101",
+    "classroomName": "管二101"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二102",
+    "classroomName": "管二102"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二103",
+    "classroomName": "管二103"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二104",
+    "classroomName": "管二104"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二201",
+    "classroomName": "管二201"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二202",
+    "classroomName": "管二202"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二203",
+    "classroomName": "管二203"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二204",
+    "classroomName": "管二204"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二205",
+    "classroomName": "管二205"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二206",
+    "classroomName": "管二206"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二301",
+    "classroomName": "管二301"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二302",
+    "classroomName": "管二302"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二303",
+    "classroomName": "管二303"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二304",
+    "classroomName": "管二304"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二305",
+    "classroomName": "管二305"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研七",
+    "classroomName": "管二研七"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研九",
+    "classroomName": "管二研九"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研八",
+    "classroomName": "管二研八"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研十",
+    "classroomName": "管二研十"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研十一",
+    "classroomName": "管二研十一"
+  },
+  {
+    "buildingValue": "7",
+    "buildingName": "管理院",
+    "classroomId": "管二研六",
+    "classroomName": "管二研六"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛101",
+    "classroomName": "公衛101"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛105",
+    "classroomName": "公衛105"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛118",
+    "classroomName": "公衛118"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛201",
+    "classroomName": "公衛201"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛203",
+    "classroomName": "公衛203"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛204",
+    "classroomName": "公衛204"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛205",
+    "classroomName": "公衛205"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛206",
+    "classroomName": "公衛206"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛207",
+    "classroomName": "公衛207"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛208",
+    "classroomName": "公衛208"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛209",
+    "classroomName": "公衛209"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛210",
+    "classroomName": "公衛210"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛211",
+    "classroomName": "公衛211"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛212",
+    "classroomName": "公衛212"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛213",
+    "classroomName": "公衛213"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛214",
+    "classroomName": "公衛214"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛215",
+    "classroomName": "公衛215"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛505",
+    "classroomName": "公衛505"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛601",
+    "classroomName": "公衛601"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛603(原601",
+    "classroomName": "公衛603(原601"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛648(原601",
+    "classroomName": "公衛648(原601"
+  },
+  {
+    "buildingValue": "8",
+    "buildingName": "公衛院",
+    "classroomId": "公衛701",
+    "classroomName": "公衛701"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "明達203",
+    "classroomName": "明達203"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "明達205",
+    "classroomName": "明達205"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "明達225",
+    "classroomName": "明達225"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "明達231",
+    "classroomName": "明達231"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "明達303",
+    "classroomName": "明達303"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "計資212",
+    "classroomName": "計資212"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理103",
+    "classroomName": "博理103"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理112",
+    "classroomName": "博理112"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理113",
+    "classroomName": "博理113"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理114",
+    "classroomName": "博理114"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理211",
+    "classroomName": "博理211"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理212",
+    "classroomName": "博理212"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理213",
+    "classroomName": "博理213"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理214",
+    "classroomName": "博理214"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理215",
+    "classroomName": "博理215"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理216",
+    "classroomName": "博理216"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "博理217",
+    "classroomName": "博理217"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資101",
+    "classroomName": "資101"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資102",
+    "classroomName": "資102"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資103",
+    "classroomName": "資103"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資104",
+    "classroomName": "資104"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資105",
+    "classroomName": "資105"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資107",
+    "classroomName": "資107"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資110",
+    "classroomName": "資110"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資111",
+    "classroomName": "資111"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資310",
+    "classroomName": "資310"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "資524",
+    "classroomName": "資524"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二101",
+    "classroomName": "電二101"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二102",
+    "classroomName": "電二102"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二104",
+    "classroomName": "電二104"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二106",
+    "classroomName": "電二106"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二133",
+    "classroomName": "電二133"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二141",
+    "classroomName": "電二141"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二143",
+    "classroomName": "電二143"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二144",
+    "classroomName": "電二144"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二145",
+    "classroomName": "電二145"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二146",
+    "classroomName": "電二146"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二225",
+    "classroomName": "電二225"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二229",
+    "classroomName": "電二229"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二254",
+    "classroomName": "電二254"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二303",
+    "classroomName": "電二303"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二409",
+    "classroomName": "電二409"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二454",
+    "classroomName": "電二454"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電二455",
+    "classroomName": "電二455"
+  },
+  {
+    "buildingValue": "9",
+    "buildingName": "電資院",
+    "classroomId": "電機二館",
+    "classroomName": "電機二館"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1302",
+    "classroomName": "法1302"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1303",
+    "classroomName": "法1303"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1304",
+    "classroomName": "法1304"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1401",
+    "classroomName": "法1401"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1402",
+    "classroomName": "法1402"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1403",
+    "classroomName": "法1403"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法1506",
+    "classroomName": "法1506"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法2101",
+    "classroomName": "法2101"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法2201",
+    "classroomName": "法2201"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法2311",
+    "classroomName": "法2311"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研1",
+    "classroomName": "法研1"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研2",
+    "classroomName": "法研2"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研4",
+    "classroomName": "法研4"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研5",
+    "classroomName": "法研5"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研6",
+    "classroomName": "法研6"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "法研7",
+    "classroomName": "法研7"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "科法一",
+    "classroomName": "科法一"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "科法二",
+    "classroomName": "科法二"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "萬2101",
+    "classroomName": "萬2101"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "萬2201",
+    "classroomName": "萬2201"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "萬2311",
+    "classroomName": "萬2311"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1302",
+    "classroomName": "霖1302"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1303",
+    "classroomName": "霖1303"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1304",
+    "classroomName": "霖1304"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1401",
+    "classroomName": "霖1401"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1402",
+    "classroomName": "霖1402"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1403",
+    "classroomName": "霖1403"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖1506",
+    "classroomName": "霖1506"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研一1501",
+    "classroomName": "霖研一1501"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研七1709",
+    "classroomName": "霖研七1709"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研二1502",
+    "classroomName": "霖研二1502"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研五1702",
+    "classroomName": "霖研五1702"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研六1703",
+    "classroomName": "霖研六1703"
+  },
+  {
+    "buildingValue": "A",
+    "buildingName": "法律院",
+    "classroomId": "霖研四1701",
+    "classroomName": "霖研四1701"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生化N101",
+    "classroomName": "生化N101"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生化N103",
+    "classroomName": "生化N103"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生化R100",
+    "classroomName": "生化R100"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生化R200",
+    "classroomName": "生化R200"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生化R204",
+    "classroomName": "生化R204"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科1148",
+    "classroomName": "生科1148"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科1217",
+    "classroomName": "生科1217"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科1225",
+    "classroomName": "生科1225"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科134",
+    "classroomName": "生科134"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科3A",
+    "classroomName": "生科3A"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科3C",
+    "classroomName": "生科3C"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科405",
+    "classroomName": "生科405"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科409",
+    "classroomName": "生科409"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科415",
+    "classroomName": "生科415"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科419",
+    "classroomName": "生科419"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科421",
+    "classroomName": "生科421"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科4A",
+    "classroomName": "生科4A"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科4B",
+    "classroomName": "生科4B"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科4C",
+    "classroomName": "生科4C"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科612",
+    "classroomName": "生科612"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科632",
+    "classroomName": "生科632"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科735",
+    "classroomName": "生科735"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科742",
+    "classroomName": "生科742"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "生科842",
+    "classroomName": "生科842"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮301",
+    "classroomName": "思亮301"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮401",
+    "classroomName": "思亮401"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮402",
+    "classroomName": "思亮402"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮405",
+    "classroomName": "思亮405"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮406",
+    "classroomName": "思亮406"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮409",
+    "classroomName": "思亮409"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮410",
+    "classroomName": "思亮410"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮501",
+    "classroomName": "思亮501"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "思亮502",
+    "classroomName": "思亮502"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化一213-1",
+    "classroomName": "農化一213-1"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化一第五-1",
+    "classroomName": "農化一第五-1"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化一第六",
+    "classroomName": "農化一第六"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二105-1",
+    "classroomName": "農化二105-1"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二106-1",
+    "classroomName": "農化二106-1"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二108",
+    "classroomName": "農化二108"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二110",
+    "classroomName": "農化二110"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二214",
+    "classroomName": "農化二214"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二216",
+    "classroomName": "農化二216"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二B01",
+    "classroomName": "農化二B01"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二B10-1",
+    "classroomName": "農化二B10-1"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化二B11",
+    "classroomName": "農化二B11"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "農化第五",
+    "classroomName": "農化第五"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "漁科107",
+    "classroomName": "漁科107"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "漁科302B",
+    "classroomName": "漁科302B"
+  },
+  {
+    "buildingValue": "B",
+    "buildingName": "生科院",
+    "classroomId": "漁科407A",
+    "classroomName": "漁科407A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "(醫)網球場",
+    "classroomName": "(醫)網球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "(醫)館1F",
+    "classroomName": "(醫)館1F"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "(醫)籃球場",
+    "classroomName": "(醫)籃球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "248視聽室",
+    "classroomName": "248視聽室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "LDP102",
+    "classroomName": "LDP102"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "R732",
+    "classroomName": "R732"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "一活大禮堂",
+    "classroomName": "一活大禮堂"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "人工草皮球場",
+    "classroomName": "人工草皮球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "大1女A",
+    "classroomName": "大1女A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女5舍A",
+    "classroomName": "女5舍A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女5舍B",
+    "classroomName": "女5舍B"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女5舍C",
+    "classroomName": "女5舍C"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女舍研A",
+    "classroomName": "女舍研A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女舍研B",
+    "classroomName": "女舍研B"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "女舍研C",
+    "classroomName": "女舍研C"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "中央籃球場",
+    "classroomName": "中央籃球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "戶外游泳池",
+    "classroomName": "戶外游泳池"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "手球場",
+    "classroomName": "手球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "水源階梯101",
+    "classroomName": "水源階梯101"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "水源階梯201",
+    "classroomName": "水源階梯201"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教101",
+    "classroomName": "外教101"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教102",
+    "classroomName": "外教102"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教103",
+    "classroomName": "外教103"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教104",
+    "classroomName": "外教104"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教105",
+    "classroomName": "外教105"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教201",
+    "classroomName": "外教201"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教202",
+    "classroomName": "外教202"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教203",
+    "classroomName": "外教203"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教204",
+    "classroomName": "外教204"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教205",
+    "classroomName": "外教205"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教206",
+    "classroomName": "外教206"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教305",
+    "classroomName": "外教305"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "外教劇場",
+    "classroomName": "外教劇場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "生技館105",
+    "classroomName": "生技館105"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "生技館212",
+    "classroomName": "生技館212"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "生技館213",
+    "classroomName": "生技館213"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "生技館214",
+    "classroomName": "生技館214"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "生機2電腦",
+    "classroomName": "生機2電腦"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "田徑場",
+    "classroomName": "田徑場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "男1舍A",
+    "classroomName": "男1舍A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "足球場",
+    "classroomName": "足球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R407",
+    "classroomName": "卓R407"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R408",
+    "classroomName": "卓R408"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R501",
+    "classroomName": "卓R501"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R505",
+    "classroomName": "卓R505"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R506",
+    "classroomName": "卓R506"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R508",
+    "classroomName": "卓R508"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "卓R511",
+    "classroomName": "卓R511"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科10",
+    "classroomName": "社科10"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科11",
+    "classroomName": "社科11"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科12",
+    "classroomName": "社科12"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科13",
+    "classroomName": "社科13"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科14",
+    "classroomName": "社科14"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科15",
+    "classroomName": "社科15"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科16",
+    "classroomName": "社科16"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科2",
+    "classroomName": "社科2"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科22",
+    "classroomName": "社科22"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科23",
+    "classroomName": "社科23"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科24",
+    "classroomName": "社科24"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科25",
+    "classroomName": "社科25"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科26",
+    "classroomName": "社科26"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科27",
+    "classroomName": "社科27"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科28",
+    "classroomName": "社科28"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科3",
+    "classroomName": "社科3"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科4",
+    "classroomName": "社科4"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科5",
+    "classroomName": "社科5"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科6",
+    "classroomName": "社科6"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科7",
+    "classroomName": "社科7"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科8",
+    "classroomName": "社科8"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科9",
+    "classroomName": "社科9"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科大禮堂",
+    "classroomName": "社科大禮堂"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科研1",
+    "classroomName": "社科研1"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科研2",
+    "classroomName": "社科研2"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科研3",
+    "classroomName": "社科研3"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "社科研4",
+    "classroomName": "社科研4"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "紅土球場",
+    "classroomName": "紅土球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "計資106",
+    "classroomName": "計資106"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "展高分105",
+    "classroomName": "展高分105"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "特別班教室",
+    "classroomName": "特別班教室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "高爾夫球場",
+    "classroomName": "高爾夫球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣105",
+    "classroomName": "推廣105"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣201",
+    "classroomName": "推廣201"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣202",
+    "classroomName": "推廣202"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣203",
+    "classroomName": "推廣203"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣204",
+    "classroomName": "推廣204"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣206",
+    "classroomName": "推廣206"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣207",
+    "classroomName": "推廣207"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣302",
+    "classroomName": "推廣302"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣303",
+    "classroomName": "推廣303"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣304",
+    "classroomName": "推廣304"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣311",
+    "classroomName": "推廣311"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣511",
+    "classroomName": "推廣511"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "推廣611",
+    "classroomName": "推廣611"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "排球場",
+    "classroomName": "排球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "棒壘球場",
+    "classroomName": "棒壘球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "新生籃球場",
+    "classroomName": "新生籃球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "管一會一",
+    "classroomName": "管一會一"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "管一會七",
+    "classroomName": "管一會七"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "管一會二",
+    "classroomName": "管一會二"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "管一會三",
+    "classroomName": "管一會三"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "管一會五",
+    "classroomName": "管一會五"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館B109",
+    "classroomName": "綜館B109"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館R204",
+    "classroomName": "綜館R204"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館R225",
+    "classroomName": "綜館R225"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館R245",
+    "classroomName": "綜館R245"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館R247",
+    "classroomName": "綜館R247"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館R329",
+    "classroomName": "綜館R329"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館多功能",
+    "classroomName": "綜館多功能"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館技擊AB",
+    "classroomName": "綜館技擊AB"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館技擊C",
+    "classroomName": "綜館技擊C"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館柔道室",
+    "classroomName": "綜館柔道室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館重訓室",
+    "classroomName": "綜館重訓室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館桌球室",
+    "classroomName": "綜館桌球室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館游泳池",
+    "classroomName": "綜館游泳池"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館舞蹈室",
+    "classroomName": "綜館舞蹈室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館壁球室",
+    "classroomName": "綜館壁球室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜館韻律室",
+    "classroomName": "綜館韻律室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜體R226",
+    "classroomName": "綜體R226"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜體前廣場",
+    "classroomName": "綜體前廣場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "綜體館247",
+    "classroomName": "綜體館247"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "網球123456",
+    "classroomName": "網球123456"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "網球345678",
+    "classroomName": "網球345678"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "網球場1234",
+    "classroomName": "網球場1234"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "網球場5678",
+    "classroomName": "網球場5678"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "語128",
+    "classroomName": "語128"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "語129",
+    "classroomName": "語129"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "樂學館205",
+    "classroomName": "樂學館205"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "適應體育R",
+    "classroomName": "適應體育R"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "橄欖球場",
+    "classroomName": "橄欖球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "舊游泳池前",
+    "classroomName": "舊游泳池前"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "舊館羽球場",
+    "classroomName": "舊館羽球場"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "舊館柔道房",
+    "classroomName": "舊館柔道房"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "舊館重訓室",
+    "classroomName": "舊館重訓室"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "舊館韻律房",
+    "classroomName": "舊館韻律房"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "藍球場A",
+    "classroomName": "藍球場A"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球A~E",
+    "classroomName": "籃球A~E"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球F~I",
+    "classroomName": "籃球F~I"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球場B",
+    "classroomName": "籃球場B"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球場C",
+    "classroomName": "籃球場C"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球場D",
+    "classroomName": "籃球場D"
+  },
+  {
+    "buildingValue": "%",
+    "buildingName": "其他",
+    "classroomId": "籃球場E",
+    "classroomName": "籃球場E"
+  }
+];
+
+/**
+ * 按建物分組的教室資料
+ */
+export const CLASSROOMS_BY_BUILDING: Record<string, Classroom[]> = {
+  "共同": [
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共101",
+      "classroomName": "共101"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共102",
+      "classroomName": "共102"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共103",
+      "classroomName": "共103"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共104",
+      "classroomName": "共104"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共105",
+      "classroomName": "共105"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共201",
+      "classroomName": "共201"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共202",
+      "classroomName": "共202"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共203",
+      "classroomName": "共203"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共204",
+      "classroomName": "共204"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共205",
+      "classroomName": "共205"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共206",
+      "classroomName": "共206"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共207",
+      "classroomName": "共207"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共208",
+      "classroomName": "共208"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共301",
+      "classroomName": "共301"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共302",
+      "classroomName": "共302"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共303",
+      "classroomName": "共303"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共304",
+      "classroomName": "共304"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共305",
+      "classroomName": "共305"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共306",
+      "classroomName": "共306"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共307",
+      "classroomName": "共307"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共308",
+      "classroomName": "共308"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共401",
+      "classroomName": "共401"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共402",
+      "classroomName": "共402"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共403",
+      "classroomName": "共403"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共404",
+      "classroomName": "共404"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共405",
+      "classroomName": "共405"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共406",
+      "classroomName": "共406"
+    },
+    {
+      "buildingValue": "共同",
+      "buildingName": "共同",
+      "classroomId": "共407",
+      "classroomName": "共407"
+    }
+  ],
+  "普通": [
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普101",
+      "classroomName": "普101"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普102",
+      "classroomName": "普102"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普103",
+      "classroomName": "普103"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普201",
+      "classroomName": "普201"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普202",
+      "classroomName": "普202"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普203",
+      "classroomName": "普203"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普204",
+      "classroomName": "普204"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普205",
+      "classroomName": "普205"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普301",
+      "classroomName": "普301"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普302",
+      "classroomName": "普302"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普303",
+      "classroomName": "普303"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普304",
+      "classroomName": "普304"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普305",
+      "classroomName": "普305"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普306",
+      "classroomName": "普306"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普401",
+      "classroomName": "普401"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普402",
+      "classroomName": "普402"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普403",
+      "classroomName": "普403"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普404",
+      "classroomName": "普404"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普405",
+      "classroomName": "普405"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普406",
+      "classroomName": "普406"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普501",
+      "classroomName": "普501"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普502",
+      "classroomName": "普502"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普503",
+      "classroomName": "普503"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普504",
+      "classroomName": "普504"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普505",
+      "classroomName": "普505"
+    },
+    {
+      "buildingValue": "普通",
+      "buildingName": "普通",
+      "classroomId": "普506",
+      "classroomName": "普506"
+    }
+  ],
+  "新生": [
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新102",
+      "classroomName": "新102"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新103",
+      "classroomName": "新103"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新201",
+      "classroomName": "新201"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新202",
+      "classroomName": "新202"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新203",
+      "classroomName": "新203"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新204",
+      "classroomName": "新204"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新301",
+      "classroomName": "新301"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新302",
+      "classroomName": "新302"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新303",
+      "classroomName": "新303"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新304",
+      "classroomName": "新304"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新401",
+      "classroomName": "新401"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新402",
+      "classroomName": "新402"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新403",
+      "classroomName": "新403"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新404",
+      "classroomName": "新404"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新405",
+      "classroomName": "新405"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新501",
+      "classroomName": "新501"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新502",
+      "classroomName": "新502"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新503",
+      "classroomName": "新503"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新504",
+      "classroomName": "新504"
+    },
+    {
+      "buildingValue": "新生",
+      "buildingName": "新生",
+      "classroomId": "新505",
+      "classroomName": "新505"
+    }
+  ],
+  "綜合": [
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜201",
+      "classroomName": "綜201"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜202",
+      "classroomName": "綜202"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜203",
+      "classroomName": "綜203"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜301",
+      "classroomName": "綜301"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜302",
+      "classroomName": "綜302"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜401",
+      "classroomName": "綜401"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜402",
+      "classroomName": "綜402"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜403",
+      "classroomName": "綜403"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜404",
+      "classroomName": "綜404"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜501",
+      "classroomName": "綜501"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜502",
+      "classroomName": "綜502"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜503",
+      "classroomName": "綜503"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜504",
+      "classroomName": "綜504"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜505",
+      "classroomName": "綜505"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜601",
+      "classroomName": "綜601"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜602",
+      "classroomName": "綜602"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜603",
+      "classroomName": "綜603"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜604",
+      "classroomName": "綜604"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜605",
+      "classroomName": "綜605"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜606",
+      "classroomName": "綜606"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜607",
+      "classroomName": "綜607"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜701",
+      "classroomName": "綜701"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜702",
+      "classroomName": "綜702"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜703",
+      "classroomName": "綜703"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜704",
+      "classroomName": "綜704"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜705",
+      "classroomName": "綜705"
+    },
+    {
+      "buildingValue": "綜合",
+      "buildingName": "綜合",
+      "classroomId": "綜合大講堂",
+      "classroomName": "綜合大講堂"
+    }
+  ],
+  "博雅": [
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅101/華南講堂",
+      "classroomName": "博雅101/華南講堂"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅102",
+      "classroomName": "博雅102"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅103",
+      "classroomName": "博雅103"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅201",
+      "classroomName": "博雅201"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅202",
+      "classroomName": "博雅202"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅203",
+      "classroomName": "博雅203"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅204",
+      "classroomName": "博雅204"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅205",
+      "classroomName": "博雅205"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅206",
+      "classroomName": "博雅206"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅301",
+      "classroomName": "博雅301"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅302",
+      "classroomName": "博雅302"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅303",
+      "classroomName": "博雅303"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅304",
+      "classroomName": "博雅304"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅305",
+      "classroomName": "博雅305"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅306",
+      "classroomName": "博雅306"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅307",
+      "classroomName": "博雅307"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅308",
+      "classroomName": "博雅308"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅309",
+      "classroomName": "博雅309"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅310",
+      "classroomName": "博雅310"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅311",
+      "classroomName": "博雅311"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅312",
+      "classroomName": "博雅312"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅401",
+      "classroomName": "博雅401"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅402",
+      "classroomName": "博雅402"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅403",
+      "classroomName": "博雅403"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅404",
+      "classroomName": "博雅404"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅405",
+      "classroomName": "博雅405"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅406",
+      "classroomName": "博雅406"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅407",
+      "classroomName": "博雅407"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅408",
+      "classroomName": "博雅408"
+    },
+    {
+      "buildingValue": "博雅",
+      "buildingName": "博雅",
+      "classroomId": "博雅409",
+      "classroomName": "博雅409"
+    }
+  ],
+  "文學院": [
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文232",
+      "classroomName": "人文232"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文302",
+      "classroomName": "人文302"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文336",
+      "classroomName": "人文336"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文337",
+      "classroomName": "人文337"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文342",
+      "classroomName": "人文342"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文345",
+      "classroomName": "人文345"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文530",
+      "classroomName": "人文530"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文532",
+      "classroomName": "人文532"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B106",
+      "classroomName": "人文B106"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B106-2",
+      "classroomName": "人文B106-2"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B107",
+      "classroomName": "人文B107"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B109",
+      "classroomName": "人文B109"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B111",
+      "classroomName": "人文B111"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B114-1",
+      "classroomName": "人文B114-1"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B201-1",
+      "classroomName": "人文B201-1"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "人文B208",
+      "classroomName": "人文B208"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "中文研討",
+      "classroomName": "中文研討"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "中研院",
+      "classroomName": "中研院"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文16",
+      "classroomName": "文16"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文17",
+      "classroomName": "文17"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文18",
+      "classroomName": "文18"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文19",
+      "classroomName": "文19"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文20",
+      "classroomName": "文20"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文研討室",
+      "classroomName": "文研討室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "文演講廳",
+      "classroomName": "文演講廳"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "水源人105",
+      "classroomName": "水源人105"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "水源人201",
+      "classroomName": "水源人201"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "水源人302",
+      "classroomName": "水源人302"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "水源人308",
+      "classroomName": "水源人308"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "外文會議室",
+      "classroomName": "外文會議室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "外研一",
+      "classroomName": "外研一"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "外研三",
+      "classroomName": "外研三"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲201",
+      "classroomName": "哲201"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲210",
+      "classroomName": "哲210"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲314",
+      "classroomName": "哲314"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲研討室一",
+      "classroomName": "哲研討室一"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲研討室二",
+      "classroomName": "哲研討室二"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "哲研討室三",
+      "classroomName": "哲研討室三"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "校史日108",
+      "classroomName": "校史日108"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "校史館205",
+      "classroomName": "校史館205"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "國青322",
+      "classroomName": "國青322"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "國青323",
+      "classroomName": "國青323"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "國青324",
+      "classroomName": "國青324"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "第6研究室",
+      "classroomName": "第6研究室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "第五研究",
+      "classroomName": "第五研究"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "普506",
+      "classroomName": "普506"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討2A",
+      "classroomName": "圖資研討2A"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討3A",
+      "classroomName": "圖資研討3A"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討3B",
+      "classroomName": "圖資研討3B"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討一",
+      "classroomName": "圖資研討一"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討二",
+      "classroomName": "圖資研討二"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資研討三",
+      "classroomName": "圖資研討三"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資視聽室",
+      "classroomName": "圖資視聽室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資視聽資",
+      "classroomName": "圖資視聽資"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資會議室",
+      "classroomName": "圖資會議室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資資訊室",
+      "classroomName": "圖資資訊室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "圖資編目室",
+      "classroomName": "圖資編目室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "實驗劇場",
+      "classroomName": "實驗劇場"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學201-1",
+      "classroomName": "樂學201-1"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學205",
+      "classroomName": "樂學205"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館104",
+      "classroomName": "樂學館104"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館105",
+      "classroomName": "樂學館105"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館106",
+      "classroomName": "樂學館106"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館211",
+      "classroomName": "樂學館211"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館304",
+      "classroomName": "樂學館304"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "樂學館305",
+      "classroomName": "樂學館305"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "歷史研討室",
+      "classroomName": "歷史研討室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "戲夢空間",
+      "classroomName": "戲夢空間"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館102",
+      "classroomName": "總一館102"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館106",
+      "classroomName": "總一館106"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館108",
+      "classroomName": "總一館108"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館110",
+      "classroomName": "總一館110"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館112",
+      "classroomName": "總一館112"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館113",
+      "classroomName": "總一館113"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館114",
+      "classroomName": "總一館114"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館115",
+      "classroomName": "總一館115"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館116",
+      "classroomName": "總一館116"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館118",
+      "classroomName": "總一館118"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館201",
+      "classroomName": "總一館201"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館202",
+      "classroomName": "總一館202"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館208",
+      "classroomName": "總一館208"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "總一館210",
+      "classroomName": "總一館210"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "翻譯會議室",
+      "classroomName": "翻譯會議室"
+    },
+    {
+      "buildingValue": "1",
+      "buildingName": "文學院",
+      "classroomId": "舊圖會議室",
+      "classroomName": "舊圖會議室"
+    }
+  ],
+  "理學院": [
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "115研討室",
+      "classroomName": "115研討室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣A104",
+      "classroomName": "大氣A104"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣A108",
+      "classroomName": "大氣A108"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣A206",
+      "classroomName": "大氣A206"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣B105",
+      "classroomName": "大氣B105"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣C202",
+      "classroomName": "大氣C202"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣C407",
+      "classroomName": "大氣C407"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "大氣系A100",
+      "classroomName": "大氣系A100"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "中庭大講堂",
+      "classroomName": "中庭大講堂"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "化121",
+      "classroomName": "化121"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "化210室",
+      "classroomName": "化210室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "化217",
+      "classroomName": "化217"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數101",
+      "classroomName": "天數101"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數102",
+      "classroomName": "天數102"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數201",
+      "classroomName": "天數201"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數202",
+      "classroomName": "天數202"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數204",
+      "classroomName": "天數204"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數302",
+      "classroomName": "天數302"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數304",
+      "classroomName": "天數304"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數305",
+      "classroomName": "天數305"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數430",
+      "classroomName": "天數430"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數440",
+      "classroomName": "天數440"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數519",
+      "classroomName": "天數519"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數526",
+      "classroomName": "天數526"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數537",
+      "classroomName": "天數537"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數539",
+      "classroomName": "天數539"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數810",
+      "classroomName": "天數810"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "天數812",
+      "classroomName": "天數812"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "北館A",
+      "classroomName": "北館A"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "北館B",
+      "classroomName": "北館B"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "北館N206",
+      "classroomName": "北館N206"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "北館N221",
+      "classroomName": "北館N221"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "北館視聽",
+      "classroomName": "北館視聽"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "示範實驗室",
+      "classroomName": "示範實驗室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "全變403",
+      "classroomName": "全變403"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "全變中心G202",
+      "classroomName": "全變中心G202"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理305",
+      "classroomName": "地理305"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理405",
+      "classroomName": "地理405"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理502",
+      "classroomName": "地理502"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理602",
+      "classroomName": "地理602"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理一教室",
+      "classroomName": "地理一教室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理二教室",
+      "classroomName": "地理二教室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地理電腦室",
+      "classroomName": "地理電腦室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地質212",
+      "classroomName": "地質212"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地質213",
+      "classroomName": "地質213"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地質300",
+      "classroomName": "地質300"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地質313",
+      "classroomName": "地質313"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "地質315",
+      "classroomName": "地質315"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "南館S217",
+      "classroomName": "南館S217"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "南館S309",
+      "classroomName": "南館S309"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "南館S409",
+      "classroomName": "南館S409"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "南館地下A",
+      "classroomName": "南館地下A"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "南館地下B",
+      "classroomName": "南館地下B"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮103",
+      "classroomName": "思亮103"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮104",
+      "classroomName": "思亮104"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮106",
+      "classroomName": "思亮106"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮201",
+      "classroomName": "思亮201"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮204",
+      "classroomName": "思亮204"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮207",
+      "classroomName": "思亮207"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮305",
+      "classroomName": "思亮305"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮308",
+      "classroomName": "思亮308"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "思亮309",
+      "classroomName": "思亮309"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研110教室",
+      "classroomName": "海研110教室"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研115",
+      "classroomName": "海研115"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研231",
+      "classroomName": "海研231"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研232",
+      "classroomName": "海研232"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研300",
+      "classroomName": "海研300"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研500",
+      "classroomName": "海研500"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "海研大講堂",
+      "classroomName": "海研大講堂"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "普物實驗一",
+      "classroomName": "普物實驗一"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "普物實驗二",
+      "classroomName": "普物實驗二"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "普物實驗三",
+      "classroomName": "普物實驗三"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物111",
+      "classroomName": "新物111"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物112",
+      "classroomName": "新物112"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物204",
+      "classroomName": "新物204"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物205",
+      "classroomName": "新物205"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物207",
+      "classroomName": "新物207"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物208",
+      "classroomName": "新物208"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物304",
+      "classroomName": "新物304"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物305",
+      "classroomName": "新物305"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物406",
+      "classroomName": "新物406"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物517",
+      "classroomName": "新物517"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物618",
+      "classroomName": "新物618"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物716",
+      "classroomName": "新物716"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物815",
+      "classroomName": "新物815"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新物833",
+      "classroomName": "新物833"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "新數101",
+      "classroomName": "新數101"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "楊金豹演講廳",
+      "classroomName": "楊金豹演講廳"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "潘貫講堂",
+      "classroomName": "潘貫講堂"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊物館108",
+      "classroomName": "舊物館108"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊物館114",
+      "classroomName": "舊物館114"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊物館115",
+      "classroomName": "舊物館115"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊物館122",
+      "classroomName": "舊物館122"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊數103",
+      "classroomName": "舊數103"
+    },
+    {
+      "buildingValue": "2",
+      "buildingName": "理學院",
+      "classroomId": "舊數110",
+      "classroomName": "舊數110"
+    }
+  ],
+  "社科院": [
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社101",
+      "classroomName": "社101"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社103",
+      "classroomName": "社103"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社110",
+      "classroomName": "社110"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社112",
+      "classroomName": "社112"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社114",
+      "classroomName": "社114"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社116",
+      "classroomName": "社116"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社203",
+      "classroomName": "社203"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社205",
+      "classroomName": "社205"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社207",
+      "classroomName": "社207"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社209",
+      "classroomName": "社209"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社211",
+      "classroomName": "社211"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社213",
+      "classroomName": "社213"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社318",
+      "classroomName": "社318"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社401",
+      "classroomName": "社401"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科102",
+      "classroomName": "社科102"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科201",
+      "classroomName": "社科201"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科202",
+      "classroomName": "社科202"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科301",
+      "classroomName": "社科301"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科302",
+      "classroomName": "社科302"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科303",
+      "classroomName": "社科303"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科305",
+      "classroomName": "社科305"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科306",
+      "classroomName": "社科306"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科307",
+      "classroomName": "社科307"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科401",
+      "classroomName": "社科401"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科402",
+      "classroomName": "社科402"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科403",
+      "classroomName": "社科403"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科404",
+      "classroomName": "社科404"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科405",
+      "classroomName": "社科405"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科406",
+      "classroomName": "社科406"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科407",
+      "classroomName": "社科407"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科501",
+      "classroomName": "社科501"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科502",
+      "classroomName": "社科502"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科503",
+      "classroomName": "社科503"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科506",
+      "classroomName": "社科506"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科507",
+      "classroomName": "社科507"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科和碩講堂",
+      "classroomName": "社科和碩講堂"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研601",
+      "classroomName": "社科研601"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研602",
+      "classroomName": "社科研602"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研603",
+      "classroomName": "社科研603"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研604",
+      "classroomName": "社科研604"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研605",
+      "classroomName": "社科研605"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研606",
+      "classroomName": "社科研606"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研607",
+      "classroomName": "社科研607"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研608",
+      "classroomName": "社科研608"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "社科研609",
+      "classroomName": "社科研609"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發202",
+      "classroomName": "國發202"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發204",
+      "classroomName": "國發204"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發206",
+      "classroomName": "國發206"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發208",
+      "classroomName": "國發208"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發210",
+      "classroomName": "國發210"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發300",
+      "classroomName": "國發300"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發302",
+      "classroomName": "國發302"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發310",
+      "classroomName": "國發310"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "國發418",
+      "classroomName": "國發418"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞103",
+      "classroomName": "新聞103"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞105",
+      "classroomName": "新聞105"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞203",
+      "classroomName": "新聞203"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞207",
+      "classroomName": "新聞207"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞302",
+      "classroomName": "新聞302"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞304",
+      "classroomName": "新聞304"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞308",
+      "classroomName": "新聞308"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞313",
+      "classroomName": "新聞313"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞315",
+      "classroomName": "新聞315"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "新聞401",
+      "classroomName": "新聞401"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "經大講堂",
+      "classroomName": "經大講堂"
+    },
+    {
+      "buildingValue": "3",
+      "buildingName": "社科院",
+      "classroomId": "經會議室",
+      "classroomName": "經會議室"
+    }
+  ],
+  "醫學院": [
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "(牙)討論一",
+      "classroomName": "(牙)討論一"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "(牙)實習一",
+      "classroomName": "(牙)實習一"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "(牙)實習二 ",
+      "classroomName": "(牙)實習二 "
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "341教室",
+      "classroomName": "341教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "3F會議室",
+      "classroomName": "3F會議室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "B2實驗室",
+      "classroomName": "B2實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "R557",
+      "classroomName": "R557"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "R753",
+      "classroomName": "R753"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "R834",
+      "classroomName": "R834"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "一東實驗室",
+      "classroomName": "一東實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "三東實驗室",
+      "classroomName": "三東實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "口生所討論室",
+      "classroomName": "口生所討論室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "口生會議室",
+      "classroomName": "口生會議室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室01",
+      "classroomName": "小班教室01"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室02",
+      "classroomName": "小班教室02"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室03",
+      "classroomName": "小班教室03"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室04",
+      "classroomName": "小班教室04"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室05",
+      "classroomName": "小班教室05"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室06",
+      "classroomName": "小班教室06"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室07",
+      "classroomName": "小班教室07"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室08",
+      "classroomName": "小班教室08"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室09",
+      "classroomName": "小班教室09"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室10",
+      "classroomName": "小班教室10"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室11",
+      "classroomName": "小班教室11"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室12",
+      "classroomName": "小班教室12"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室13",
+      "classroomName": "小班教室13"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室14",
+      "classroomName": "小班教室14"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室15",
+      "classroomName": "小班教室15"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室16",
+      "classroomName": "小班教室16"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室17",
+      "classroomName": "小班教室17"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室18",
+      "classroomName": "小班教室18"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室19",
+      "classroomName": "小班教室19"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "小班教室20",
+      "classroomName": "小班教室20"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治411",
+      "classroomName": "公職治411"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治412",
+      "classroomName": "公職治412"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治417",
+      "classroomName": "公職治417"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治422",
+      "classroomName": "公職治422"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治430",
+      "classroomName": "公職治430"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "公職治431",
+      "classroomName": "公職治431"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森205",
+      "classroomName": "水森205"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森305",
+      "classroomName": "水森305"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森316",
+      "classroomName": "水森316"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森326",
+      "classroomName": "水森326"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森415",
+      "classroomName": "水森415"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "水森505",
+      "classroomName": "水森505"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "四東實驗室",
+      "classroomName": "四東實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "生化實習室",
+      "classroomName": "生化實習室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "血液實習室",
+      "classroomName": "血液實習室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "血清實習室",
+      "classroomName": "血清實習室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "物治討論一",
+      "classroomName": "物治討論一"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "物治討論二",
+      "classroomName": "物治討論二"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "物治討論三",
+      "classroomName": "物治討論三"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "物治實習3F",
+      "classroomName": "物治實習3F"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "物治實習4F",
+      "classroomName": "物治實習4F"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "病毒實習室",
+      "classroomName": "病毒實習室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "病理03-80",
+      "classroomName": "病理03-80"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "討論室一",
+      "classroomName": "討論室一"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "討論室二",
+      "classroomName": "討論室二"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "討論室三",
+      "classroomName": "討論室三"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基1203",
+      "classroomName": "基1203"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基1234",
+      "classroomName": "基1234"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1003",
+      "classroomName": "基醫1003"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫101",
+      "classroomName": "基醫101"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫102",
+      "classroomName": "基醫102"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫103",
+      "classroomName": "基醫103"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫104",
+      "classroomName": "基醫104"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1105",
+      "classroomName": "基醫1105"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1209",
+      "classroomName": "基醫1209"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1214",
+      "classroomName": "基醫1214"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1222",
+      "classroomName": "基醫1222"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫1503",
+      "classroomName": "基醫1503"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫201",
+      "classroomName": "基醫201"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫202",
+      "classroomName": "基醫202"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫203",
+      "classroomName": "基醫203"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫204",
+      "classroomName": "基醫204"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫301",
+      "classroomName": "基醫301"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫302",
+      "classroomName": "基醫302"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫303",
+      "classroomName": "基醫303"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫304",
+      "classroomName": "基醫304"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫402",
+      "classroomName": "基醫402"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫403",
+      "classroomName": "基醫403"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫405",
+      "classroomName": "基醫405"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫406",
+      "classroomName": "基醫406"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫501",
+      "classroomName": "基醫501"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫502",
+      "classroomName": "基醫502"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫503",
+      "classroomName": "基醫503"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫504",
+      "classroomName": "基醫504"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫505",
+      "classroomName": "基醫505"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫506",
+      "classroomName": "基醫506"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫507",
+      "classroomName": "基醫507"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫508",
+      "classroomName": "基醫508"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫509",
+      "classroomName": "基醫509"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫701",
+      "classroomName": "基醫701"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫705",
+      "classroomName": "基醫705"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫807",
+      "classroomName": "基醫807"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫809",
+      "classroomName": "基醫809"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫816",
+      "classroomName": "基醫816"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫824",
+      "classroomName": "基醫824"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫901",
+      "classroomName": "基醫901"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫905",
+      "classroomName": "基醫905"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫913",
+      "classroomName": "基醫913"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫B03",
+      "classroomName": "基醫B03"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "基醫四西實",
+      "classroomName": "基醫四西實"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室401",
+      "classroomName": "教室401"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室402",
+      "classroomName": "教室402"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室403",
+      "classroomName": "教室403"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室404",
+      "classroomName": "教室404"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室405",
+      "classroomName": "教室405"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室一",
+      "classroomName": "教室一"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "教室二",
+      "classroomName": "教室二"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "第一實驗室",
+      "classroomName": "第一實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "第二實驗室",
+      "classroomName": "第二實驗室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "第八講堂",
+      "classroomName": "第八講堂"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "第十講堂",
+      "classroomName": "第十講堂"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "細菌實習室",
+      "classroomName": "細菌實習室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "圓形教室",
+      "classroomName": "圓形教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "電腦教室",
+      "classroomName": "電腦教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "實習教室",
+      "classroomName": "實習教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "實習教室432",
+      "classroomName": "實習教室432"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "檢403",
+      "classroomName": "檢403"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "檢506教室",
+      "classroomName": "檢506教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "檢511",
+      "classroomName": "檢511"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "檢521-7",
+      "classroomName": "檢521-7"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "檢驗醫學部",
+      "classroomName": "檢驗醫學部"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "臨藥討論室",
+      "classroomName": "臨藥討論室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "醫院牙科部",
+      "classroomName": "醫院牙科部"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護108室",
+      "classroomName": "護108室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護301室",
+      "classroomName": "護301室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護302室",
+      "classroomName": "護302室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護303室",
+      "classroomName": "護303室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護304室",
+      "classroomName": "護304室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護305室",
+      "classroomName": "護305室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護研究室1",
+      "classroomName": "護研究室1"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護討論室1",
+      "classroomName": "護討論室1"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護討論室2",
+      "classroomName": "護討論室2"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護討論室3",
+      "classroomName": "護討論室3"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護討論室4",
+      "classroomName": "護討論室4"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護智能教室",
+      "classroomName": "護智能教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護視聽教室",
+      "classroomName": "護視聽教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護階梯教室",
+      "classroomName": "護階梯教室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護會議室",
+      "classroomName": "護會議室"
+    },
+    {
+      "buildingValue": "4",
+      "buildingName": "醫學院",
+      "classroomId": "護綜討室",
+      "classroomName": "護綜討室"
+    }
+  ],
+  "工學院": [
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土220",
+      "classroomName": "土220"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土224",
+      "classroomName": "土224"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土318B",
+      "classroomName": "土318B"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土320",
+      "classroomName": "土320"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土研401",
+      "classroomName": "土研401"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土研402",
+      "classroomName": "土研402"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土研405",
+      "classroomName": "土研405"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土研406",
+      "classroomName": "土研406"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "土研407",
+      "classroomName": "土研407"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科127A",
+      "classroomName": "工科127A"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科201",
+      "classroomName": "工科201"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科202",
+      "classroomName": "工科202"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科203",
+      "classroomName": "工科203"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科204",
+      "classroomName": "工科204"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科205",
+      "classroomName": "工科205"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科206",
+      "classroomName": "工科206"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科207",
+      "classroomName": "工科207"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科視聽室",
+      "classroomName": "工科視聽室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工科實驗室",
+      "classroomName": "工科實驗室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜205",
+      "classroomName": "工綜205"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜207",
+      "classroomName": "工綜207"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜209",
+      "classroomName": "工綜209"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜211",
+      "classroomName": "工綜211"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜213",
+      "classroomName": "工綜213"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜215",
+      "classroomName": "工綜215"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜228",
+      "classroomName": "工綜228"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜230",
+      "classroomName": "工綜230"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜232",
+      "classroomName": "工綜232"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜302",
+      "classroomName": "工綜302"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜305",
+      "classroomName": "工綜305"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜311",
+      "classroomName": "工綜311"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜313",
+      "classroomName": "工綜313"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜494",
+      "classroomName": "工綜494"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜534-1",
+      "classroomName": "工綜534-1"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜534室",
+      "classroomName": "工綜534室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜536室",
+      "classroomName": "工綜536室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜734室",
+      "classroomName": "工綜734室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜736室",
+      "classroomName": "工綜736室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜742室",
+      "classroomName": "工綜742室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜B01",
+      "classroomName": "工綜B01"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜B02",
+      "classroomName": "工綜B02"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜B03",
+      "classroomName": "工綜B03"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "工綜B04",
+      "classroomName": "工綜B04"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "公館101",
+      "classroomName": "公館101"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "公館104",
+      "classroomName": "公館104"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "公館108",
+      "classroomName": "公館108"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "公館B01",
+      "classroomName": "公館B01"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "公館B04",
+      "classroomName": "公館B04"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "化工一",
+      "classroomName": "化工一"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "化工一館306",
+      "classroomName": "化工一館306"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "化工二",
+      "classroomName": "化工二"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "化工三",
+      "classroomName": "化工三"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "成志國際演講廳",
+      "classroomName": "成志國際演講廳"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "車輛實驗室",
+      "classroomName": "車輛實驗室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "信義講堂",
+      "classroomName": "信義講堂"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "展書樓506",
+      "classroomName": "展書樓506"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "展書樓507",
+      "classroomName": "展書樓507"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "高分201",
+      "classroomName": "高分201"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "高分子105",
+      "classroomName": "高分子105"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "國青101",
+      "classroomName": "國青101"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "國青235",
+      "classroomName": "國青235"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "望樂樓302",
+      "classroomName": "望樂樓302"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "進學講堂",
+      "classroomName": "進學講堂"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "楊斌彥廳",
+      "classroomName": "楊斌彥廳"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "輔研中心",
+      "classroomName": "輔研中心"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "慶琅廳",
+      "classroomName": "慶琅廳"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機皮教室",
+      "classroomName": "機皮教室"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械104",
+      "classroomName": "機械104"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械105",
+      "classroomName": "機械105"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械113",
+      "classroomName": "機械113"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械114",
+      "classroomName": "機械114"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械115",
+      "classroomName": "機械115"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械116",
+      "classroomName": "機械116"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械B113",
+      "classroomName": "機械B113"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械B114",
+      "classroomName": "機械B114"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械B117",
+      "classroomName": "機械B117"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械B118",
+      "classroomName": "機械B118"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械B119",
+      "classroomName": "機械B119"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械系計中",
+      "classroomName": "機械系計中"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械系實習工廠",
+      "classroomName": "機械系實習工廠"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "機械實習工場",
+      "classroomName": "機械實習工場"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應107",
+      "classroomName": "應107"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應109",
+      "classroomName": "應109"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應111",
+      "classroomName": "應111"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應113",
+      "classroomName": "應113"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應224",
+      "classroomName": "應224"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應226",
+      "classroomName": "應226"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應231",
+      "classroomName": "應231"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "應233",
+      "classroomName": "應233"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環工101",
+      "classroomName": "環工101"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環工102",
+      "classroomName": "環工102"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環工103",
+      "classroomName": "環工103"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環工104",
+      "classroomName": "環工104"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環工205",
+      "classroomName": "環工205"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "環研401",
+      "classroomName": "環研401"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "聯教館203",
+      "classroomName": "聯教館203"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "聯教館211",
+      "classroomName": "聯教館211"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "聯電講堂",
+      "classroomName": "聯電講堂"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "繡山演講廳",
+      "classroomName": "繡山演講廳"
+    },
+    {
+      "buildingValue": "5",
+      "buildingName": "工學院",
+      "classroomId": "繡山講堂",
+      "classroomName": "繡山講堂"
+    }
+  ],
+  "生農學院": [
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "一樓研討室",
+      "classroomName": "一樓研討室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非101",
+      "classroomName": "中非101"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非102",
+      "classroomName": "中非102"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非104",
+      "classroomName": "中非104"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非105",
+      "classroomName": "中非105"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非301A ",
+      "classroomName": "中非301A "
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "中非301B",
+      "classroomName": "中非301B"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "公共接待室",
+      "classroomName": "公共接待室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "木性",
+      "classroomName": "木性"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "加工105室",
+      "classroomName": "加工105室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "加工204室",
+      "classroomName": "加工204室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "加工實驗室",
+      "classroomName": "加工實驗室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "加工館B1",
+      "classroomName": "加工館B1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生工202",
+      "classroomName": "生工202"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生工二教室",
+      "classroomName": "生工二教室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生工研討室二",
+      "classroomName": "生工研討室二"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生技所415",
+      "classroomName": "生技所415"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生理研",
+      "classroomName": "生理研"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生統教室",
+      "classroomName": "生統教室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳402室",
+      "classroomName": "生傳402室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳417室",
+      "classroomName": "生傳417室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳418室",
+      "classroomName": "生傳418室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳421室",
+      "classroomName": "生傳421室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳423室",
+      "classroomName": "生傳423室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳425室",
+      "classroomName": "生傳425室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳427室",
+      "classroomName": "生傳427室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳502室",
+      "classroomName": "生傳502室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳505室",
+      "classroomName": "生傳505室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳515室",
+      "classroomName": "生傳515室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳520室",
+      "classroomName": "生傳520室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳525室",
+      "classroomName": "生傳525室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳527室",
+      "classroomName": "生傳527室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳一",
+      "classroomName": "生傳一"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳二",
+      "classroomName": "生傳二"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳三",
+      "classroomName": "生傳三"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳研討室",
+      "classroomName": "生傳研討室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生傳視聽室",
+      "classroomName": "生傳視聽室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生機101",
+      "classroomName": "生機101"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "生機201",
+      "classroomName": "生機201"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "自動化教學中心",
+      "classroomName": "自動化教學中心"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "昆蟲201",
+      "classroomName": "昆蟲201"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林303",
+      "classroomName": "林303"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林一",
+      "classroomName": "林一"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林二",
+      "classroomName": "林二"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林三",
+      "classroomName": "林三"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林五",
+      "classroomName": "林五"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "林四",
+      "classroomName": "林四"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "知201",
+      "classroomName": "知201"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "知203",
+      "classroomName": "知203"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "知206",
+      "classroomName": "知206"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "知207",
+      "classroomName": "知207"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "知武會議室",
+      "classroomName": "知武會議室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "花卉F103",
+      "classroomName": "花卉F103"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "花卉F-B1",
+      "classroomName": "花卉F-B1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "花卉館B1",
+      "classroomName": "花卉館B1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "食研222",
+      "classroomName": "食研222"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "食研B24",
+      "classroomName": "食研B24"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "食科102",
+      "classroomName": "食科102"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "食科演講廳",
+      "classroomName": "食科演講廳"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "畜一",
+      "classroomName": "畜一"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "畜二",
+      "classroomName": "畜二"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "畜三",
+      "classroomName": "畜三"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L101",
+      "classroomName": "造園L101"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L102",
+      "classroomName": "造園L102"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L103",
+      "classroomName": "造園L103"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L107",
+      "classroomName": "造園L107"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L108",
+      "classroomName": "造園L108"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園L109",
+      "classroomName": "造園L109"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R101",
+      "classroomName": "造園館R101"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R102",
+      "classroomName": "造園館R102"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R103",
+      "classroomName": "造園館R103"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R104",
+      "classroomName": "造園館R104"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R107",
+      "classroomName": "造園館R107"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R108",
+      "classroomName": "造園館R108"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "造園館R109",
+      "classroomName": "造園館R109"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝R106",
+      "classroomName": "園藝R106"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝R204",
+      "classroomName": "園藝R204"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝R205",
+      "classroomName": "園藝R205"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝大教室",
+      "classroomName": "園藝大教室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝普通室",
+      "classroomName": "園藝普通室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "園藝繪圖室",
+      "classroomName": "園藝繪圖室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "會議室",
+      "classroomName": "會議室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農工九",
+      "classroomName": "農工九"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農工十",
+      "classroomName": "農工十"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農工金城",
+      "classroomName": "農工金城"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農工繪圖室",
+      "classroomName": "農工繪圖室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化214",
+      "classroomName": "農化214"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化一213",
+      "classroomName": "農化一213"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化一第五",
+      "classroomName": "農化一第五"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化一第六-1",
+      "classroomName": "農化一第六-1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二105",
+      "classroomName": "農化二105"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二106",
+      "classroomName": "農化二106"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二107",
+      "classroomName": "農化二107"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二110-1",
+      "classroomName": "農化二110-1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二208",
+      "classroomName": "農化二208"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二211",
+      "classroomName": "農化二211"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二214-1",
+      "classroomName": "農化二214-1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二B10",
+      "classroomName": "農化二B10"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化二B11-1",
+      "classroomName": "農化二B11-1"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農化加工",
+      "classroomName": "農化加工"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農場考種館",
+      "classroomName": "農場考種館"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農經二",
+      "classroomName": "農經二"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農經三",
+      "classroomName": "農經三"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農經大講堂",
+      "classroomName": "農經大講堂"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農經四",
+      "classroomName": "農經四"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農經會議室",
+      "classroomName": "農經會議室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農機第二會議室",
+      "classroomName": "農機第二會議室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農機會議室",
+      "classroomName": "農機會議室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝108",
+      "classroomName": "農藝108"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝110",
+      "classroomName": "農藝110"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝112",
+      "classroomName": "農藝112"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝206",
+      "classroomName": "農藝206"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝212",
+      "classroomName": "農藝212"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "農藝304",
+      "classroomName": "農藝304"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "電電實驗室",
+      "classroomName": "電電實驗室"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新603",
+      "classroomName": "學新603"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新606",
+      "classroomName": "學新606"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新607",
+      "classroomName": "學新607"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新609",
+      "classroomName": "學新609"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新614",
+      "classroomName": "學新614"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新705",
+      "classroomName": "學新705"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "學新820",
+      "classroomName": "學新820"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "總一館304",
+      "classroomName": "總一館304"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "總一館308",
+      "classroomName": "總一館308"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "轉溫101",
+      "classroomName": "轉溫101"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "醫院大講堂",
+      "classroomName": "醫院大講堂"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館105",
+      "classroomName": "獸一館105"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館210",
+      "classroomName": "獸一館210"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館212",
+      "classroomName": "獸一館212"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館310",
+      "classroomName": "獸一館310"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館410",
+      "classroomName": "獸一館410"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸一館412",
+      "classroomName": "獸一館412"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸三館202",
+      "classroomName": "獸三館202"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸三館203",
+      "classroomName": "獸三館203"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸三館406",
+      "classroomName": "獸三館406"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸三館B01",
+      "classroomName": "獸三館B01"
+    },
+    {
+      "buildingValue": "6",
+      "buildingName": "生農學院",
+      "classroomId": "獸三館B09",
+      "classroomName": "獸三館B09"
+    }
+  ],
+  "管理院": [
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "玉山廳",
+      "classroomName": "玉山廳"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "冠德講堂",
+      "classroomName": "冠德講堂"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "重光講堂",
+      "classroomName": "重光講堂"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "國學講堂",
+      "classroomName": "國學講堂"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一101",
+      "classroomName": "管一101"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一102",
+      "classroomName": "管一102"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一103",
+      "classroomName": "管一103"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一104",
+      "classroomName": "管一104"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一107",
+      "classroomName": "管一107"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一202",
+      "classroomName": "管一202"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一203",
+      "classroomName": "管一203"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一204",
+      "classroomName": "管一204"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一401",
+      "classroomName": "管一401"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一402",
+      "classroomName": "管一402"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一403",
+      "classroomName": "管一403"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一405",
+      "classroomName": "管一405"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一B01",
+      "classroomName": "管一B01"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一B02",
+      "classroomName": "管一B02"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一B03",
+      "classroomName": "管一B03"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一大電腦",
+      "classroomName": "管一大電腦"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一小電腦",
+      "classroomName": "管一小電腦"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一會九",
+      "classroomName": "管一會九"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一會八",
+      "classroomName": "管一會八"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管一會六",
+      "classroomName": "管一會六"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二101",
+      "classroomName": "管二101"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二102",
+      "classroomName": "管二102"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二103",
+      "classroomName": "管二103"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二104",
+      "classroomName": "管二104"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二201",
+      "classroomName": "管二201"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二202",
+      "classroomName": "管二202"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二203",
+      "classroomName": "管二203"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二204",
+      "classroomName": "管二204"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二205",
+      "classroomName": "管二205"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二206",
+      "classroomName": "管二206"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二301",
+      "classroomName": "管二301"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二302",
+      "classroomName": "管二302"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二303",
+      "classroomName": "管二303"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二304",
+      "classroomName": "管二304"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二305",
+      "classroomName": "管二305"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研七",
+      "classroomName": "管二研七"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研九",
+      "classroomName": "管二研九"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研八",
+      "classroomName": "管二研八"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研十",
+      "classroomName": "管二研十"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研十一",
+      "classroomName": "管二研十一"
+    },
+    {
+      "buildingValue": "7",
+      "buildingName": "管理院",
+      "classroomId": "管二研六",
+      "classroomName": "管二研六"
+    }
+  ],
+  "公衛院": [
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛101",
+      "classroomName": "公衛101"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛105",
+      "classroomName": "公衛105"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛118",
+      "classroomName": "公衛118"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛201",
+      "classroomName": "公衛201"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛203",
+      "classroomName": "公衛203"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛204",
+      "classroomName": "公衛204"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛205",
+      "classroomName": "公衛205"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛206",
+      "classroomName": "公衛206"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛207",
+      "classroomName": "公衛207"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛208",
+      "classroomName": "公衛208"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛209",
+      "classroomName": "公衛209"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛210",
+      "classroomName": "公衛210"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛211",
+      "classroomName": "公衛211"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛212",
+      "classroomName": "公衛212"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛213",
+      "classroomName": "公衛213"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛214",
+      "classroomName": "公衛214"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛215",
+      "classroomName": "公衛215"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛505",
+      "classroomName": "公衛505"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛601",
+      "classroomName": "公衛601"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛603(原601",
+      "classroomName": "公衛603(原601"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛648(原601",
+      "classroomName": "公衛648(原601"
+    },
+    {
+      "buildingValue": "8",
+      "buildingName": "公衛院",
+      "classroomId": "公衛701",
+      "classroomName": "公衛701"
+    }
+  ],
+  "電資院": [
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "明達203",
+      "classroomName": "明達203"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "明達205",
+      "classroomName": "明達205"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "明達225",
+      "classroomName": "明達225"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "明達231",
+      "classroomName": "明達231"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "明達303",
+      "classroomName": "明達303"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "計資212",
+      "classroomName": "計資212"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理103",
+      "classroomName": "博理103"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理112",
+      "classroomName": "博理112"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理113",
+      "classroomName": "博理113"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理114",
+      "classroomName": "博理114"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理211",
+      "classroomName": "博理211"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理212",
+      "classroomName": "博理212"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理213",
+      "classroomName": "博理213"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理214",
+      "classroomName": "博理214"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理215",
+      "classroomName": "博理215"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理216",
+      "classroomName": "博理216"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "博理217",
+      "classroomName": "博理217"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資101",
+      "classroomName": "資101"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資102",
+      "classroomName": "資102"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資103",
+      "classroomName": "資103"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資104",
+      "classroomName": "資104"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資105",
+      "classroomName": "資105"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資107",
+      "classroomName": "資107"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資110",
+      "classroomName": "資110"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資111",
+      "classroomName": "資111"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資310",
+      "classroomName": "資310"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "資524",
+      "classroomName": "資524"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二101",
+      "classroomName": "電二101"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二102",
+      "classroomName": "電二102"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二104",
+      "classroomName": "電二104"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二106",
+      "classroomName": "電二106"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二133",
+      "classroomName": "電二133"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二141",
+      "classroomName": "電二141"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二143",
+      "classroomName": "電二143"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二144",
+      "classroomName": "電二144"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二145",
+      "classroomName": "電二145"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二146",
+      "classroomName": "電二146"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二225",
+      "classroomName": "電二225"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二229",
+      "classroomName": "電二229"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二254",
+      "classroomName": "電二254"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二303",
+      "classroomName": "電二303"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二409",
+      "classroomName": "電二409"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二454",
+      "classroomName": "電二454"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電二455",
+      "classroomName": "電二455"
+    },
+    {
+      "buildingValue": "9",
+      "buildingName": "電資院",
+      "classroomId": "電機二館",
+      "classroomName": "電機二館"
+    }
+  ],
+  "法律院": [
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1302",
+      "classroomName": "法1302"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1303",
+      "classroomName": "法1303"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1304",
+      "classroomName": "法1304"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1401",
+      "classroomName": "法1401"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1402",
+      "classroomName": "法1402"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1403",
+      "classroomName": "法1403"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法1506",
+      "classroomName": "法1506"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法2101",
+      "classroomName": "法2101"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法2201",
+      "classroomName": "法2201"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法2311",
+      "classroomName": "法2311"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研1",
+      "classroomName": "法研1"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研2",
+      "classroomName": "法研2"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研4",
+      "classroomName": "法研4"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研5",
+      "classroomName": "法研5"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研6",
+      "classroomName": "法研6"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "法研7",
+      "classroomName": "法研7"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "科法一",
+      "classroomName": "科法一"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "科法二",
+      "classroomName": "科法二"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "萬2101",
+      "classroomName": "萬2101"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "萬2201",
+      "classroomName": "萬2201"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "萬2311",
+      "classroomName": "萬2311"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1302",
+      "classroomName": "霖1302"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1303",
+      "classroomName": "霖1303"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1304",
+      "classroomName": "霖1304"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1401",
+      "classroomName": "霖1401"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1402",
+      "classroomName": "霖1402"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1403",
+      "classroomName": "霖1403"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖1506",
+      "classroomName": "霖1506"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研一1501",
+      "classroomName": "霖研一1501"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研七1709",
+      "classroomName": "霖研七1709"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研二1502",
+      "classroomName": "霖研二1502"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研五1702",
+      "classroomName": "霖研五1702"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研六1703",
+      "classroomName": "霖研六1703"
+    },
+    {
+      "buildingValue": "A",
+      "buildingName": "法律院",
+      "classroomId": "霖研四1701",
+      "classroomName": "霖研四1701"
+    }
+  ],
+  "生科院": [
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生化N101",
+      "classroomName": "生化N101"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生化N103",
+      "classroomName": "生化N103"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生化R100",
+      "classroomName": "生化R100"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生化R200",
+      "classroomName": "生化R200"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生化R204",
+      "classroomName": "生化R204"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科1148",
+      "classroomName": "生科1148"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科1217",
+      "classroomName": "生科1217"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科1225",
+      "classroomName": "生科1225"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科134",
+      "classroomName": "生科134"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科3A",
+      "classroomName": "生科3A"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科3C",
+      "classroomName": "生科3C"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科405",
+      "classroomName": "生科405"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科409",
+      "classroomName": "生科409"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科415",
+      "classroomName": "生科415"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科419",
+      "classroomName": "生科419"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科421",
+      "classroomName": "生科421"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科4A",
+      "classroomName": "生科4A"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科4B",
+      "classroomName": "生科4B"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科4C",
+      "classroomName": "生科4C"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科612",
+      "classroomName": "生科612"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科632",
+      "classroomName": "生科632"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科735",
+      "classroomName": "生科735"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科742",
+      "classroomName": "生科742"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "生科842",
+      "classroomName": "生科842"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮301",
+      "classroomName": "思亮301"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮401",
+      "classroomName": "思亮401"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮402",
+      "classroomName": "思亮402"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮405",
+      "classroomName": "思亮405"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮406",
+      "classroomName": "思亮406"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮409",
+      "classroomName": "思亮409"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮410",
+      "classroomName": "思亮410"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮501",
+      "classroomName": "思亮501"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "思亮502",
+      "classroomName": "思亮502"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化一213-1",
+      "classroomName": "農化一213-1"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化一第五-1",
+      "classroomName": "農化一第五-1"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化一第六",
+      "classroomName": "農化一第六"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二105-1",
+      "classroomName": "農化二105-1"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二106-1",
+      "classroomName": "農化二106-1"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二108",
+      "classroomName": "農化二108"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二110",
+      "classroomName": "農化二110"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二214",
+      "classroomName": "農化二214"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二216",
+      "classroomName": "農化二216"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二B01",
+      "classroomName": "農化二B01"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二B10-1",
+      "classroomName": "農化二B10-1"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化二B11",
+      "classroomName": "農化二B11"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "農化第五",
+      "classroomName": "農化第五"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "漁科107",
+      "classroomName": "漁科107"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "漁科302B",
+      "classroomName": "漁科302B"
+    },
+    {
+      "buildingValue": "B",
+      "buildingName": "生科院",
+      "classroomId": "漁科407A",
+      "classroomName": "漁科407A"
+    }
+  ],
+  "其他": [
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "(醫)網球場",
+      "classroomName": "(醫)網球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "(醫)館1F",
+      "classroomName": "(醫)館1F"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "(醫)籃球場",
+      "classroomName": "(醫)籃球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "248視聽室",
+      "classroomName": "248視聽室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "LDP102",
+      "classroomName": "LDP102"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "R732",
+      "classroomName": "R732"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "一活大禮堂",
+      "classroomName": "一活大禮堂"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "人工草皮球場",
+      "classroomName": "人工草皮球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "大1女A",
+      "classroomName": "大1女A"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女5舍A",
+      "classroomName": "女5舍A"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女5舍B",
+      "classroomName": "女5舍B"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女5舍C",
+      "classroomName": "女5舍C"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女舍研A",
+      "classroomName": "女舍研A"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女舍研B",
+      "classroomName": "女舍研B"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "女舍研C",
+      "classroomName": "女舍研C"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "中央籃球場",
+      "classroomName": "中央籃球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "戶外游泳池",
+      "classroomName": "戶外游泳池"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "手球場",
+      "classroomName": "手球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "水源階梯101",
+      "classroomName": "水源階梯101"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "水源階梯201",
+      "classroomName": "水源階梯201"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教101",
+      "classroomName": "外教101"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教102",
+      "classroomName": "外教102"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教103",
+      "classroomName": "外教103"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教104",
+      "classroomName": "外教104"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教105",
+      "classroomName": "外教105"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教201",
+      "classroomName": "外教201"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教202",
+      "classroomName": "外教202"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教203",
+      "classroomName": "外教203"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教204",
+      "classroomName": "外教204"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教205",
+      "classroomName": "外教205"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教206",
+      "classroomName": "外教206"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教305",
+      "classroomName": "外教305"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "外教劇場",
+      "classroomName": "外教劇場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "生技館105",
+      "classroomName": "生技館105"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "生技館212",
+      "classroomName": "生技館212"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "生技館213",
+      "classroomName": "生技館213"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "生技館214",
+      "classroomName": "生技館214"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "生機2電腦",
+      "classroomName": "生機2電腦"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "田徑場",
+      "classroomName": "田徑場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "男1舍A",
+      "classroomName": "男1舍A"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "足球場",
+      "classroomName": "足球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R407",
+      "classroomName": "卓R407"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R408",
+      "classroomName": "卓R408"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R501",
+      "classroomName": "卓R501"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R505",
+      "classroomName": "卓R505"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R506",
+      "classroomName": "卓R506"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R508",
+      "classroomName": "卓R508"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "卓R511",
+      "classroomName": "卓R511"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科10",
+      "classroomName": "社科10"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科11",
+      "classroomName": "社科11"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科12",
+      "classroomName": "社科12"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科13",
+      "classroomName": "社科13"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科14",
+      "classroomName": "社科14"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科15",
+      "classroomName": "社科15"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科16",
+      "classroomName": "社科16"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科2",
+      "classroomName": "社科2"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科22",
+      "classroomName": "社科22"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科23",
+      "classroomName": "社科23"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科24",
+      "classroomName": "社科24"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科25",
+      "classroomName": "社科25"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科26",
+      "classroomName": "社科26"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科27",
+      "classroomName": "社科27"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科28",
+      "classroomName": "社科28"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科3",
+      "classroomName": "社科3"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科4",
+      "classroomName": "社科4"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科5",
+      "classroomName": "社科5"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科6",
+      "classroomName": "社科6"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科7",
+      "classroomName": "社科7"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科8",
+      "classroomName": "社科8"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科9",
+      "classroomName": "社科9"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科大禮堂",
+      "classroomName": "社科大禮堂"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科研1",
+      "classroomName": "社科研1"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科研2",
+      "classroomName": "社科研2"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科研3",
+      "classroomName": "社科研3"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "社科研4",
+      "classroomName": "社科研4"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "紅土球場",
+      "classroomName": "紅土球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "計資106",
+      "classroomName": "計資106"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "展高分105",
+      "classroomName": "展高分105"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "特別班教室",
+      "classroomName": "特別班教室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "高爾夫球場",
+      "classroomName": "高爾夫球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣105",
+      "classroomName": "推廣105"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣201",
+      "classroomName": "推廣201"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣202",
+      "classroomName": "推廣202"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣203",
+      "classroomName": "推廣203"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣204",
+      "classroomName": "推廣204"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣206",
+      "classroomName": "推廣206"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣207",
+      "classroomName": "推廣207"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣302",
+      "classroomName": "推廣302"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣303",
+      "classroomName": "推廣303"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣304",
+      "classroomName": "推廣304"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣311",
+      "classroomName": "推廣311"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣511",
+      "classroomName": "推廣511"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "推廣611",
+      "classroomName": "推廣611"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "排球場",
+      "classroomName": "排球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "棒壘球場",
+      "classroomName": "棒壘球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "新生籃球場",
+      "classroomName": "新生籃球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "管一會一",
+      "classroomName": "管一會一"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "管一會七",
+      "classroomName": "管一會七"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "管一會二",
+      "classroomName": "管一會二"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "管一會三",
+      "classroomName": "管一會三"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "管一會五",
+      "classroomName": "管一會五"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館B109",
+      "classroomName": "綜館B109"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館R204",
+      "classroomName": "綜館R204"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館R225",
+      "classroomName": "綜館R225"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館R245",
+      "classroomName": "綜館R245"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館R247",
+      "classroomName": "綜館R247"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館R329",
+      "classroomName": "綜館R329"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館多功能",
+      "classroomName": "綜館多功能"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館技擊AB",
+      "classroomName": "綜館技擊AB"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館技擊C",
+      "classroomName": "綜館技擊C"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館柔道室",
+      "classroomName": "綜館柔道室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館重訓室",
+      "classroomName": "綜館重訓室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館桌球室",
+      "classroomName": "綜館桌球室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館游泳池",
+      "classroomName": "綜館游泳池"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館舞蹈室",
+      "classroomName": "綜館舞蹈室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館壁球室",
+      "classroomName": "綜館壁球室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜館韻律室",
+      "classroomName": "綜館韻律室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜體R226",
+      "classroomName": "綜體R226"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜體前廣場",
+      "classroomName": "綜體前廣場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "綜體館247",
+      "classroomName": "綜體館247"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "網球123456",
+      "classroomName": "網球123456"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "網球345678",
+      "classroomName": "網球345678"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "網球場1234",
+      "classroomName": "網球場1234"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "網球場5678",
+      "classroomName": "網球場5678"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "語128",
+      "classroomName": "語128"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "語129",
+      "classroomName": "語129"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "樂學館205",
+      "classroomName": "樂學館205"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "適應體育R",
+      "classroomName": "適應體育R"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "橄欖球場",
+      "classroomName": "橄欖球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "舊游泳池前",
+      "classroomName": "舊游泳池前"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "舊館羽球場",
+      "classroomName": "舊館羽球場"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "舊館柔道房",
+      "classroomName": "舊館柔道房"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "舊館重訓室",
+      "classroomName": "舊館重訓室"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "舊館韻律房",
+      "classroomName": "舊館韻律房"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "藍球場A",
+      "classroomName": "藍球場A"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球A~E",
+      "classroomName": "籃球A~E"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球F~I",
+      "classroomName": "籃球F~I"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球場B",
+      "classroomName": "籃球場B"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球場C",
+      "classroomName": "籃球場C"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球場D",
+      "classroomName": "籃球場D"
+    },
+    {
+      "buildingValue": "%",
+      "buildingName": "其他",
+      "classroomId": "籃球場E",
+      "classroomName": "籃球場E"
+    }
+  ]
+};
+
+/**
+ * 取得特定建物的教室列表
+ */
+export function getClassroomsByBuilding(buildingName: string): Classroom[] {
+  return CLASSROOMS_BY_BUILDING[buildingName] || [];
+}
+
+/**
+ * 根據教室 ID 查找教室
+ */
+export function getClassroomById(classroomId: string): Classroom | undefined {
+  return CLASSROOMS.find(c => c.classroomId === classroomId);
+}
+
+/**
+ * 搜尋教室（依名稱）
+ */
+export function searchClassrooms(query: string): Classroom[] {
+  const lowerQuery = query.toLowerCase();
+  return CLASSROOMS.filter(c => 
+    c.classroomName.toLowerCase().includes(lowerQuery) ||
+    c.classroomId.toLowerCase().includes(lowerQuery)
+  );
+}
+
+export default CLASSROOMS;

@@ -356,6 +356,10 @@ export default function SchedulePage() {
     }
   };
 
+  const handleReorderSchedules = (newSchedules: Schedule[]) => {
+    setSchedules(newSchedules);
+  };
+
   const handleCellClick = (dayOfWeek: number, period: number) => {
     if (!currentScheduleId) return;
     setCourseDialogData({ dayOfWeek, periodStart: period, initialData: null });
@@ -734,6 +738,7 @@ export default function SchedulePage() {
               onAddSchedule={handleAddSchedule}
               onDeleteSchedule={handleDeleteSchedule}
               onUpdateSchedule={handleUpdateSchedule}
+              onReorderSchedules={handleReorderSchedules}
             />
           </Card>
 
