@@ -60,6 +60,8 @@ export default function SVGOverlay({
         this.div = document.createElement('div');
         this.div.style.position = 'absolute';
         this.div.style.cursor = 'pointer';
+        // 設定較低的 z-index，讓其他標記顯示在上方
+        this.div.style.zIndex = '0';
 
         // 建立 SVG
         const svgNS = 'http://www.w3.org/2000/svg';
@@ -90,6 +92,7 @@ export default function SVGOverlay({
         this.div.addEventListener('mouseleave', this.handleMouseLeave);
         this.div.addEventListener('click', this.handleClick);
 
+        // 使用 overlayMouseTarget 以接收滑鼠事件，z-index 已設為 1 讓標記顯示在上方
         const panes = this.getPanes();
         panes?.overlayMouseTarget.appendChild(this.div);
       }

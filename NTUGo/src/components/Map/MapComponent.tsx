@@ -12,6 +12,12 @@ import CurrentLocationButton from './CurrentLocationButton';
 import BikeMarkerButton from './BikeMarkerButton';
 import BikeMarkerPhotoDialog from './BikeMarkerPhotoDialog';
 import SVGOverlay from './SVGOverlay';
+import { MAIN_BUILDINGS, OTHER_BUILDINGS, isMainBuilding, type MainBuilding, type OtherBuilding } from '@/data/buildings';
+import { 
+  groupFriendsByBuilding, 
+  type FriendLocationInfo, 
+  type BuildingWithFriends 
+} from '@/lib/utils/locationParser';
 import {
   fetchYouBikeStations,
   findStationByName,
@@ -100,6 +106,28 @@ const mapOptions: google.maps.MapOptions = {
     {
       featureType: 'landscape.man_made',
       elementType: 'geometry',
+      stylers: [{ visibility: 'off' }],
+    },
+    // 4.1 隱藏建築物標籤（小字）
+    {
+      featureType: 'landscape.man_made',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    // 4.2 隱藏所有建築物相關標籤
+    {
+      featureType: 'poi.business',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.school',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.government',
+      elementType: 'labels',
       stylers: [{ visibility: 'off' }],
     },
     // 5. 道路保持可見
@@ -217,6 +245,10 @@ export default function MapComponent() {
   const [photoDialogOpen, setPhotoDialogOpen] = React.useState<boolean>(false);
   const [pendingMarkerLocation, setPendingMarkerLocation] = React.useState<{ lat: number; lng: number } | null>(null);
 
+  // 朋友位置追蹤相關 state
+  const [friendsInBuildings, setFriendsInBuildings] = React.useState<Map<string, BuildingWithFriends>>(new Map());
+  const [friendsLoading, setFriendsLoading] = React.useState<boolean>(false);
+  const friendsPollingRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
@@ -291,6 +323,128 @@ export default function MapComponent() {
       console.error('載入用戶標記失敗:', error);
     }
   }, []);
+
+  // 獲取朋友上課位置
+  const fetchFriendsLocations = React.useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      setFriendsLoading(true);
+
+      // 先獲取好友列表
+      const friendsResponse = await fetch('/api/community/friends', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!friendsResponse.ok) {
+        console.error('獲取好友列表失敗');
+        return;
+      }
+
+      const friendsData = await friendsResponse.json();
+      const friendsList = friendsData.friends || [];
+
+      if (friendsList.length === 0) {
+        setFriendsInBuildings(new Map());
+        return;
+      }
+
+      // 獲取所有好友的狀態
+      const friendIds = friendsList.map((f: any) => f.friend.id);
+      const statusResponse = await fetch('/api/community/status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userIds: friendIds }),
+      });
+
+      if (!statusResponse.ok) {
+        console.error('獲取好友狀態失敗');
+        return;
+      }
+
+      const statusData = await statusResponse.json();
+      const statuses = statusData.statuses || {};
+
+      // 收集有位置資訊的朋友
+      const friendLocations: FriendLocationInfo[] = [];
+      for (const friendItem of friendsList) {
+        const friendId = friendItem.friend.id;
+        const status = statuses[friendId];
+        
+        if (status && status.status === 'in class' && status.location) {
+          friendLocations.push({
+            friendId,
+            friendName: friendItem.friend.name || friendItem.friend.userId || '朋友',
+            location: status.location,
+            courseName: status.courseName || undefined,
+          });
+        }
+      }
+
+      // 按建築物分組
+      const grouped = groupFriendsByBuilding(friendLocations);
+      setFriendsInBuildings(grouped);
+    } catch (error) {
+      console.error('獲取朋友位置失敗:', error);
+    } finally {
+      setFriendsLoading(false);
+    }
+  }, []);
+
+  // 定期獲取朋友位置（每 30 秒）
+  React.useEffect(() => {
+    // 初始獲取
+    fetchFriendsLocations();
+
+    // 設定定期輪詢
+    friendsPollingRef.current = setInterval(() => {
+      fetchFriendsLocations();
+    }, 30000);
+
+    return () => {
+      if (friendsPollingRef.current) {
+        clearInterval(friendsPollingRef.current);
+      }
+    };
+  }, [fetchFriendsLocations]);
+
+  // 處理建築物點擊
+  const handleBuildingClick = React.useCallback((building: MainBuilding | OtherBuilding) => {
+    const friendsInThisBuilding = friendsInBuildings.get(building.id);
+    const friendsList = friendsInThisBuilding?.friends || [];
+    
+    if (isMainBuilding(building)) {
+      // 主要建築物使用 SVG 覆蓋層，計算中心點
+      const centerLat = (building.bounds.north + building.bounds.south) / 2;
+      const centerLng = (building.bounds.east + building.bounds.west) / 2;
+      
+      setSelectedMarker({
+        id: building.id,
+        name: building.name,
+        lat: centerLat,
+        lng: centerLng,
+        type: 'building',
+        friendsList,
+        hasFriends: friendsList.length > 0,
+      });
+    } else {
+      setSelectedMarker({
+        id: building.id,
+        name: building.name,
+        lat: building.lat,
+        lng: building.lng,
+        type: 'building',
+        friendsList,
+        hasFriends: friendsList.length > 0,
+      });
+    }
+  }, [friendsInBuildings]);
 
   // 在地圖上添加標記
   const handleMapClick = React.useCallback((e: google.maps.MapMouseEvent) => {
@@ -1261,6 +1415,43 @@ export default function MapComponent() {
         hoverColor="#000000"
         onClick={handleLibraryClick}
       />
+
+      {/* 主要教學大樓 SVG 覆蓋層 - 共同、普通、新生、綜合、博雅 */}
+      {MAIN_BUILDINGS.map((building) => {
+        const hasFriends = friendsInBuildings.has(building.id);
+        return (
+          <SVGOverlay
+            key={building.id}
+            map={map}
+            bounds={building.bounds}
+            svgPath={building.svgPath}
+            viewBox={building.viewBox}
+            defaultColor={hasFriends ? '#9c27b0' : '#9e9e9e'}
+            hoverColor={hasFriends ? '#7b1fa2' : '#000000'}
+            onClick={() => handleBuildingClick(building)}
+          />
+        );
+      })}
+
+      {/* 其他建築物標記 - 所有建築物都顯示，有朋友的顯示紫色 */}
+      {OTHER_BUILDINGS.map((building) => {
+        const hasFriends = friendsInBuildings.has(building.id);
+        return (
+          <MarkerF
+            key={`building-${building.id}`}
+            position={{ lat: building.lat, lng: building.lng }}
+            onClick={() => handleBuildingClick(building)}
+            icon={{
+              path: google.maps.SymbolPath.CIRCLE,
+              fillColor: hasFriends ? '#9c27b0' : '#9e9e9e',
+              fillOpacity: hasFriends ? 0.9 : 0.6,
+              scale: hasFriends ? 10 : 6,
+              strokeWeight: 2,
+              strokeColor: '#ffffff',
+            }}
+          />
+        );
+      })}
 
       {/* 其他 Campus Pins（非 gym/library）使用 MarkerF */}
       {LOCATIONS.campus

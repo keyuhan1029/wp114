@@ -152,6 +152,91 @@ export default function InfoWindowContent({
           gymError={gymError}
         />
       )}
+
+      {selectedMarker.type === 'building' && (
+        <Box
+          sx={{
+            p: 1.5,
+            backgroundColor: selectedMarker.hasFriends ? '#f3e5f5' : '#f5f5f5',
+            borderRadius: 2,
+          }}
+        >
+          {selectedMarker.hasFriends && selectedMarker.friendsList ? (
+            <>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 600, 
+                  color: '#7b1fa2',
+                  mb: 1.5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                }}
+              >
+                👥 正在上課的朋友 ({selectedMarker.friendsList.length})
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                {selectedMarker.friendsList.map((friend: any, index: number) => (
+                  <Box 
+                    key={friend.friendId || index}
+                    sx={{
+                      p: 1.5,
+                      backgroundColor: '#ffffff',
+                      borderRadius: 1.5,
+                      border: '1px solid #e1bee7',
+                    }}
+                  >
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 600,
+                        color: '#4a148c',
+                        mb: 0.5,
+                      }}
+                    >
+                      {friend.friendName}
+                    </Typography>
+                    {friend.courseName && (
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          color: '#7b1fa2',
+                          fontSize: '0.85rem',
+                          mb: 0.3,
+                        }}
+                      >
+                        📚 {friend.courseName}
+                      </Typography>
+                    )}
+                    {friend.location && (
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          color: '#9575cd',
+                          fontSize: '0.8rem',
+                        }}
+                      >
+                        📍 {friend.location}
+                      </Typography>
+                    )}
+                  </Box>
+                ))}
+              </Box>
+            </>
+          ) : (
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: '#757575',
+                textAlign: 'center',
+              }}
+            >
+              目前沒有朋友在此上課
+            </Typography>
+          )}
+        </Box>
+      )}
     </Box>
   );
 }

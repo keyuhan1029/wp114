@@ -25,6 +25,9 @@ const PERIOD_TIMES = [
 ];
 
 function getCurrentPeriod(): number | null {
+  // TODO: 測試用 - 強制返回第 3 節，測試完成後請移除此行
+  return 3; // 第 3 節 (10:20-11:10)
+  
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
@@ -39,6 +42,9 @@ function getCurrentPeriod(): number | null {
 }
 
 function getCurrentDayOfWeek(): number {
+  // TODO: 測試用 - 強制返回週一，測試完成後請移除此行
+  return 0; // 0=週一
+  
   const now = new Date();
   const day = now.getDay();
   // 轉換為 0=週一, 4=週五 的格式
