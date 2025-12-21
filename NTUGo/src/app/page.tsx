@@ -396,20 +396,6 @@ export default function Home() {
                   })
             }
           />
-          <OverlayCard
-            title="交流版最新"
-            items={[
-              <Typography key="exchange-1" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
-                XXXXXXXXXXXXXXX
-              </Typography>,
-              <Typography key="exchange-2" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
-                XXXXXXXXXXXXXXX
-              </Typography>,
-              <Typography key="exchange-3" variant="caption" component="span" sx={{ fontSize: '0.7rem' }}>
-                XXXXXXXXXXXXXXX
-              </Typography>,
-            ]}
-          />
         </Box>
       </Box>
     </MainLayout>
