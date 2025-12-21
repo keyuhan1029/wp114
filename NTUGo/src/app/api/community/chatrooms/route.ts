@@ -27,14 +27,11 @@ export async function GET(request: Request) {
 
     const allChatRooms = await ChatRoomModel.findByUser(payload.userId);
 
-    // 过滤掉 AI 聊天室（AI 客服在 MessageList 中单独显示）
-    const filteredRooms = allChatRooms.filter(room => room.type !== 'ai');
-
     // 去除重複的私聊聊天室（保留最新的）
-    const seenPrivateChats = new Map<string, typeof filteredRooms[0]>();
-    const chatRooms: typeof filteredRooms = [];
+    const seenPrivateChats = new Map<string, typeof allChatRooms[0]>();
+    const chatRooms: typeof allChatRooms = [];
 
-    for (const room of filteredRooms) {
+    for (const room of allChatRooms) {
       if (room.type === 'private') {
         // 對於私聊，使用排序後的成員 ID 作為唯一鍵
         const memberKey = room.members

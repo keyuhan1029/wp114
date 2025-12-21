@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { getDatabase } from '../mongodb';
 
-export type ChatRoomType = 'private' | 'group' | 'ai';
+export type ChatRoomType = 'private' | 'group';
 
 export interface ChatRoom {
   _id?: string | ObjectId;
@@ -81,35 +81,6 @@ export class ChatRoomModel {
       name,
       members: memberObjIds,
       createdBy: creatorObjId,
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    const result = await db.collection<ChatRoom>(this.collectionName).insertOne(newChatRoom);
-    return { ...newChatRoom, _id: result.insertedId };
-  }
-
-  // 建立或取得 AI 客服聊天室（每個用戶一個）
-  static async createOrGetAIChat(userId: string | ObjectId): Promise<ChatRoom> {
-    const db = await getDatabase();
-    const userObjId = typeof userId === 'string' ? new ObjectId(userId) : userId;
-
-    // 查找是否已存在 AI 聊天室
-    const existing = await db.collection<ChatRoom>(this.collectionName).findOne({
-      type: 'ai',
-      members: userObjId,
-    });
-
-    if (existing) {
-      return existing;
-    }
-
-    // 創建新的 AI 聊天室
-    const now = new Date();
-    const newChatRoom: ChatRoom = {
-      type: 'ai',
-      name: 'NTU AI 客服',
-      members: [userObjId], // 只有用戶自己
       createdAt: now,
       updatedAt: now,
     };

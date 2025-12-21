@@ -87,27 +87,6 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     const messagesWithSender = messages.map(msg => {
       // 检查是否为 AI 消息（senderId 是特殊的 ObjectId '000000000000000000000000'）
-      const isAIMessage = msg.senderId.toString() === '000000000000000000000000';
-      
-      if (isAIMessage) {
-        // AI 消息
-        return {
-          id: msg._id instanceof ObjectId ? msg._id.toString() : String(msg._id),
-          senderId: 'ntu-ai-support',
-          sender: {
-            id: 'ntu-ai-support',
-            userId: null,
-            name: 'NTU AI 客服',
-            avatar: null,
-          },
-          type: msg.type || 'text',
-          content: msg.content,
-          file: msg.file || null,
-          createdAt: msg.createdAt,
-          isOwn: false,
-          readBy: msg.readBy?.map(id => id.toString()) || [],
-        };
-      }
 
       // 普通用户消息
       const sender = senderMap.get(msg.senderId.toString());
