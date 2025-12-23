@@ -6,7 +6,7 @@
 組員：柯宇翰、蔣依倢、鄒馥謙  
   
 ## [影片連結]  
-  
+https://drive.google.com/file/d/1wX_oHyH50K3n8PwlMs8BCrKRlEeGj9o4/view?usp=sharing
   
 ## [服務簡介]  
 你是否曾為了通勤，在公車、捷運與 YouBike 的多個 App 間疲於切換？或在開學之際，為了約場午餐而逐一詢問好友的課表與動向？甚至因一時疏忽，錯過了台大行事曆上關鍵的生涯發展活動？  
