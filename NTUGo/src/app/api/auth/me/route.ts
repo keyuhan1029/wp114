@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { verifyToken, getTokenFromRequest } from '@/lib/jwt';
 import { getDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 export async function GET(request: Request) {
   try {
@@ -23,7 +24,6 @@ export async function GET(request: Request) {
 
     // 從資料庫獲取用戶資訊
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     
     // 確保 userId 是有效的 ObjectId
     if (!ObjectId.isValid(payload.userId)) {
@@ -53,6 +53,7 @@ export async function GET(request: Request) {
       email?: string;
       name?: string;
       avatar?: string;
+      department?: string;
       provider?: 'email' | 'google';
     };
 
@@ -67,6 +68,7 @@ export async function GET(request: Request) {
         email: userData.email || '',
         name: userData.name || null,
         avatar: userData.avatar || null,
+        department: userData.department || null,
         provider: userData.provider || 'email',
       },
     });

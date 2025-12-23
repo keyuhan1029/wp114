@@ -6,17 +6,20 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 
+interface StudyRoomInfo {
+  occupied: number;
+  available: number;
+  total: number;
+}
+
 interface LibraryInfo {
   openingHours: {
     today: string;
     status: string;
     hours: string;
   };
-  studyRoom: {
-    occupied: number;
-    available: number;
-    total: number;
-  };
+  studyRoom: StudyRoomInfo;
+  socialScienceStudyRoom?: StudyRoomInfo;
   lastUpdated: string;
 }
 
@@ -89,7 +92,7 @@ export default function LibraryInfoContent({
             )}
           </Box>
           
-          {/* 自習室座位資訊卡片 */}
+          {/* 總圖自習室座位資訊卡片 */}
           {libraryInfo.studyRoom.total > 0 && (
             <Box
               sx={{
@@ -101,7 +104,7 @@ export default function LibraryInfoContent({
               }}
             >
               <Typography variant="body2" sx={{ fontWeight: 700, mb: 1, color: '#1976d2' }}>
-                總圖自習室
+                📚 總圖自習室
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
                 <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
@@ -129,6 +132,7 @@ export default function LibraryInfoContent({
               </Box>
             </Box>
           )}
+
           
           {/* 最後更新時間 */}
           <Box

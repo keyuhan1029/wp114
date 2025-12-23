@@ -1,0 +1,5 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#0F4C75"/>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle" font-weight="bold">歡迎使用 NTUGo！</text>
+  <text x="400" y="340" font-family="Arial, sans-serif" font-size="24" fill="#E3F2FD" text-anchor="middle">這是您的台大生活助手</text>
+</svg>

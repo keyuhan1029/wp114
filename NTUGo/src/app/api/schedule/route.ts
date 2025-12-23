@@ -17,6 +17,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: '未登入' }, { status: 401 });
     }
 
+    // 確保只有一個默認課表
+    await ScheduleModel.ensureSingleDefault(userId);
+
     const schedules = await ScheduleModel.findByUser(userId);
 
     const serialized = schedules.map((s) => ({
@@ -54,23 +57,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const schedule = await ScheduleModel.create({
-      userId,
-      name: name.trim(),
-      isDefault: !!isDefault,
-    });
+    try {
+      const schedule = await ScheduleModel.create({
+        userId,
+        name: name.trim(),
+        isDefault: !!isDefault,
+      });
 
-    const serialized = {
-      ...schedule,
-      _id: schedule._id?.toString(),
-      userId: typeof schedule.userId === 'string'
-        ? schedule.userId
-        : schedule.userId.toString(),
-      createdAt: schedule.createdAt.toISOString(),
-      updatedAt: schedule.updatedAt.toISOString(),
-    };
+      const serialized = {
+        ...schedule,
+        _id: schedule._id?.toString(),
+        userId: typeof schedule.userId === 'string'
+          ? schedule.userId
+          : schedule.userId.toString(),
+        createdAt: schedule.createdAt.toISOString(),
+        updatedAt: schedule.updatedAt.toISOString(),
+      };
 
-    return NextResponse.json({ schedule: serialized }, { status: 201 });
+      return NextResponse.json({ schedule: serialized }, { status: 201 });
+    } catch (error: any) {
+      console.error('創建課表失敗:', error);
+      // 如果是重名錯誤，返回 400
+      if (error.message && error.message.includes('相同名稱')) {
+        return NextResponse.json(
+          { message: error.message },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json(
+        { message: '創建課表失敗' },
+        { status: 500 }
+      );
+    }
   } catch (error: any) {
     console.error('創建課表失敗:', error);
     return NextResponse.json(

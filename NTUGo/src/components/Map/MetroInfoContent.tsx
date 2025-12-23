@@ -366,7 +366,7 @@ export default function MetroInfoContent({
                       剩餘時間
                     </Typography>
                     <Typography variant="body2" sx={{ fontWeight: 700, color: '#f57c00' }}>
-                      {info.minutesLeft} 分鐘
+                      {info.minutesLeft === 0 ? '即將進站' : `${info.minutesLeft} 分鐘`}
                     </Typography>
                   </Box>
                 )}

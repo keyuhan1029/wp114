@@ -34,28 +34,31 @@ export default function CurrentLocationButton({
       }}
     >
       <Tooltip title={currentLocation ? '返回當前位置' : '顯示當前位置'}>
-        <IconButton
-          onClick={currentLocation ? onReturnToLocation : onGetLocation}
-          disabled={isGettingLocation}
-          sx={{
-            color: currentLocation ? '#0F4C75' : '#666',
-            '&:hover': {
-              backgroundColor: 'rgba(15, 76, 117, 0.1)',
-            },
-            '&:disabled': {
-              color: '#999',
-            },
-          }}
-        >
-          {isGettingLocation ? (
-            <CircularProgress size={24} />
-          ) : (
-            <MyLocationIcon />
-          )}
-        </IconButton>
+        <span>
+          <IconButton
+            onClick={currentLocation ? onReturnToLocation : onGetLocation}
+            disabled={isGettingLocation}
+            sx={{
+              color: currentLocation ? '#0F4C75' : '#666',
+              '&:hover': {
+                backgroundColor: 'rgba(15, 76, 117, 0.1)',
+              },
+              '&:disabled': {
+                color: '#999',
+              },
+            }}
+          >
+            {isGettingLocation ? (
+              <CircularProgress size={24} />
+            ) : (
+              <MyLocationIcon />
+            )}
+          </IconButton>
+        </span>
       </Tooltip>
     </Box>
   );
 }
+
 
 

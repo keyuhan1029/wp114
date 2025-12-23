@@ -9,7 +9,15 @@ import { NTU_CENTER, LOCATIONS } from '@/data/mockData';
 import InfoWindowHeader from './InfoWindowHeader';
 import InfoWindowContent from './InfoWindowContent';
 import CurrentLocationButton from './CurrentLocationButton';
+import BikeMarkerButton from './BikeMarkerButton';
+import BikeMarkerPhotoDialog from './BikeMarkerPhotoDialog';
 import SVGOverlay from './SVGOverlay';
+import { MAIN_BUILDINGS, OTHER_BUILDINGS, isMainBuilding, type MainBuilding, type OtherBuilding } from '@/data/buildings';
+import { 
+  groupFriendsByBuilding, 
+  type FriendLocationInfo, 
+  type BuildingWithFriends 
+} from '@/lib/utils/locationParser';
 import {
   fetchYouBikeStations,
   findStationByName,
@@ -39,23 +47,15 @@ const containerStyle = {
 };
 
 // 自訂校園地標圖示（使用 SVG path）
-// 新體育館 icon（對應 NTUSportsCenter.svg）
-const NTU_SPORTS_CENTER_PATH =
-  'M 100 70 Q 256 10 412 70 L 472 40 L 442 100 Q 502 256 442 412 L 472 472 L 412 442 Q 256 502 100 442 L 40 472 L 70 412 Q 10 256 70 100 L 40 40 Z';
-const NTU_SPORTS_CENTER_VIEWBOX = '0 0 512 512';
-
 // 總圖書館 icon（對應 NTUMainLibrary.svg）
 const NTU_MAIN_LIBRARY_PATH =
   'M 250 50 L 450 50 L 450 200 L 500 200 L 500 550 L 50 550 L 50 200 L 250 200 Z';
 const NTU_MAIN_LIBRARY_VIEWBOX = '0 0 500 600';
 
-// 新體經緯度邊界（你指定的範圍）
-const GYM_BOUNDS = {
-  north: 25.021999,
-  south: 25.021286,
-  east: 121.535645,
-  west: 121.534778,
-};
+// 社科院大樓 T 字型 icon（對應 socialsciences.svg）
+const SOCIAL_SCIENCE_PATH =
+  'M 20 20 L 580 20 L 580 150 L 420 150 L 420 380 L 240 380 L 240 150 L 20 150 Z';
+const SOCIAL_SCIENCE_VIEWBOX = '0 0 600 400';
 
 // 總圖書館經緯度邊界（你指定的範圍）
 const LIBRARY_BOUNDS = {
@@ -63,6 +63,14 @@ const LIBRARY_BOUNDS = {
   south: 25.017039,
   east: 121.541376,
   west: 121.540522,
+};
+
+// 社科院大樓經緯度邊界
+const SOCIAL_SCIENCE_BOUNDS = {
+  north: 25.020919905149086,
+  south: 25.02022667108943,
+  east: 121.54316105756216,
+  west: 121.54151168678216,
 };
 
 // Google Maps Styling: 
@@ -98,6 +106,28 @@ const mapOptions: google.maps.MapOptions = {
     {
       featureType: 'landscape.man_made',
       elementType: 'geometry',
+      stylers: [{ visibility: 'off' }],
+    },
+    // 4.1 隱藏建築物標籤（小字）
+    {
+      featureType: 'landscape.man_made',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    // 4.2 隱藏所有建築物相關標籤
+    {
+      featureType: 'poi.business',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.school',
+      elementType: 'labels',
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.government',
+      elementType: 'labels',
       stylers: [{ visibility: 'off' }],
     },
     // 5. 道路保持可見
@@ -197,14 +227,301 @@ export default function MapComponent() {
   const [metroExitsLoading, setMetroExitsLoading] = React.useState<boolean>(false);
   const [metroExitsError, setMetroExitsError] = React.useState<string | null>(null);
 
+  // 用戶標記的腳踏車位置相關 state
+  interface UserBikeMarker {
+    _id: string;
+    lat: number;
+    lng: number;
+    note?: string;
+    imageUrl?: string;
+    imagePublicId?: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+  const [isMarkingMode, setIsMarkingMode] = React.useState<boolean>(false);
+  const [userBikeMarkers, setUserBikeMarkers] = React.useState<UserBikeMarker[]>([]);
+  const [markerLoading, setMarkerLoading] = React.useState<boolean>(false);
+  const [selectedUserMarker, setSelectedUserMarker] = React.useState<UserBikeMarker | null>(null);
+  const [photoDialogOpen, setPhotoDialogOpen] = React.useState<boolean>(false);
+  const [pendingMarkerLocation, setPendingMarkerLocation] = React.useState<{ lat: number; lng: number } | null>(null);
+
+  // 朋友位置追蹤相關 state
+  const [friendsInBuildings, setFriendsInBuildings] = React.useState<Map<string, BuildingWithFriends>>(new Map());
+  const [friendsLoading, setFriendsLoading] = React.useState<boolean>(false);
+  const friendsPollingRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
+    // 地圖載入完成後自動獲取當前位置
+    if (navigator.geolocation) {
+      setIsGettingLocation(true);
+      setLocationError(null);
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCurrentLocation(location);
+          setIsGettingLocation(false);
+
+          // 將地圖中心移動到當前位置
+          map.setCenter(location);
+          map.setZoom(17);
+        },
+        (error) => {
+          setIsGettingLocation(false);
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setLocationError('已拒絕地理定位權限，請在瀏覽器設定中允許位置存取');
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setLocationError('無法取得位置資訊');
+              break;
+            case error.TIMEOUT:
+              setLocationError('取得位置資訊逾時');
+              break;
+            default:
+              setLocationError('取得位置資訊時發生錯誤');
+              break;
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        }
+      );
+    }
   }, []);
 
   const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
+
+  // 載入用戶標記的腳踏車位置
+  const loadUserBikeMarkers = React.useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const response = await fetch('/api/map/bike-markers', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          // 每個用戶只能有一個標記
+          setUserBikeMarkers(data.marker ? [data.marker] : []);
+        }
+      }
+    } catch (error) {
+      console.error('載入用戶標記失敗:', error);
+    }
+  }, []);
+
+  // 獲取朋友上課位置
+  const fetchFriendsLocations = React.useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      setFriendsLoading(true);
+
+      // 先獲取好友列表
+      const friendsResponse = await fetch('/api/community/friends', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!friendsResponse.ok) {
+        console.error('獲取好友列表失敗');
+        return;
+      }
+
+      const friendsData = await friendsResponse.json();
+      const friendsList = friendsData.friends || [];
+
+      if (friendsList.length === 0) {
+        setFriendsInBuildings(new Map());
+        return;
+      }
+
+      // 獲取所有好友的狀態
+      const friendIds = friendsList.map((f: any) => f.friend.id);
+      const statusResponse = await fetch('/api/community/status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userIds: friendIds }),
+      });
+
+      if (!statusResponse.ok) {
+        console.error('獲取好友狀態失敗');
+        return;
+      }
+
+      const statusData = await statusResponse.json();
+      const statuses = statusData.statuses || {};
+
+      // 收集有位置資訊的朋友
+      const friendLocations: FriendLocationInfo[] = [];
+      for (const friendItem of friendsList) {
+        const friendId = friendItem.friend.id;
+        const status = statuses[friendId];
+        
+        if (status && status.status === 'in class' && status.location) {
+          friendLocations.push({
+            friendId,
+            friendName: friendItem.friend.name || friendItem.friend.userId || '朋友',
+            location: status.location,
+            courseName: status.courseName || undefined,
+          });
+        }
+      }
+
+      // 按建築物分組
+      const grouped = groupFriendsByBuilding(friendLocations);
+      setFriendsInBuildings(grouped);
+    } catch (error) {
+      console.error('獲取朋友位置失敗:', error);
+    } finally {
+      setFriendsLoading(false);
+    }
+  }, []);
+
+  // 定期獲取朋友位置（每 30 秒）
+  React.useEffect(() => {
+    // 初始獲取
+    fetchFriendsLocations();
+
+    // 設定定期輪詢
+    friendsPollingRef.current = setInterval(() => {
+      fetchFriendsLocations();
+    }, 30000);
+
+    return () => {
+      if (friendsPollingRef.current) {
+        clearInterval(friendsPollingRef.current);
+      }
+    };
+  }, [fetchFriendsLocations]);
+
+  // 在地圖上添加標記
+  const handleMapClick = React.useCallback((e: google.maps.MapMouseEvent) => {
+    if (!isMarkingMode || !e.latLng) return;
+
+    const lat = e.latLng.lat();
+    const lng = e.latLng.lng();
+
+    // 打開照片上傳對話框
+    setPendingMarkerLocation({ lat, lng });
+    setPhotoDialogOpen(true);
+  }, [isMarkingMode]);
+
+  // 確認創建標記（包含照片信息）
+  const handleConfirmMarker = React.useCallback(async (imageUrl: string | null, imagePublicId: string | null) => {
+    if (!pendingMarkerLocation) return;
+
+    try {
+      setMarkerLoading(true);
+      setPhotoDialogOpen(false);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('請先登入');
+        setIsMarkingMode(false);
+        setPendingMarkerLocation(null);
+        return;
+      }
+
+      const response = await fetch('/api/map/bike-markers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          lat: pendingMarkerLocation.lat,
+          lng: pendingMarkerLocation.lng,
+          imageUrl: imageUrl || undefined,
+          imagePublicId: imagePublicId || undefined,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          // 替換舊標記（每個用戶只能有一個標記）
+          setUserBikeMarkers(data.marker ? [data.marker] : []);
+          // 標記後自動關閉標記模式
+          setIsMarkingMode(false);
+        }
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || '標記失敗');
+      }
+    } catch (error) {
+      console.error('添加標記失敗:', error);
+      alert('添加標記失敗');
+    } finally {
+      setMarkerLoading(false);
+      setPendingMarkerLocation(null);
+    }
+  }, [pendingMarkerLocation]);
+
+  // 取消標記
+  const handleCancelMarker = React.useCallback(() => {
+    setPhotoDialogOpen(false);
+    setPendingMarkerLocation(null);
+  }, []);
+
+  // 刪除用戶標記
+  const handleDeleteUserMarker = React.useCallback(async (markerId: string) => {
+    if (!window.confirm('確定要刪除此標記嗎？')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('請先登入');
+        return;
+      }
+
+      const response = await fetch(`/api/map/bike-markers/${markerId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setUserBikeMarkers((prev) => prev.filter((m) => m._id !== markerId));
+        setSelectedUserMarker(null);
+        setSelectedMarker(null);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || '刪除失敗');
+      }
+    } catch (error) {
+      console.error('刪除標記失敗:', error);
+      alert('刪除標記失敗');
+    }
+  }, []);
+
+  // 載入用戶標記（組件載入時）
+  React.useEffect(() => {
+    if (isLoaded) {
+      loadUserBikeMarkers();
+    }
+  }, [isLoaded, loadUserBikeMarkers]);
 
   // 獲取當前位置
   const getCurrentLocation = React.useCallback(() => {
@@ -307,6 +624,68 @@ export default function MapComponent() {
     }
   }, []);
 
+  // 處理建築物點擊
+  const handleBuildingClick = React.useCallback((building: MainBuilding | OtherBuilding) => {
+    const friendsInThisBuilding = friendsInBuildings.get(building.id);
+    const friendsList = friendsInThisBuilding?.friends || [];
+    
+    // 如果是綜合體育館，也獲取健身房人流資訊
+    if (building.id === 'sports_center') {
+      fetchGymOccupancy();
+    }
+
+    // 如果是社科院大樓，獲取社科圖座位資訊（帶載入動畫）
+    if (building.id === 'social') {
+      setLibraryLoading(true);
+      setLibraryError(null);
+      setLibraryInfo(null);
+      
+      fetch('/api/library/info')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.data) {
+            setLibraryInfo(data.data);
+            setLibraryError(null);
+          } else {
+            setLibraryError(data.message || '無法獲取社科圖資訊');
+          }
+        })
+        .catch(err => {
+          console.error('獲取社科圖資訊失敗:', err);
+          setLibraryError('獲取社科圖資訊時發生錯誤');
+        })
+        .finally(() => {
+          setLibraryLoading(false);
+        });
+    }
+    
+    if (isMainBuilding(building)) {
+      // 主要建築物使用 SVG 覆蓋層，計算中心點
+      const centerLat = (building.bounds.north + building.bounds.south) / 2;
+      const centerLng = (building.bounds.east + building.bounds.west) / 2;
+      
+      setSelectedMarker({
+        id: building.id,
+        name: building.name,
+        lat: centerLat,
+        lng: centerLng,
+        type: building.id === 'sports_center' ? 'gym' : 'building',
+        friendsList,
+        hasFriends: friendsList.length > 0,
+      });
+    } else {
+      setSelectedMarker({
+        id: building.id,
+        name: building.name,
+        lat: building.lat,
+        lng: building.lng,
+        type: building.id === 'social' ? 'social-building' : 'building',
+        friendsList,
+        hasFriends: friendsList.length > 0,
+      });
+    }
+  }, [friendsInBuildings, fetchGymOccupancy]);
+
   // 獲取圖書館資訊
   const fetchLibraryInfo = React.useCallback(async () => {
     try {
@@ -343,6 +722,59 @@ export default function MapComponent() {
     }
   }, []);
 
+  // 處理圖書館點擊
+  const handleLibraryClick = React.useCallback(() => {
+    const libraryItem = LOCATIONS.campus.find((c) => c.type === 'library');
+    if (libraryItem) {
+      setSelectedMarker(libraryItem);
+      fetchLibraryInfo();
+    }
+  }, [fetchLibraryInfo]);
+
+  // 處理社科院大樓點擊
+  const handleSocialScienceClick = React.useCallback(() => {
+    // 獲取社科院的朋友上課資訊
+    const friendsInSocialScience = friendsInBuildings.get('social');
+    const friendsList = friendsInSocialScience?.friends || [];
+    
+    // 計算中心點
+    const centerLat = (SOCIAL_SCIENCE_BOUNDS.north + SOCIAL_SCIENCE_BOUNDS.south) / 2;
+    const centerLng = (SOCIAL_SCIENCE_BOUNDS.east + SOCIAL_SCIENCE_BOUNDS.west) / 2;
+    
+    // 設置 selectedMarker
+    setSelectedMarker({
+      id: 'social',
+      name: '社科院大樓',
+      lat: centerLat,
+      lng: centerLng,
+      type: 'social-building',
+      friendsList,
+      hasFriends: friendsList.length > 0,
+    });
+    
+    // 獲取社科圖座位資訊（帶載入動畫）
+    setLibraryLoading(true);
+    setLibraryError(null);
+    setLibraryInfo(null);
+    
+    fetch('/api/library/info')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data) {
+          setLibraryInfo(data.data);
+          setLibraryError(null);
+        } else {
+          setLibraryError(data.message || '無法獲取社科圖資訊');
+        }
+      })
+      .catch(err => {
+        console.error('獲取社科圖資訊失敗:', err);
+        setLibraryError('獲取社科圖資訊時發生錯誤');
+      })
+      .finally(() => {
+        setLibraryLoading(false);
+      });
+  }, [friendsInBuildings]);
 
   // 計算兩點間距離（公里）- 使用 Haversine 公式
   const calculateDistance = React.useCallback((lat1: number, lng1: number, lat2: number, lng2: number): number => {
@@ -423,57 +855,96 @@ export default function MapComponent() {
     }
   }, [isLoaded, showBusStops]);
 
+  // 使用 ref 存储最新的值，避免依赖项变化导致无限循环
+  const showYouBikeStationsRef = React.useRef(showYouBikeStations);
+  const showBusStopsRef = React.useRef(showBusStops);
+  const showMetroStationsRef = React.useRef(showMetroStations);
+  const youbikeStationsRef = React.useRef(youbikeStations);
+  const busStopsRef = React.useRef(busStops);
+  const metroStationsRef = React.useRef(metroStations);
+  const updateStationsTriggerRef = React.useRef<(() => void) | null>(null);
+
+  // 更新 refs（不触发更新，避免循环）
+  React.useEffect(() => {
+    showYouBikeStationsRef.current = showYouBikeStations;
+    showBusStopsRef.current = showBusStops;
+    showMetroStationsRef.current = showMetroStations;
+    youbikeStationsRef.current = youbikeStations;
+    busStopsRef.current = busStops;
+    metroStationsRef.current = metroStations;
+  }, [showYouBikeStations, showBusStops, showMetroStations, youbikeStations, busStops, metroStations]);
+
+  // 当状态改变时，触发一次更新（使用单独的 useEffect 避免循环）
+  React.useEffect(() => {
+    if (updateStationsTriggerRef.current && map) {
+      updateStationsTriggerRef.current();
+    }
+  }, [showYouBikeStations, showBusStops, showMetroStations, map]);
+
   // 當 showYouBikeStations、showBusStops、showMetroStations 或地圖範圍變化時，更新可見站點
   // 注意：youbikeStations 已經過濾為台大圖書館2公里內的站點
   React.useEffect(() => {
     if (!map) return;
 
+    let timeoutId: NodeJS.Timeout | null = null;
+
     const updateVisibleStations = () => {
-      if (showYouBikeStations && youbikeStations.length > 0) {
-        const bounds = map.getBounds();
-        if (bounds) {
-          // 只顯示在地圖視窗內且已在2公里範圍內的站點
-          const visible = youbikeStations.filter((station) => {
-            const latLng = new google.maps.LatLng(station.lat, station.lng);
-            return bounds.contains(latLng);
-          });
-          setVisibleYouBikeStations(visible);
-        }
-      } else {
-        setVisibleYouBikeStations([]);
+      // 清除之前的 timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
 
-      // 更新可見的公車站牌
-      if (showBusStops && busStops.length > 0) {
-        const bounds = map.getBounds();
-        if (bounds) {
-          const visible = busStops.filter((stop) => {
-            const latLng = new google.maps.LatLng(
-              stop.StopPosition.PositionLat,
-              stop.StopPosition.PositionLon
-            );
-            return bounds.contains(latLng);
-          });
-          setVisibleBusStops(visible);
+      // 防抖：延迟 100ms 执行
+      timeoutId = setTimeout(() => {
+        if (showYouBikeStationsRef.current && youbikeStationsRef.current.length > 0) {
+          const bounds = map.getBounds();
+          if (bounds) {
+            // 只顯示在地圖視窗內且已在2公里範圍內的站點
+            const visible = youbikeStationsRef.current.filter((station) => {
+              const latLng = new google.maps.LatLng(station.lat, station.lng);
+              return bounds.contains(latLng);
+            });
+            setVisibleYouBikeStations(visible);
+          }
+        } else {
+          setVisibleYouBikeStations([]);
         }
-      } else {
-        setVisibleBusStops([]);
-      }
 
-      // 更新可見的捷運站
-      if (showMetroStations && metroStations.length > 0) {
-        const bounds = map.getBounds();
-        if (bounds) {
-          const visible = metroStations.filter((station) => {
-            const latLng = new google.maps.LatLng(station.lat, station.lng);
-            return bounds.contains(latLng);
-          });
-          setVisibleMetroStations(visible);
+        // 更新可見的公車站牌
+        if (showBusStopsRef.current && busStopsRef.current.length > 0) {
+          const bounds = map.getBounds();
+          if (bounds) {
+            const visible = busStopsRef.current.filter((stop) => {
+              const latLng = new google.maps.LatLng(
+                stop.StopPosition.PositionLat,
+                stop.StopPosition.PositionLon
+              );
+              return bounds.contains(latLng);
+            });
+            setVisibleBusStops(visible);
+          }
+        } else {
+          setVisibleBusStops([]);
         }
-      } else {
-        setVisibleMetroStations([]);
-      }
+
+        // 更新可見的捷運站
+        if (showMetroStationsRef.current && metroStationsRef.current.length > 0) {
+          const bounds = map.getBounds();
+          if (bounds) {
+            const visible = metroStationsRef.current.filter((station) => {
+              const latLng = new google.maps.LatLng(station.lat, station.lng);
+              return bounds.contains(latLng);
+            });
+            setVisibleMetroStations(visible);
+          }
+        } else {
+          setVisibleMetroStations([]);
+        }
+      }, 100);
     };
+
+    // 存储更新函数到 ref，以便外部触发
+    updateStationsTriggerRef.current = updateVisibleStations;
 
     // 初始更新
     updateVisibleStations();
@@ -485,11 +956,15 @@ export default function MapComponent() {
 
     // 清理監聽器
     return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      updateStationsTriggerRef.current = null;
       google.maps.event.removeListener(boundsListener);
       google.maps.event.removeListener(zoomListener);
       google.maps.event.removeListener(centerListener);
     };
-  }, [map, showYouBikeStations, youbikeStations, showBusStops, busStops, showMetroStations, metroStations]);
+  }, [map]);
 
   // 當顯示捷運站時，獲取所有車站的出口數據
   React.useEffect(() => {
@@ -562,7 +1037,8 @@ export default function MapComponent() {
     busStopRequestTimeoutRef.current = setTimeout(async () => {
       try {
         setBusRealTimeLoading(true);
-        // 使用站名查詢，這樣可以獲取所有同名站點的路線（類似台北等公車）
+        // 使用站名查詢，但使用嚴格匹配（完全相同的站名）
+        // 這樣可以獲取所有同名站點的路線，但不會誤匹配部分相同的站名
         const realTimeInfo = await fetchBusRealTimeInfo(stopName, true);
         
         // 確保請求的站點仍然是當前選中的站點（避免異步競態條件）
@@ -743,6 +1219,7 @@ export default function MapComponent() {
     setMetroError(null);
     setMetroStationTimeTable([]);
     setMetroStationTimeTableError(null);
+    setSelectedUserMarker(null);
   }, []);
 
   if (!isLoaded) {
@@ -754,13 +1231,34 @@ export default function MapComponent() {
   }
 
   return (
-    <>
+    <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
       {/* 返回當前位置按鈕 */}
       <CurrentLocationButton
         currentLocation={currentLocation}
         isGettingLocation={isGettingLocation}
         onGetLocation={getCurrentLocation}
         onReturnToLocation={returnToCurrentLocation}
+      />
+
+      {/* 標記腳踏車位置按鈕 */}
+      <BikeMarkerButton
+        isMarkingMode={isMarkingMode}
+        onToggleMarkingMode={() => {
+          setIsMarkingMode((prev) => !prev);
+          if (isMarkingMode) {
+            setSelectedMarker(null);
+            setSelectedUserMarker(null);
+            setPhotoDialogOpen(false);
+            setPendingMarkerLocation(null);
+          }
+        }}
+      />
+
+      {/* 照片上傳對話框 */}
+      <BikeMarkerPhotoDialog
+        open={photoDialogOpen}
+        onClose={handleCancelMarker}
+        onConfirm={handleConfirmMarker}
       />
 
       {/* 位置錯誤提示 */}
@@ -788,13 +1286,46 @@ export default function MapComponent() {
         </Box>
       )}
 
+      {/* 標記模式提示 */}
+      {isMarkingMode && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 80,
+            left: 16,
+            right: 16,
+            zIndex: 1100,
+            maxWidth: 400,
+          }}
+        >
+          <Alert
+            severity="info"
+            onClose={() => setIsMarkingMode(false)}
+            sx={{
+              backgroundColor: 'rgba(33, 150, 243, 0.95)',
+              backdropFilter: 'blur(4px)',
+              color: '#ffffff',
+              '& .MuiAlert-icon': {
+                color: '#ffffff',
+              },
+            }}
+          >
+            標記模式已開啟，點擊地圖上的位置即可標記腳踏車位置
+          </Alert>
+        </Box>
+      )}
+
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={NTU_CENTER}
       zoom={16}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      options={mapOptions}
+      onClick={handleMapClick}
+      options={{
+        ...mapOptions,
+        draggableCursor: isMarkingMode ? 'crosshair' : undefined,
+      }}
     >
       {/* Food Pins */}
       {(LOCATIONS.food as any[]).length > 0 && LOCATIONS.food.map((item) => (
@@ -928,24 +1459,7 @@ export default function MapComponent() {
           })
           .filter(Boolean)}
 
-      {/* Campus Pins - 新體與總圖使用 SVGOverlay（會隨地圖縮放） */}
-      {/* 新體育館 SVG Overlay */}
-      <SVGOverlay
-        map={map}
-        bounds={GYM_BOUNDS}
-        svgPath={NTU_SPORTS_CENTER_PATH}
-        viewBox={NTU_SPORTS_CENTER_VIEWBOX}
-        defaultColor="#9e9e9e"
-        hoverColor="#000000"
-        onClick={() => {
-          const gymItem = LOCATIONS.campus.find((c) => c.type === 'gym');
-          if (gymItem) {
-            setSelectedMarker(gymItem);
-            fetchGymOccupancy();
-          }
-        }}
-      />
-
+      {/* Campus Pins - 總圖和社科院使用 SVGOverlay（會隨地圖縮放） */}
       {/* 總圖書館 SVG Overlay */}
       <SVGOverlay
         map={map}
@@ -954,14 +1468,61 @@ export default function MapComponent() {
         viewBox={NTU_MAIN_LIBRARY_VIEWBOX}
         defaultColor="#9e9e9e"
         hoverColor="#000000"
-        onClick={() => {
-          const libraryItem = LOCATIONS.campus.find((c) => c.type === 'library');
-          if (libraryItem) {
-            setSelectedMarker(libraryItem);
-            fetchLibraryInfo();
-          }
-        }}
+        onClick={handleLibraryClick}
       />
+
+      {/* 社科院大樓 T字型 SVG Overlay - 有朋友時變紫色 */}
+      {(() => {
+        const hasFriends = friendsInBuildings.has('social');
+        return (
+          <SVGOverlay
+            map={map}
+            bounds={SOCIAL_SCIENCE_BOUNDS}
+            svgPath={SOCIAL_SCIENCE_PATH}
+            viewBox={SOCIAL_SCIENCE_VIEWBOX}
+            defaultColor={hasFriends ? '#9c27b0' : '#9e9e9e'}
+            hoverColor={hasFriends ? '#7b1fa2' : '#000000'}
+            onClick={handleSocialScienceClick}
+          />
+        );
+      })()}
+
+      {/* 主要教學大樓 SVG 覆蓋層 - 共同、普通、新生、綜合、博雅 */}
+      {MAIN_BUILDINGS.map((building) => {
+        const hasFriends = friendsInBuildings.has(building.id);
+        return (
+          <SVGOverlay
+            key={building.id}
+            map={map}
+            bounds={building.bounds}
+            svgPath={building.svgPath}
+            viewBox={building.viewBox}
+            defaultColor={hasFriends ? '#9c27b0' : '#9e9e9e'}
+            hoverColor={hasFriends ? '#7b1fa2' : '#000000'}
+            onClick={() => handleBuildingClick(building)}
+          />
+        );
+      })}
+
+      {/* 其他建築物標記 - 所有建築物都顯示，有朋友的顯示紫色（隱藏已有 SVG 的建築物） */}
+      {OTHER_BUILDINGS.filter(b => !b.hidden).map((building) => {
+        const hasFriends = friendsInBuildings.has(building.id);
+        return (
+          <MarkerF
+            key={`building-${building.id}`}
+            position={{ lat: building.lat, lng: building.lng }}
+            onClick={() => handleBuildingClick(building)}
+            icon={{
+              path: google.maps.SymbolPath.CIRCLE,
+              fillColor: hasFriends ? '#9c27b0' : '#9e9e9e',
+              fillOpacity: hasFriends ? 0.9 : 0.6,
+              scale: hasFriends ? 10 : 6,
+              strokeWeight: 2,
+              strokeColor: '#ffffff',
+            }}
+          />
+        );
+      })}
 
       {/* 其他 Campus Pins（非 gym/library）使用 MarkerF */}
       {LOCATIONS.campus
@@ -1047,11 +1608,39 @@ export default function MapComponent() {
               metroStationTimeTable={metroStationTimeTable}
               metroStationTimeTableLoading={metroStationTimeTableLoading}
               metroStationTimeTableError={metroStationTimeTableError}
+              selectedUserMarker={selectedUserMarker}
+              onDeleteUserMarker={handleDeleteUserMarker}
             />
             </Box>
           </Box>
         </InfoWindowF>
       )}
+
+      {/* 用戶標記的腳踏車位置 */}
+      {userBikeMarkers.map((marker) => (
+        <MarkerF
+          key={`user-bike-${marker._id}`}
+          position={{ lat: marker.lat, lng: marker.lng }}
+          onClick={() => {
+            setSelectedUserMarker(marker);
+            setSelectedMarker({
+              id: `user-bike-${marker._id}`,
+              name: marker.note || '我的腳踏車',
+              lat: marker.lat,
+              lng: marker.lng,
+              type: 'user-bike',
+            });
+          }}
+          icon={{
+            path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+            fillColor: '#4caf50',
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: '#ffffff',
+            scale: 1.2,
+          }}
+        />
+      ))}
 
       {/* 當前位置標記 */}
       {currentLocation && (
@@ -1068,6 +1657,6 @@ export default function MapComponent() {
         />
       )}
     </GoogleMap>
-    </>
+    </Box>
   );
 }

@@ -23,7 +23,7 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
-    const { name, avatar, userId } = body;
+    const { name, avatar, userId, department, customStatus } = body;
 
     // 驗證輸入
     if (name !== undefined && (typeof name !== 'string' || name.trim().length === 0)) {
@@ -52,6 +52,8 @@ export async function PUT(request: Request) {
       name?: string;
       avatar?: string;
       userId?: string;
+      department?: string;
+      customStatus?: string;
     } = {};
 
     if (name !== undefined) {
@@ -62,6 +64,13 @@ export async function PUT(request: Request) {
     }
     if (userId !== undefined) {
       updateData.userId = userId.trim();
+    }
+    if (department !== undefined) {
+      updateData.department = department;
+    }
+    if (customStatus !== undefined) {
+      // 如果為空字串，設置為 undefined 以清除狀態；否則設置為處理後的值
+      updateData.customStatus = customStatus.trim() || undefined;
     }
 
     // 更新用戶資料
@@ -83,6 +92,7 @@ export async function PUT(request: Request) {
       email: updatedUser.email || '',
       name: updatedUser.name || null,
       avatar: updatedUser.avatar || null,
+      department: updatedUser.department || null,
       provider: updatedUser.provider || 'email',
     };
 
@@ -106,5 +116,7 @@ export async function PUT(request: Request) {
     );
   }
 }
+
+
 
 

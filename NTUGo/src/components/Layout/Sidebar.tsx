@@ -8,14 +8,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import DirectionsSubwayIcon from '@mui/icons-material/DirectionsSubway';
-import ForumIcon from '@mui/icons-material/Forum';
+import PeopleIcon from '@mui/icons-material/People';
 import SchoolIcon from '@mui/icons-material/School';
 import EmailIcon from '@mui/icons-material/Email';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { useMapContext } from '@/contexts/MapContext';
+import { useRouter, usePathname } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -68,48 +72,69 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
   const { showYouBikeStations, setShowYouBikeStations, showBusStops, setShowBusStops, showMetroStations, setShowMetroStations } = useMapContext();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
+  const handleHomeClick = React.useCallback(() => {
+    router.push('/');
+  }, [router]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = React.useCallback(() => {
     setOpen(true);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = React.useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
-  const handleYouBikeClick = () => {
+  const handleYouBikeClick = React.useCallback(() => {
     setShowYouBikeStations(!showYouBikeStations);
-  };
+  }, [showYouBikeStations, setShowYouBikeStations]);
 
-  const handleBusClick = () => {
+  const handleBusClick = React.useCallback(() => {
     setShowBusStops(!showBusStops);
-  };
+  }, [showBusStops, setShowBusStops]);
 
-  const handleMetroClick = () => {
+  const handleMetroClick = React.useCallback(() => {
     setShowMetroStations(!showMetroStations);
-  };
+  }, [showMetroStations, setShowMetroStations]);
 
-  const handleNTUCOOLClick = () => {
+  const handleCommunityClick = React.useCallback(() => {
+    router.push('/community');
+  }, [router]);
+
+  const handleNTUCOOLClick = React.useCallback(() => {
     window.open('https://cool.ntu.edu.tw/login/portal?message=%E5%9C%A8%E6%82%A8%E7%9A%84%20IdP%20%E7%99%BB%E5%87%BA%E6%99%82%E5%87%BA%E7%8F%BE%E5%95%8F%E9%A1%8C', '_blank');
-  };
+  }, []);
 
-  const handleNTUMailClick = () => {
+  const handleNTUMailClick = React.useCallback(() => {
     window.open('https://wmail1.cc.ntu.edu.tw/rc/index.php', '_blank');
-  };
+  }, []);
 
-  const menuItems = [
-    { text: '目錄', icon: <MenuIcon />, action: handleDrawerToggle, active: false },
+  const handleAnnouncementsClick = React.useCallback(() => {
+    router.push('/announcements');
+  }, [router]);
+
+  const handleNTUCourseClick = React.useCallback(() => {
+    window.open('https://course.ntu.edu.tw/', '_blank');
+  }, []);
+
+  const handleDocumentsClick = React.useCallback(() => {
+    router.push('/documents');
+  }, [router]);
+
+  const menuItems = React.useMemo(() => [
+    { text: '主頁', icon: <HomeIcon />, action: handleHomeClick, active: pathname === '/' },
     { text: '公車', icon: <DirectionsBusIcon />, action: handleBusClick, active: showBusStops },
     { text: 'YouBike', icon: <PedalBikeIcon />, action: handleYouBikeClick, active: showYouBikeStations },
     { text: '捷運', icon: <DirectionsSubwayIcon />, action: handleMetroClick, active: showMetroStations },
-    { text: '論壇', icon: <ForumIcon />, active: false },
+    { text: '社群', icon: <PeopleIcon />, action: handleCommunityClick, active: pathname === '/community' },
+    { text: '活動', icon: <AnnouncementIcon />, action: handleAnnouncementsClick, active: pathname?.startsWith('/announcements') },
+    { text: '文檔管理', icon: <DescriptionIcon />, action: handleDocumentsClick, active: pathname === '/documents' },
     { text: 'NTU COOL', icon: <SchoolIcon />, action: handleNTUCOOLClick, active: false },
     { text: 'NTU Mail', icon: <EmailIcon />, action: handleNTUMailClick, active: false },
-  ];
+    { text: '臺大課程網', icon: <MenuBookIcon />, action: handleNTUCourseClick, active: false },
+  ], [handleHomeClick, handleBusClick, handleYouBikeClick, handleMetroClick, handleCommunityClick, handleAnnouncementsClick, handleDocumentsClick, handleNTUCOOLClick, handleNTUMailClick, handleNTUCourseClick, showBusStops, showYouBikeStations, showMetroStations, pathname]);
 
   return (
     <Drawer 
@@ -128,7 +153,7 @@ export default function Sidebar() {
                 px: 2.5,
                 backgroundColor: item.active ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
                 '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)', // 白色懸停效果
+                  backgroundColor: item.active ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)', // 白色懸停效果
                 },
               }}
               onClick={item.action ? item.action : undefined}

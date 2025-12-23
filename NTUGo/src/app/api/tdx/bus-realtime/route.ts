@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { safeJsonParse } from '@/lib/utils/safeJsonParse';
 
 // TDX API 認證資訊
 const TDX_CLIENT_ID = process.env.TDX_CLIENT_ID || '';
@@ -36,16 +37,12 @@ async function getTDXToken(): Promise<string> {
     throw new Error(`TDX 認證失敗: ${response.status}`);
   }
 
-  const data = await response.json();
-  cachedToken = data.access_token;
+  const data = await safeJsonParse<{ access_token: string }>(response, 'TDX Token API');
+  const token: string = data.access_token;
+  cachedToken = token;
   tokenExpiryTime = now + TOKEN_CACHE_DURATION;
   
-  // 確保 cachedToken 不是 null（此時應該已經被賦值）
-  if (!cachedToken) {
-    throw new Error('無法獲取 TDX Access Token');
-  }
-  
-  return cachedToken;
+  return token;
 }
 
 /**
@@ -93,7 +90,7 @@ async function fetchWithRetry(
         return [];
       }
 
-      const data = await response.json();
+      const data = await safeJsonParse<any[]>(response, 'Bus RealTime API');
       return Array.isArray(data) ? data : [];
     } catch (error) {
       if (attempt < maxRetries - 1) {
@@ -109,10 +106,11 @@ async function fetchWithRetry(
 /**
  * 獲取公車即時資訊
  * 支援兩種查詢方式：
- * 1. 根據 stopUID 查詢單一站點的即時資訊
- * 2. 根據 stopName 查詢所有同名站點的即時資訊（推薦，類似台北等公車）
+ * 1. 根據 stopUID 查詢單一站點的即時資訊（推薦，最準確）
+ * 2. 根據 stopName 查詢所有完全匹配的站點即時資訊
  * 
- * 當使用 stopName 時，會查詢所有具有相同站名的 StopUID，並合併所有路線資訊
+ * 注意：使用 stopName 時，只會查詢完全匹配的站名（不允許部分匹配）
+ * 例如："台大" 不會匹配到 "台大癌醫"，確保路線準確性
  */
 export async function GET(request: NextRequest) {
   try {
@@ -138,11 +136,12 @@ export async function GET(request: NextRequest) {
     const accessToken = await getTDXToken();
     let allBusData: any[] = [];
 
-    // 如果提供 stopName，先查詢所有同名站點的 StopUID
+    // 如果提供 stopName，查詢所有完全匹配的站點（不允許部分匹配）
     if (stopName) {
-      // 使用 contains 查詢以匹配站名變體（例如："臺大癌醫" 和 "臺大癌醫 (基隆路)"）
+      // 使用 eq 查詢完全匹配的站名（不允許部分匹配，避免誤匹配）
+      // 例如："台大" 不會匹配到 "台大癌醫"
       const stopsResponse = await fetch(
-        `https://tdx.transportdata.tw/api/basic/v2/Bus/Stop/City/Taipei?$filter=contains(StopName/Zh_tw,'${encodeURIComponent(stopName)}')&$format=JSON`,
+        `https://tdx.transportdata.tw/api/basic/v2/Bus/Stop/City/Taipei?$filter=StopName/Zh_tw eq '${encodeURIComponent(stopName)}'&$format=JSON`,
         {
           headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -152,18 +151,17 @@ export async function GET(request: NextRequest) {
       );
 
       if (stopsResponse.ok) {
-        const stopsData = await stopsResponse.json();
-        let matchingStops = Array.isArray(stopsData) ? stopsData : [];
+        const stopsData = await safeJsonParse<any[]>(stopsResponse, 'Bus Stops Search API');
+        const matchingStops = Array.isArray(stopsData) ? stopsData : [];
         
-        // 過濾出真正匹配的站點（因為 contains 可能匹配到部分字串）
-        // 優先匹配完全相同的站名，其次匹配以該站名開頭的站名（例如："臺大癌醫" 匹配 "臺大癌醫 (基隆路)"）
-        matchingStops = matchingStops.filter((stop: any) => {
+        // 只保留完全匹配的站點（eq 查詢應該已經完全匹配，但為了安全再過濾一次）
+        const exactMatches = matchingStops.filter((stop: any) => {
           const stopNameZh = stop.StopName?.Zh_tw || '';
-          // 完全匹配或站名以查詢名稱開頭（允許後綴如 "(基隆路)"）
-          return stopNameZh === stopName || stopNameZh.startsWith(stopName);
+          // 只允許完全匹配，不允許部分匹配
+          return stopNameZh === stopName;
         });
         
-        const stopUIDs = matchingStops.map((stop: any) => stop.StopUID);
+        const stopUIDs = exactMatches.map((stop: any) => stop.StopUID);
         
         if (stopUIDs.length === 0) {
           return NextResponse.json({ BusRealTimeInfos: [] });

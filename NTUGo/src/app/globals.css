@@ -56,3 +56,9 @@ body {
 .gm-style .gm-style-iw-t {
   top: 0 !important;
 }
+
+/* 隱藏 InfoWindow header chrome 區域 */
+.gm-style .gm-style-iw-ch {
+  height: 0px !important;
+  padding-top: 0px !important;
+}

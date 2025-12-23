@@ -1,9 +1,9 @@
 <svg width="550" height="150" viewBox="0 0 500 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Map outline -->
+  <!-- Map outline - white for dark background -->
   <path d="M30 60 L110 40 L190 60 L270 40 L270 110 L190 130 L110 110 L30 130 Z"
-        stroke="#0F4C75" stroke-width="8" fill="none" stroke-linejoin="round"/>
+        stroke="#ffffff" stroke-width="8" fill="none" stroke-linejoin="round"/>
 
-  <!-- Map pin -->
+  <!-- Map pin - keep orange color -->
   <path d="M150 50 
            C150 28, 168 15, 190 15 
            C212 15, 230 28, 230 50 
@@ -14,8 +14,8 @@
   <!-- Pin hole -->
   <circle cx="190" cy="50" r="12" fill="white"/>
 
-  <!-- NTUGo text -->
-  <text x="300" y="95" font-family="Inter, Arial" font-size="60" font-weight="700" fill="#0F4C75">
-    NTU<tspan fill="#3282B8">Go</tspan>
+  <!-- NTUGo text - white for dark background -->
+  <text x="300" y="95" font-family="Inter, Arial" font-size="60" font-weight="700" fill="#ffffff">
+    NTU<tspan fill="#ffffff" opacity="0.8">Go</tspan>
   </text>
 </svg>

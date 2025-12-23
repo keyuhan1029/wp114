@@ -11,9 +11,30 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <MapProvider>
       <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
         <Sidebar />
-        <Box component="main" sx={{ flexGrow: 1, position: 'relative', height: '100%' }}>
+        <Box 
+          component="main" 
+          sx={{ 
+            flexGrow: 1, 
+            position: 'relative', 
+            height: '100%',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <TopBar />
-          {children}
+          <Box
+            sx={{
+              flex: 1,
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+              overflow: 'auto',
+              minHeight: 0,
+            }}
+          >
+            {children}
+          </Box>
         </Box>
       </Box>
     </MapProvider>

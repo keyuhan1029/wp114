@@ -92,22 +92,37 @@ export async function PUT(
       updateData.isDefault = !!isDefault;
     }
 
-    const schedule = await ScheduleModel.update(id, userId, updateData);
-    if (!schedule) {
-      return NextResponse.json({ message: '課表不存在' }, { status: 404 });
+    try {
+      const schedule = await ScheduleModel.update(id, userId, updateData);
+      if (!schedule) {
+        return NextResponse.json({ message: '課表不存在' }, { status: 404 });
+      }
+
+      const serialized = {
+        ...schedule,
+        _id: schedule._id?.toString(),
+        userId: typeof schedule.userId === 'string'
+          ? schedule.userId
+          : schedule.userId.toString(),
+        createdAt: schedule.createdAt.toISOString(),
+        updatedAt: schedule.updatedAt.toISOString(),
+      };
+
+      return NextResponse.json({ schedule: serialized });
+    } catch (error: any) {
+      console.error('更新課表失敗:', error);
+      // 如果是重名錯誤，返回 400
+      if (error.message && error.message.includes('相同名稱')) {
+        return NextResponse.json(
+          { message: error.message },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json(
+        { message: '更新課表失敗' },
+        { status: 500 }
+      );
     }
-
-    const serialized = {
-      ...schedule,
-      _id: schedule._id?.toString(),
-      userId: typeof schedule.userId === 'string'
-        ? schedule.userId
-        : schedule.userId.toString(),
-      createdAt: schedule.createdAt.toISOString(),
-      updatedAt: schedule.updatedAt.toISOString(),
-    };
-
-    return NextResponse.json({ schedule: serialized });
   } catch (error: any) {
     console.error('更新課表失敗:', error);
     return NextResponse.json(

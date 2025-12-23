@@ -2,24 +2,21 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
 import LoginPageLayout from '@/components/Auth/LoginPageLayout';
-import GoogleLoginButton from '@/components/Auth/GoogleLoginButton';
+import RegisterForm from '@/components/Auth/RegisterForm';
 
 export default function RegisterPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState('');
+  const [verificationCode, setVerificationCode] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [codeSent, setCodeSent] = React.useState(false);
+  const [sendingCode, setSendingCode] = React.useState(false);
+  const [countdown, setCountdown] = React.useState(0);
+  const [codeError, setCodeError] = React.useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,12 +24,17 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
+      // 檢查是否已發送並輸入驗證碼
+      if (!codeSent || !verificationCode) {
+        throw new Error('請先發送並輸入驗證碼');
+      }
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, name }),
+        body: JSON.stringify({ email, password, name, verificationCode }),
       });
 
       const data = await response.json();
@@ -60,178 +62,72 @@ export default function RegisterPage() {
     window.location.href = '/api/auth/google';
   };
 
+  // 發送驗證碼
+  const handleSendVerificationCode = async () => {
+    if (!email) {
+      setCodeError('請先輸入郵箱');
+      return;
+    }
+
+    try {
+      setSendingCode(true);
+      setCodeError('');
+
+      const response = await fetch('/api/auth/verify-email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || '發送驗證碼失敗');
+      }
+
+      setCodeSent(true);
+      setCountdown(60); // 60 秒倒計時
+
+      // 開始倒計時
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } catch (err: any) {
+      setCodeError(err.message || '發送驗證碼失敗');
+    } finally {
+      setSendingCode(false);
+    }
+  };
+
   return (
     <LoginPageLayout>
-      <Card
-        sx={{
-          width: '100%',
-          maxWidth: 450,
-          borderRadius: 3,
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-          backgroundColor: '#ffffff',
-        }}
-      >
-        <CardContent sx={{ p: 4 }}>
-          <Typography
-            variant="h4"
-            component="h1"
-            sx={{
-              mb: 3,
-              fontWeight: 700,
-              color: '#212121',
-              textAlign: 'left',
-            }}
-          >
-            建立帳戶
-          </Typography>
-
-          <Box component="form" onSubmit={handleSubmit}>
-            {error && (
-              <Box
-                sx={{
-                  mb: 2,
-                  p: 1.5,
-                  borderRadius: 1,
-                  backgroundColor: '#ffebee',
-                  color: '#c62828',
-                  fontSize: '0.875rem',
-                }}
-              >
-                {error}
-              </Box>
-            )}
-
-            <TextField
-              fullWidth
-              label="姓名"
-              placeholder="姓名"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              disabled={loading}
-              sx={{
-                mb: 2,
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: 2,
-                  backgroundColor: '#ffffff',
-                },
-              }}
-            />
-
-            <TextField
-              fullWidth
-              type="email"
-              label="電子郵件"
-              placeholder="電子郵件"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-              sx={{
-                mb: 2,
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: 2,
-                  backgroundColor: '#ffffff',
-                },
-              }}
-            />
-
-            <TextField
-              fullWidth
-              type="password"
-              label="密碼"
-              placeholder="密碼"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-              sx={{
-                mb: 3,
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: 2,
-                  backgroundColor: '#ffffff',
-                },
-              }}
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={loading}
-              sx={{
-                mb: 3,
-                py: 1.5,
-                borderRadius: 2,
-                backgroundColor: '#0F4C75',
-                color: '#ffffff',
-                fontWeight: 600,
-                fontSize: '1rem',
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: '#0a3a5a',
-                },
-                '&:disabled': {
-                  backgroundColor: '#cccccc',
-                },
-              }}
-            >
-              {loading ? '註冊中...' : '建立帳戶'}
-            </Button>
-
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                mb: 3,
-              }}
-            >
-              <Divider sx={{ flexGrow: 1 }} />
-              <Typography
-                variant="body2"
-                sx={{
-                  px: 2,
-                  color: '#757575',
-                }}
-              >
-                或
-              </Typography>
-              <Divider sx={{ flexGrow: 1 }} />
-            </Box>
-
-            <GoogleLoginButton onClick={handleGoogleLogin} disabled={loading} />
-
-            <Box
-              sx={{
-                textAlign: 'center',
-                mt: 2,
-              }}
-            >
-              <Typography
-                variant="body2"
-                sx={{
-                  color: '#757575',
-                }}
-              >
-                已有帳戶?{' '}
-                <Link
-                  href="/login"
-                  sx={{
-                    color: '#0F4C75',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                    },
-                  }}
-                >
-                  登入
-                </Link>
-              </Typography>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
+      <RegisterForm
+        email={email}
+        password={password}
+        name={name}
+        verificationCode={verificationCode}
+        loading={loading}
+        error={error}
+        codeSent={codeSent}
+        sendingCode={sendingCode}
+        countdown={countdown}
+        codeError={codeError}
+        onEmailChange={setEmail}
+        onPasswordChange={setPassword}
+        onNameChange={setName}
+        onCodeChange={setVerificationCode}
+        onSendCode={handleSendVerificationCode}
+        onSubmit={handleSubmit}
+        onGoogleLogin={handleGoogleLogin}
+      />
     </LoginPageLayout>
   );
 }
-

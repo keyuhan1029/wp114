@@ -33,19 +33,25 @@ export class PersonalEventModel {
     range?: PersonalEventQuery
   ): Promise<PersonalEvent[]> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryUserId =
       typeof userId === 'string' ? new ObjectId(userId) : userId;
 
     const query: any = { userId: queryUserId };
 
+    // 查詢與時間範圍有交集的事件：
+    // 事件開始時間 <= 查詢結束時間 AND 事件結束時間 >= 查詢開始時間
     if (range?.from || range?.to) {
-      query.startTime = {};
+      const conditions: any[] = [];
       if (range.from) {
-        query.startTime.$gte = range.from;
+        // 事件結束時間必須 >= 查詢開始時間
+        conditions.push({ endTime: { $gte: range.from } });
       }
       if (range.to) {
-        query.startTime.$lte = range.to;
+        // 事件開始時間必須 <= 查詢結束時間
+        conditions.push({ startTime: { $lte: range.to } });
+      }
+      if (conditions.length > 0) {
+        query.$and = conditions;
       }
     }
 
@@ -62,7 +68,6 @@ export class PersonalEventModel {
     id: string | ObjectId
   ): Promise<PersonalEvent | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
 
     const event = await db
@@ -76,7 +81,6 @@ export class PersonalEventModel {
     data: Omit<PersonalEvent, '_id' | 'createdAt' | 'updatedAt'>
   ): Promise<PersonalEvent> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const userObjectId =
       typeof data.userId === 'string' ? new ObjectId(data.userId) : data.userId;
@@ -102,7 +106,6 @@ export class PersonalEventModel {
     data: Partial<Omit<PersonalEvent, '_id' | 'userId' | 'createdAt'>>
   ): Promise<PersonalEvent | null> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =
@@ -129,7 +132,6 @@ export class PersonalEventModel {
     userId: string | ObjectId
   ): Promise<boolean> {
     const db = await getDatabase();
-    const { ObjectId } = await import('mongodb');
 
     const queryId = typeof id === 'string' ? new ObjectId(id) : id;
     const queryUserId =

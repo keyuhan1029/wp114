@@ -11,8 +11,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
+import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import RoomIcon from '@mui/icons-material/Room';
+import { CLASSROOMS } from '@/data/classrooms';
 
 interface OccupiedSlot {
   dayOfWeek: number;
@@ -240,11 +243,92 @@ export default function CourseDialog({
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
           />
-          <TextField
-            label="上課地點"
-            fullWidth
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+          {/* 教室選擇器 - 按建物分類 */}
+          <Autocomplete
+            freeSolo
+            options={CLASSROOMS}
+            groupBy={(option) => typeof option === 'string' ? '自訂' : option.buildingName}
+            getOptionLabel={(option) => typeof option === 'string' ? option : option.classroomName}
+            value={location ? (CLASSROOMS.find(c => c.classroomName === location) || location) : null}
+            onChange={(_, newValue) => {
+              if (typeof newValue === 'string') {
+                setLocation(newValue);
+              } else if (newValue) {
+                setLocation(newValue.classroomName);
+              } else {
+                setLocation('');
+              }
+            }}
+            onInputChange={(_, newInputValue) => {
+              setLocation(newInputValue);
+            }}
+            filterOptions={(options, { inputValue }) => {
+              const filtered = options.filter((option) => {
+                const label = typeof option === 'string' ? option : option.classroomName;
+                return label.toLowerCase().includes(inputValue.toLowerCase());
+              });
+              return filtered;
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="上課地點"
+                placeholder="搜尋或輸入教室..."
+                fullWidth
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <>
+                      <RoomIcon sx={{ color: '#999', mr: 0.5, fontSize: 20 }} />
+                      {params.InputProps.startAdornment}
+                    </>
+                  ),
+                }}
+              />
+            )}
+            renderGroup={(params) => (
+              <li key={params.key}>
+                <Box
+                  component="div"
+                  sx={{
+                    backgroundColor: '#f5f5f5',
+                    fontWeight: 600,
+                    fontSize: '0.85rem',
+                    color: '#333',
+                    lineHeight: '32px',
+                    borderBottom: '1px solid #e0e0e0',
+                    padding: '0 16px',
+                    position: 'sticky',
+                    top: -8,
+                    zIndex: 1,
+                  }}
+                >
+                  {params.group}
+                </Box>
+                <ul style={{ padding: 0, margin: 0 }}>{params.children}</ul>
+              </li>
+            )}
+            renderOption={(props, option) => {
+              const { key, ...otherProps } = props;
+              return (
+                <li key={key} {...otherProps} style={{ fontSize: '0.9rem', padding: '6px 16px' }}>
+                  {typeof option === 'string' ? option : option.classroomName}
+                </li>
+              );
+            }}
+            ListboxProps={{
+              sx: {
+                maxHeight: 300,
+                '& .MuiAutocomplete-groupUl': {
+                  padding: 0,
+                },
+              },
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                paddingLeft: 1,
+              },
+            }}
           />
           <TextField
             label="教師姓名"

@@ -86,8 +86,8 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
       <TextField
         fullWidth
         type="email"
-        label="電子郵件"
-        placeholder="電子郵件"
+        label="E-mail address:"
+        placeholder="you@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -98,6 +98,10 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
             borderRadius: 2,
             backgroundColor: '#ffffff',
           },
+          '& .MuiInputLabel-root': {
+            fontSize: '0.875rem',
+            fontWeight: 500,
+          },
         }}
       />
 
@@ -105,8 +109,8 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
       <TextField
         fullWidth
         type="password"
-        label="密碼"
-        placeholder="密碼"
+        label="Password:"
+        placeholder="Enter 8 characters or more"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
@@ -116,6 +120,10 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           '& .MuiOutlinedInput-root': {
             borderRadius: 2,
             backgroundColor: '#ffffff',
+          },
+          '& .MuiInputLabel-root': {
+            fontSize: '0.875rem',
+            fontWeight: 500,
           },
         }}
       />
@@ -160,7 +168,7 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           },
         }}
       >
-        {loading ? '登入中...' : '登入'}
+        {loading ? '登入中...' : 'SIGN IN'}
       </Button>
     </Box>
   );

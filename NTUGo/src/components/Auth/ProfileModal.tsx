@@ -10,8 +10,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 interface User {
   id: string;
@@ -19,6 +22,7 @@ interface User {
   email: string;
   name?: string | null;
   avatar?: string | null;
+  department?: string | null;
   provider?: 'email' | 'google';
 }
 
@@ -32,6 +36,11 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
+  const [uploading, setUploading] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error' | 'info'>('info');
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     if (open) {
@@ -90,20 +99,110 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
     }
   };
 
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      aria-labelledby="profile-modal-title"
-      aria-describedby="profile-modal-description"
-      sx={{
-        '& .MuiBackdrop-root': {
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          backdropFilter: 'blur(4px)',
+  const handleCameraClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // 檢查檔案類型
+    if (!file.type.startsWith('image/')) {
+      setSnackbarMessage('請選擇圖片檔案');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // 檢查檔案大小（5MB）
+    if (file.size > 5 * 1024 * 1024) {
+      setSnackbarMessage('圖片大小不能超過 5MB');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    try {
+      setUploading(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('請先登入');
+      }
+
+      // 創建 FormData
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'avatars'); // 使用 avatars 文件夾
+
+      // 上傳到 Cloudinary
+      const uploadResponse = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      }}
-    >
-      <Box
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json();
+        throw new Error(errorData.message || '上傳失敗');
+      }
+
+      const uploadData = await uploadResponse.json();
+      const imageUrl = uploadData.file.url;
+
+      // 更新用戶資料
+      const updateResponse = await fetch('/api/auth/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ avatar: imageUrl }),
+      });
+
+      if (!updateResponse.ok) {
+        const errorData = await updateResponse.json();
+        throw new Error(errorData.message || '更新頭像失敗');
+      }
+
+      // 更新本地狀態
+      setUser(prev => prev ? { ...prev, avatar: imageUrl } : null);
+      setSnackbarMessage('頭像更新成功');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+
+      // 重新獲取用戶資訊以確保同步
+      await fetchUserInfo();
+    } catch (err: any) {
+      setSnackbarMessage(err.message || '上傳頭像失敗');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    } finally {
+      setUploading(false);
+      // 重置 input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  return (
+    <>
+      <Modal
+        open={open}
+        onClose={onClose}
+        aria-labelledby="profile-modal-title"
+        aria-describedby="profile-modal-description"
+        sx={{
+          '& .MuiBackdrop-root': {
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(4px)',
+          },
+        }}
+      >
+        <Box
         sx={{
           position: 'absolute',
           top: '50%',
@@ -191,21 +290,68 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                     flexDirection: 'column',
                     alignItems: 'center',
                     mb: 3,
+                    position: 'relative',
                   }}
                 >
-                  <Avatar
-                    src={user.avatar || undefined}
-                    alt={user.name || user.email}
-                    sx={{
-                      width: 100,
-                      height: 100,
-                      bgcolor: '#0F4C75',
-                      fontSize: '2.5rem',
-                      mb: 2,
-                    }}
-                  >
-                    {user.name?.[0]?.toUpperCase() || user.email[0]?.toUpperCase()}
-                  </Avatar>
+                  <Box sx={{ position: 'relative' }}>
+                    <Avatar
+                      src={user.avatar || undefined}
+                      alt={user.name || user.email}
+                      sx={{
+                        width: 100,
+                        height: 100,
+                        bgcolor: '#0F4C75',
+                        fontSize: '2.5rem',
+                        mb: 2,
+                      }}
+                    >
+                      {user.name?.[0]?.toUpperCase() || user.email[0]?.toUpperCase()}
+                    </Avatar>
+                    {uploading ? (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          bottom: 8,
+                          right: 0,
+                          bgcolor: '#0F4C75',
+                          borderRadius: '50%',
+                          width: 32,
+                          height: 32,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          opacity: 0.8,
+                        }}
+                      >
+                        <CircularProgress size={16} sx={{ color: 'white' }} />
+                      </Box>
+                    ) : (
+                      <IconButton
+                        onClick={handleCameraClick}
+                        sx={{
+                          position: 'absolute',
+                          bottom: 8,
+                          right: 0,
+                          bgcolor: '#0F4C75',
+                          color: 'white',
+                          width: 32,
+                          height: 32,
+                          '&:hover': {
+                            bgcolor: '#0a3a5a',
+                          },
+                        }}
+                      >
+                        <CameraAltIcon fontSize="small" />
+                      </IconButton>
+                    )}
+                  </Box>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
                 </Box>
 
                 {/* User Info */}
@@ -262,6 +408,31 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
                       </Typography>
                     </Box>
                   )}
+
+                  <Box sx={{ mb: 2 }}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: 'text.secondary',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: 0.5,
+                      }}
+                    >
+                      系所
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        mt: 0.5,
+                        fontWeight: 500,
+                        color: user.department ? 'text.primary' : 'text.secondary',
+                      }}
+                    >
+                      {user.department || '未設定'}
+                    </Typography>
+                  </Box>
 
                   <Box>
                     <Typography
@@ -336,7 +507,24 @@ export default function ProfileModal({ open, onClose, onEditProfile }: ProfileMo
           </CardContent>
         </Card>
       </Box>
-    </Modal>
+      </Modal>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 

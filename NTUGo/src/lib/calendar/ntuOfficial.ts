@@ -40,9 +40,14 @@ export class NTUOfficialCalendarSource implements CalendarDataSource {
     const fromDate = range.from ? new Date(range.from) : null;
     const toDate = range.to ? new Date(range.to) : null;
 
+    // 查詢與時間範圍有交集的事件：
+    // 事件開始時間 <= 查詢結束時間 AND 事件結束時間 >= 查詢開始時間
     return events.filter((e) => {
       const start = new Date(e.startTime);
-      if (fromDate && start < fromDate) return false;
+      const end = new Date(e.endTime);
+      // 事件結束時間必須 >= 查詢開始時間
+      if (fromDate && end < fromDate) return false;
+      // 事件開始時間必須 <= 查詢結束時間
       if (toDate && start > toDate) return false;
       return true;
     });
