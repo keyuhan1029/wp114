@@ -309,10 +309,10 @@ export class ScheduleShareModel {
           // 我作為發送者且已被接受的分享，且接收者提供了課表（可以看到接收者的課表）
           {
             senderId: userIdObjId,
-            receiverScheduleId: { $exists: true, $ne: null },
-          },
+            receiverScheduleId: { $exists: true, $ne: null as any },
+          } as any,
         ],
-      })
+      } as any)
       .sort({ updatedAt: -1 })
       .toArray();
 
