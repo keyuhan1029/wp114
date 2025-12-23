@@ -2,7 +2,7 @@
 
 專為台大學生打造的整合式校園生活服務平台，整合地圖、交通、行事曆、課表、社群、活動公告等功能於一體，讓台大學生的校園生活更便利。
 
-![NTUGo Logo](public/logo.svg)
+![NTUGo Logo](./NTUGo/public/logo.svg)
 
 ## ✨ 主要功能
 
