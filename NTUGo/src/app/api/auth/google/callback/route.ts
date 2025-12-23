@@ -4,9 +4,11 @@ import { generateToken } from '@/lib/jwt';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.NEXT_PUBLIC_APP_URL
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
-  : 'http://localhost:3000/api/auth/google/callback';
+
+// 動態構建 REDIRECT_URI，使用請求的 origin
+const getRedirectUri = (origin: string) => {
+  return `${origin}/api/auth/google/callback`;
+};
 
 interface GoogleTokenResponse {
   access_token: string;
@@ -42,8 +44,12 @@ export async function GET(request: Request) {
     }
 
     if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+      console.error('Google OAuth 未配置: GOOGLE_CLIENT_ID 或 GOOGLE_CLIENT_SECRET 未設置');
       return NextResponse.redirect(getLoginUrl('oauth_not_configured'));
     }
+
+    const redirectUri = getRedirectUri(origin);
+    console.log('Google OAuth 回調:', { code: code?.substring(0, 20) + '...', redirectUri, origin });
 
     // 1. 用 code 換取 access token
     const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
@@ -52,17 +58,23 @@ export async function GET(request: Request) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        code,
+        code: code!,
         client_id: GOOGLE_CLIENT_ID,
         client_secret: GOOGLE_CLIENT_SECRET,
-        redirect_uri: REDIRECT_URI,
+        redirect_uri: redirectUri,
         grant_type: 'authorization_code',
       }),
     });
 
     if (!tokenResponse.ok) {
-      const error = await tokenResponse.text();
-      console.error('Google token 交換失敗:', error);
+      const errorText = await tokenResponse.text();
+      console.error('Google token 交換失敗:', {
+        status: tokenResponse.status,
+        statusText: tokenResponse.statusText,
+        error: errorText,
+        redirectUri,
+        hasCode: !!code,
+      });
       return NextResponse.redirect(getLoginUrl('token_exchange_failed'));
     }
 

@@ -8,6 +8,27 @@ import LoginCard from '@/components/Auth/LoginCard';
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  // 檢查 URL 參數中的錯誤
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const errorParam = params.get('error');
+    if (errorParam) {
+      const errorMessages: Record<string, string> = {
+        no_code: '未收到 Google 授權碼，請重試',
+        oauth_not_configured: 'Google OAuth 未配置，請聯繫管理員',
+        token_exchange_failed: 'Google 授權驗證失敗，請重試',
+        user_info_failed: '無法獲取 Google 用戶資訊，請重試',
+        email_not_verified: '您的 Google 帳號未驗證電子郵件',
+        user_creation_failed: '創建用戶失敗，請重試',
+        oauth_error: 'Google 登入發生錯誤，請重試',
+      };
+      setError(errorMessages[errorParam] || '登入失敗，請重試');
+      // 清除 URL 參數
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
 
   const handleEmailLogin = async (email: string, password: string) => {
     const response = await fetch('/api/auth/login', {
@@ -46,6 +67,7 @@ export default function LoginPage() {
         onEmailLogin={handleEmailLogin}
         onGoogleLogin={handleGoogleLogin}
         isLoading={isLoading}
+        error={error}
       />
     </LoginPageLayout>
   );

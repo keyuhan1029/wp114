@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 import LoginForm from './LoginForm';
 import GoogleLoginButton from './GoogleLoginButton';
 
@@ -12,9 +13,10 @@ interface LoginCardProps {
   onEmailLogin: (email: string, password: string) => Promise<void>;
   onGoogleLogin: () => void;
   isLoading?: boolean;
+  error?: string | null;
 }
 
-export default function LoginCard({ onEmailLogin, onGoogleLogin, isLoading }: LoginCardProps) {
+export default function LoginCard({ onEmailLogin, onGoogleLogin, isLoading, error }: LoginCardProps) {
   return (
     <Box>
       {/* Title */}
@@ -41,6 +43,13 @@ export default function LoginCard({ onEmailLogin, onGoogleLogin, isLoading }: Lo
       >
         Sign in to your account
       </Typography>
+
+      {/* Error Message */}
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
 
       {/* Login Form */}
       <LoginForm onSubmit={onEmailLogin} />

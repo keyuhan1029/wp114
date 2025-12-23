@@ -291,16 +291,27 @@ export class ScheduleShareModel {
   }
 
   // 獲取已接受的好友課表分享列表（我可以看到的好友課表）
+  // 包括：1. 我作為接收者接受的分享（可以看到發送者的課表）
+  //       2. 我作為發送者且已被接受的分享，且接收者提供了課表（可以看到接收者的課表）
   static async getAcceptedSharesForUser(userId: string | ObjectId): Promise<ScheduleShare[]> {
     const db = await getDatabase();
 
     const userIdObjId = typeof userId === 'string' ? new ObjectId(userId) : userId;
 
+    // 查找所有與用戶相關的已接受分享
     const shares = await db
       .collection<ScheduleShare>(this.collectionName)
       .find({
-        receiverId: userIdObjId,
         status: 'accepted',
+        $or: [
+          // 我作為接收者接受的分享（可以看到發送者的課表）
+          { receiverId: userIdObjId },
+          // 我作為發送者且已被接受的分享，且接收者提供了課表（可以看到接收者的課表）
+          {
+            senderId: userIdObjId,
+            receiverScheduleId: { $exists: true, $ne: null },
+          },
+        ],
       })
       .sort({ updatedAt: -1 })
       .toArray();

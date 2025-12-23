@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.NEXT_PUBLIC_APP_URL
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
-  : 'http://localhost:3000/api/auth/google/callback';
+
+// 動態構建 REDIRECT_URI，使用請求的 origin
+const getRedirectUri = (origin: string) => {
+  return `${origin}/api/auth/google/callback`;
+};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -19,9 +21,14 @@ export async function GET(request: Request) {
       );
     }
 
+    const origin = new URL(request.url).origin;
+    const redirectUri = getRedirectUri(origin);
+    
+    console.log('Google OAuth 重定向:', { redirectUri, origin, hasClientId: !!GOOGLE_CLIENT_ID });
+
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
     authUrl.searchParams.set('client_id', GOOGLE_CLIENT_ID);
-    authUrl.searchParams.set('redirect_uri', REDIRECT_URI);
+    authUrl.searchParams.set('redirect_uri', redirectUri);
     authUrl.searchParams.set('response_type', 'code');
     authUrl.searchParams.set('scope', 'openid email profile');
     authUrl.searchParams.set('access_type', 'offline');

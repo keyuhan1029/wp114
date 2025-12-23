@@ -21,21 +21,42 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: '未登入' }, { status: 401 });
     }
 
-    // 獲取已接受的分享（我接受了哪些好友的分享）
+    // 獲取已接受的分享（包括我接受的分享和我發送且對方已接受並提供課表的分享）
     const shares = await ScheduleShareModel.getAcceptedSharesForUser(userId);
 
     // 獲取每個分享的好友資訊和他們的課表
     const sharedSchedules = await Promise.all(
       shares.map(async (share) => {
-        const friend = await UserModel.findById(share.senderId);
+        // 判斷用戶是發送者還是接收者
+        const isReceiver = share.receiverId.toString() === userId;
+        const friendId = isReceiver ? share.senderId : share.receiverId;
+        
+        const friend = await UserModel.findById(friendId);
         if (!friend) return null;
 
-        // 獲取好友的默認課表
-        const defaultSchedule = await ScheduleModel.findDefaultByUser(share.senderId);
-        if (!defaultSchedule) return null;
+        // 確定要顯示哪個課表
+        let scheduleToShow;
+        if (isReceiver) {
+          // 我作為接收者：顯示發送者的課表（scheduleId 或默認課表）
+          if (share.scheduleId) {
+            scheduleToShow = await ScheduleModel.findById(share.scheduleId);
+          } else {
+            scheduleToShow = await ScheduleModel.findDefaultByUser(share.senderId);
+          }
+        } else {
+          // 我作為發送者：顯示接收者提供的課表（receiverScheduleId）
+          if (share.receiverScheduleId) {
+            scheduleToShow = await ScheduleModel.findById(share.receiverScheduleId);
+          } else {
+            // 如果接收者沒有提供課表，顯示接收者的默認課表
+            scheduleToShow = await ScheduleModel.findDefaultByUser(share.receiverId);
+          }
+        }
+
+        if (!scheduleToShow) return null;
 
         // 獲取課表項目
-        const items = await ScheduleItemModel.findBySchedule(defaultSchedule._id!);
+        const items = await ScheduleItemModel.findBySchedule(scheduleToShow._id!);
 
         return {
           shareId: share._id?.toString(),
@@ -47,8 +68,8 @@ export async function GET(request: NextRequest) {
             department: friend.department,
           },
           schedule: {
-            _id: defaultSchedule._id?.toString(),
-            name: defaultSchedule.name,
+            _id: scheduleToShow._id?.toString(),
+            name: scheduleToShow.name,
             items: items.map((item) => ({
               ...item,
               _id: item._id?.toString(),
