@@ -6,13 +6,16 @@ import { ObjectId } from 'mongodb';
 
 /**
  * Vercel Cron Job 端点
- * 每分钟自动调用，检查并发送公车到站提醒
+ * 每小时自动调用，检查并发送公车到站提醒
+ * 
+ * 注意：Vercel Hobby 计划限制每天只能运行一次 cron job
+ * 因此改为每小时运行一次（0 * * * *）
  * 
  * 配置方式：在 vercel.json 中添加
  * {
  *   "crons": [{
  *     "path": "/api/cron/bus-reminders",
- *     "schedule": "0 * * * * *"
+ *     "schedule": "0 * * * *"
  *   }]
  * }
  */
